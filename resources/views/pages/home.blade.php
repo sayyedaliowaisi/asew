@@ -294,10 +294,7 @@
 >
 
     <video
-        class="block w-full h-[55vh]
-               min-h-[400px]
-               md:h-[65vh]
-               lg:h-[75vh]
+        class="w-full h-auto block"
                object-cover"
         autoplay
         muted
@@ -808,176 +805,263 @@
 
 </section>
 
-
 {{-- =========================================================
-     PRODUCT CATEGORIES - TEMPORARY
+     PRODUCTS SECTION
 ========================================================= --}}
-<section
-    id="categories"
-    class="py-20 lg:py-24 bg-white"
->
+<section id="products" class="py-20 lg:py-24 bg-gray-50">
+
     <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
 
-        <div class="text-center max-w-2xl mx-auto">
+        {{-- Section Heading --}}
+        <div class="text-center max-w-3xl mx-auto">
 
-            <p class="text-[#E31E24] font-semibold uppercase
-                      tracking-[0.18em] text-sm">
-                Our Products
-            </p>
+            <div class="flex items-center justify-center gap-3 mb-4">
+                <span class="w-10 h-[2px] bg-[#E31E24]"></span>
+
+                <span
+                    class="text-[#E31E24] text-sm font-semibold
+                           uppercase tracking-[0.18em]"
+                >
+                    Our Products
+                </span>
+
+                <span class="w-10 h-[2px] bg-[#E31E24]"></span>
+            </div>
 
             <h2
-                class="mt-3 text-3xl sm:text-4xl lg:text-5xl
+                class="text-3xl sm:text-4xl lg:text-5xl
                        font-bold text-[#073B66]"
             >
-                Testing Equipment
+                Testing & Measurement
+                <span class="text-[#E31E24]">
+                    Equipment
+                </span>
             </h2>
 
             <p class="mt-4 text-gray-600 leading-7">
-                Explore our range of scientific, laboratory and
+                Explore our range of reliable scientific and
                 engineering testing equipment.
             </p>
 
         </div>
 
 
-        <div class="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {{-- Four Products --}}
+        <div
+            class="mt-12 grid grid-cols-1
+                   sm:grid-cols-2
+                   lg:grid-cols-4
+                   gap-6"
+        >
 
-            {{-- Card 1 --}}
+            {{-- Product 1 --}}
             <div
-                class="group border border-gray-200 bg-white
-                       hover:border-[#073B66]
+                class="group bg-white border border-gray-200
+                       overflow-hidden
                        hover:shadow-xl
-                       transition duration-300"
+                       hover:-translate-y-1
+                       transition-all duration-300"
             >
-                <div class="h-48 bg-gray-100 overflow-hidden">
-                    <div
-                        class="w-full h-full flex items-center justify-center
-                               text-gray-400"
+
+                <div class="h-64 bg-white overflow-hidden">
+
+                    <img
+                        src="{{ asset('images/products/product-1.jpg') }}"
+                        alt="Testing Equipment"
+                        class="w-full h-full object-contain p-5
+                               group-hover:scale-105
+                               transition duration-500"
                     >
-                        Product Image
-                    </div>
+
                 </div>
 
-                <div class="p-6">
+                <div class="p-5">
 
-                    <h3 class="text-xl font-bold text-[#073B66]">
+                    <h3
+                        class="text-lg font-bold text-[#073B66]"
+                    >
+                        Testing Equipment
+                    </h3>
+
+                    <p class="mt-2 text-sm text-gray-600 leading-6">
+                        Reliable equipment for professional
+                        testing and measurement applications.
+                    </p>
+
+                    <a
+                        href="#contact"
+                        class="inline-flex items-center mt-4
+                               text-sm font-semibold
+                               text-[#E31E24]
+                               hover:text-[#073B66]
+                               transition"
+                    >
+                        Enquire Now
+                        <span class="ml-2">→</span>
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            {{-- Product 2 --}}
+            <div
+                class="group bg-white border border-gray-200
+                       overflow-hidden
+                       hover:shadow-xl
+                       hover:-translate-y-1
+                       transition-all duration-300"
+            >
+
+                <div class="h-64 bg-white overflow-hidden">
+
+                    <img
+                        src="{{ asset('images/products/product-2.jpg') }}"
+                        alt="Material Testing Equipment"
+                        class="w-full h-full object-contain p-5
+                               group-hover:scale-105
+                               transition duration-500"
+                    >
+
+                </div>
+
+                <div class="p-5">
+
+                    <h3
+                        class="text-lg font-bold text-[#073B66]"
+                    >
                         Material Testing Equipment
                     </h3>
 
-                    <p class="mt-2 text-gray-600 text-sm leading-6">
-                        Professional equipment for accurate
-                        material testing and analysis.
+                    <p class="mt-2 text-sm text-gray-600 leading-6">
+                        Precision equipment for material testing
+                        and quality control.
                     </p>
 
                     <a
-                        href="#products"
+                        href="#contact"
                         class="inline-flex items-center mt-4
+                               text-sm font-semibold
                                text-[#E31E24]
-                               font-semibold text-sm
-                               group-hover:gap-3 gap-2
-                               transition-all"
+                               hover:text-[#073B66]
+                               transition"
                     >
-                        View Products
-
-                        <span>→</span>
+                        Enquire Now
+                        <span class="ml-2">→</span>
                     </a>
 
                 </div>
+
             </div>
 
 
-            {{-- Card 2 --}}
+            {{-- Product 3 --}}
             <div
-                class="group border border-gray-200 bg-white
-                       hover:border-[#073B66]
+                class="group bg-white border border-gray-200
+                       overflow-hidden
                        hover:shadow-xl
-                       transition duration-300"
+                       hover:-translate-y-1
+                       transition-all duration-300"
             >
-                <div class="h-48 bg-gray-100 overflow-hidden">
-                    <div
-                        class="w-full h-full flex items-center justify-center
-                               text-gray-400"
+
+                <div class="h-64 bg-white overflow-hidden">
+
+                    <img
+                        src="{{ asset('images/products/product-3.jpg') }}"
+                        alt="Concrete Testing Machine"
+                        class="w-full h-full object-contain p-5
+                               group-hover:scale-105
+                               transition duration-500"
                     >
-                        Product Image
-                    </div>
+
                 </div>
 
-                <div class="p-6">
+                <div class="p-5">
 
-                    <h3 class="text-xl font-bold text-[#073B66]">
-                        Laboratory Equipment
+                    <h3
+                        class="text-lg font-bold text-[#073B66]"
+                    >
+                        Concrete Testing Machine
                     </h3>
 
-                    <p class="mt-2 text-gray-600 text-sm leading-6">
-                        Reliable laboratory equipment for
-                        scientific and testing applications.
+                    <p class="mt-2 text-sm text-gray-600 leading-6">
+                        Dependable equipment designed for
+                        concrete testing applications.
                     </p>
 
                     <a
-                        href="#products"
+                        href="#contact"
                         class="inline-flex items-center mt-4
+                               text-sm font-semibold
                                text-[#E31E24]
-                               font-semibold text-sm
-                               group-hover:gap-3 gap-2
-                               transition-all"
+                               hover:text-[#073B66]
+                               transition"
                     >
-                        View Products
-
-                        <span>→</span>
+                        Enquire Now
+                        <span class="ml-2">→</span>
                     </a>
 
                 </div>
+
             </div>
 
 
-            {{-- Card 3 --}}
+            {{-- Product 4 --}}
             <div
-                class="group border border-gray-200 bg-white
-                       hover:border-[#073B66]
+                class="group bg-white border border-gray-200
+                       overflow-hidden
                        hover:shadow-xl
-                       transition duration-300"
+                       hover:-translate-y-1
+                       transition-all duration-300"
             >
-                <div class="h-48 bg-gray-100 overflow-hidden">
-                    <div
-                        class="w-full h-full flex items-center justify-center
-                               text-gray-400"
+
+                <div class="h-64 bg-white overflow-hidden">
+
+                    <img
+                        src="{{ asset('images/products/product-4.jpg') }}"
+                        alt="Scientific Testing Equipment"
+                        class="w-full h-full object-contain p-5
+                               group-hover:scale-105
+                               transition duration-500"
                     >
-                        Product Image
-                    </div>
+
                 </div>
 
-                <div class="p-6">
+                <div class="p-5">
 
-                    <h3 class="text-xl font-bold text-[#073B66]">
-                        Engineering Testing Solutions
+                    <h3
+                        class="text-lg font-bold text-[#073B66]"
+                    >
+                        Scientific Testing Equipment
                     </h3>
 
-                    <p class="mt-2 text-gray-600 text-sm leading-6">
-                        Specialized solutions for industrial
-                        testing and engineering requirements.
+                    <p class="mt-2 text-sm text-gray-600 leading-6">
+                        Professional testing equipment for
+                        accurate and dependable results.
                     </p>
 
                     <a
-                        href="#products"
+                        href="#contact"
                         class="inline-flex items-center mt-4
+                               text-sm font-semibold
                                text-[#E31E24]
-                               font-semibold text-sm
-                               group-hover:gap-3 gap-2
-                               transition-all"
+                               hover:text-[#073B66]
+                               transition"
                     >
-                        View Products
-
-                        <span>→</span>
+                        Enquire Now
+                        <span class="ml-2">→</span>
                     </a>
 
                 </div>
+
             </div>
 
         </div>
 
     </div>
-</section>
 
+</section>
 
 
 
