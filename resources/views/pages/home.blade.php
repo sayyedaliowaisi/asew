@@ -238,93 +238,111 @@
 
 
 
-{{-- =========================================================
+
+
+        {{-- =========================================================
      COMPANY INTRODUCTION VIDEO
 ========================================================= --}}
-<section class="py-20 lg:py-28 bg-white overflow-hidden">
 
-    <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+{{-- Video Heading --}}
+<section class="bg-white py-16 lg:py-20">
 
-        {{-- Section Heading --}}
-        <div class="max-w-3xl mx-auto text-center">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 text-center">
 
-            <div class="flex items-center justify-center gap-3 mb-4">
+        <div class="flex items-center justify-center gap-3 mb-4">
 
-                <span class="w-10 h-[2px] bg-[#E31E24]"></span>
+            <span class="w-10 h-[2px] bg-[#E31E24]"></span>
 
-                <span
-                    class="text-[#E31E24] text-sm font-semibold
-                           uppercase tracking-[0.18em]"
-                >
-                    Discover ASEW
-                </span>
-
-                <span class="w-10 h-[2px] bg-[#E31E24]"></span>
-
-            </div>
-
-            <h2
-                class="text-3xl sm:text-4xl lg:text-5xl
-                       font-bold text-[#073B66]
-                       leading-tight"
+            <span
+                class="text-[#E31E24] text-sm font-semibold
+                       uppercase tracking-[0.18em]"
             >
-                Associated Scientific
-                <span class="text-[#E31E24]">
-                    & Engineering
-                </span>
-            </h2>
+                Discover ASEW
+            </span>
 
-            <p class="mt-5 text-gray-600 leading-7">
-                Discover our company, capabilities and the scientific
-                and engineering solutions we provide for modern
-                testing requirements.
-            </p>
+            <span class="w-10 h-[2px] bg-[#E31E24]"></span>
 
         </div>
 
+        <h2
+            class="text-3xl sm:text-4xl lg:text-5xl
+                   font-bold text-[#073B66]"
+        >
+            Associated Scientific
+            <span class="text-[#E31E24]">
+                & Engineering
+            </span>
+        </h2>
 
-        {{-- Video --}}
-        <div class="mt-12 lg:mt-14">
+        <p class="mt-5 max-w-3xl mx-auto text-gray-600 leading-7">
+            Discover our company, capabilities and scientific
+            and engineering solutions for modern testing requirements.
+        </p>
 
-            <div
-                class="relative max-w-5xl mx-auto
-                       bg-[#061B2D]
-                       shadow-2xl
-                       overflow-hidden"
-            >
+    </div>
 
-                <video
-                    class="w-full aspect-video object-cover"
-                    controls
-                    preload="metadata"
-                    playsinline
-                >
-                    <source
-                        src="{{ asset('videos/asew-company-intro.mp4') }}"
-                        type="video/mp4"
-                    >
-
-                    Your browser does not support the video tag.
-                </video>
-
-            </div>
-
-        </div>
+</section>
 
 
-        {{-- Small Information --}}
+{{-- =========================================================
+     FULL WIDTH VIDEO
+========================================================= --}}
+
+<section
+    class="relative w-full m-0 p-0
+           overflow-hidden bg-black"
+>
+
+    <video
+        class="block w-full h-[55vh]
+               min-h-[400px]
+               md:h-[65vh]
+               lg:h-[75vh]
+               object-cover"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"
+    >
+
+        <source
+            src="{{ asset('videos/asew-company-intro.mp4') }}"
+            type="video/mp4"
+        >
+
+        Your browser does not support the video tag.
+
+    </video>
+
+</section>
+
+
+{{-- =========================================================
+     VIDEO INFORMATION CARDS
+========================================================= --}}
+
+<section class="bg-white py-10 lg:py-12">
+
+    <div class="max-w-4xl mx-auto px-5 sm:px-8">
+
         <div
-            class="mt-8 max-w-4xl mx-auto
-                   grid grid-cols-1 sm:grid-cols-3
+            class="grid grid-cols-1
+                   sm:grid-cols-3
                    gap-4"
         >
 
+            {{-- Card 1 --}}
             <div
                 class="border border-gray-200
-                       px-5 py-4 text-center
+                       px-5 py-5
+                       text-center
+                       bg-white
                        hover:border-[#073B66]
-                       transition"
+                       hover:shadow-md
+                       transition duration-300"
             >
+
                 <p class="font-semibold text-[#073B66]">
                     Scientific Solutions
                 </p>
@@ -332,15 +350,21 @@
                 <p class="text-sm text-gray-500 mt-1">
                     Professional equipment
                 </p>
+
             </div>
 
 
+            {{-- Card 2 --}}
             <div
                 class="border border-gray-200
-                       px-5 py-4 text-center
+                       px-5 py-5
+                       text-center
+                       bg-white
                        hover:border-[#073B66]
-                       transition"
+                       hover:shadow-md
+                       transition duration-300"
             >
+
                 <p class="font-semibold text-[#073B66]">
                     Engineering Equipment
                 </p>
@@ -348,15 +372,21 @@
                 <p class="text-sm text-gray-500 mt-1">
                     Reliable testing solutions
                 </p>
+
             </div>
 
 
+            {{-- Card 3 --}}
             <div
                 class="border border-gray-200
-                       px-5 py-4 text-center
-                       hover:border-[#073B66]
-                       transition"
+                       px-5 py-5
+                       text-center
+                       bg-white
+                       hover:border-[#E31E24]
+                       hover:shadow-md
+                       transition duration-300"
             >
+
                 <p class="font-semibold text-[#073B66]">
                     Testing Excellence
                 </p>
@@ -364,6 +394,7 @@
                 <p class="text-sm text-gray-500 mt-1">
                     Accuracy & performance
                 </p>
+
             </div>
 
         </div>
