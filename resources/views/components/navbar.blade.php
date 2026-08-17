@@ -153,7 +153,48 @@
                 ================================================== --}}
                 <div class="hidden lg:flex items-center gap-4">
 
-                    {{-- Search --}}
+
+                    {{-- =================================================
+                         STANDARD / 3D SWITCH
+                    ================================================== --}}
+                    <div
+                        class="flex items-center
+                               border border-gray-200
+                               bg-gray-50
+                               p-1"
+                    >
+
+                        {{-- Standard --}}
+                        <a
+                            href="{{ route('home') }}"
+                            class="px-4 py-2 text-sm font-semibold
+                                   transition duration-300
+                                   {{ request()->routeIs('home')
+                                       ? 'bg-[#073B66] text-white shadow-sm'
+                                       : 'text-[#073B66] hover:bg-white' }}"
+                        >
+                            Standard
+                        </a>
+
+
+                        {{-- 3D --}}
+                        <a
+                            href="{{ route('home.3d') }}"
+                            class="px-4 py-2 text-sm font-semibold
+                                   transition duration-300
+                                   {{ request()->routeIs('home.3d')
+                                       ? 'bg-[#E31E24] text-white shadow-sm'
+                                       : 'text-[#073B66] hover:bg-white' }}"
+                        >
+                            3D
+                        </a>
+
+                    </div>
+
+
+                    {{-- =================================================
+                         SEARCH
+                    ================================================== --}}
                     <button
                         type="button"
                         class="w-10 h-10 rounded-full
@@ -183,7 +224,9 @@
                     </button>
 
 
-                    {{-- Request a Quote --}}
+                    {{-- =================================================
+                         REQUEST A QUOTE
+                    ================================================== --}}
                     <a
                         href="#contact"
                         class="bg-[#E31E24]
@@ -213,11 +256,13 @@
                            hover:text-[#073B66]
                            transition"
                     aria-label="Toggle menu"
+                    :aria-expanded="open"
                 >
 
                     {{-- Hamburger --}}
                     <svg
                         x-show="!open"
+                        x-cloak
                         xmlns="http://www.w3.org/2000/svg"
                         class="w-6 h-6"
                         fill="none"
@@ -236,6 +281,7 @@
                     {{-- Close --}}
                     <svg
                         x-show="open"
+                        x-cloak
                         xmlns="http://www.w3.org/2000/svg"
                         class="w-6 h-6"
                         fill="none"
@@ -260,6 +306,7 @@
             ================================================== --}}
             <div
                 x-show="open"
+                x-cloak
                 x-transition
                 @click.outside="open = false"
                 class="lg:hidden border-t border-gray-200 py-4"
@@ -267,11 +314,54 @@
 
                 <div class="flex flex-col">
 
+
+                    {{-- =================================================
+                         STANDARD / 3D SWITCH - MOBILE
+                    ================================================== --}}
+                    <div class="grid grid-cols-2 gap-2 px-3 pb-3">
+
+                        {{-- Standard --}}
+                        <a
+                            href="{{ route('home') }}"
+                            @click="open = false"
+                            class="text-center
+                                   px-4 py-3
+                                   font-semibold
+                                   border
+                                   transition duration-300
+                                   {{ request()->routeIs('home')
+                                       ? 'bg-[#073B66] text-white border-[#073B66]'
+                                       : 'border-gray-200 text-[#073B66] hover:bg-gray-50' }}"
+                        >
+                            Standard
+                        </a>
+
+
+                        {{-- 3D --}}
+                        <a
+                            href="{{ route('home.3d') }}"
+                            @click="open = false"
+                            class="text-center
+                                   px-4 py-3
+                                   font-semibold
+                                   border
+                                   transition duration-300
+                                   {{ request()->routeIs('home.3d')
+                                       ? 'bg-[#E31E24] text-white border-[#E31E24]'
+                                       : 'border-gray-200 text-[#073B66] hover:bg-gray-50' }}"
+                        >
+                            3D
+                        </a>
+
+                    </div>
+
+
                     {{-- Home --}}
                     <a
                         href="{{ route('home') }}"
                         @click="open = false"
-                        class="px-3 py-3 font-medium text-gray-800
+                        class="px-3 py-3
+                               font-medium text-gray-800
                                hover:bg-gray-50
                                hover:text-[#073B66]"
                     >
@@ -283,7 +373,8 @@
                     <a
                         href="#about"
                         @click="open = false"
-                        class="px-3 py-3 font-medium text-gray-800
+                        class="px-3 py-3
+                               font-medium text-gray-800
                                hover:bg-gray-50
                                hover:text-[#073B66]"
                     >
@@ -295,7 +386,8 @@
                     <a
                         href="#products"
                         @click="open = false"
-                        class="px-3 py-3 font-medium text-gray-800
+                        class="px-3 py-3
+                               font-medium text-gray-800
                                hover:bg-gray-50
                                hover:text-[#073B66]"
                     >
@@ -307,7 +399,8 @@
                     <a
                         href="#applications"
                         @click="open = false"
-                        class="px-3 py-3 font-medium text-gray-800
+                        class="px-3 py-3
+                               font-medium text-gray-800
                                hover:bg-gray-50
                                hover:text-[#073B66]"
                     >
@@ -319,7 +412,8 @@
                     <a
                         href="#gallery"
                         @click="open = false"
-                        class="px-3 py-3 font-medium text-gray-800
+                        class="px-3 py-3
+                               font-medium text-gray-800
                                hover:bg-gray-50
                                hover:text-[#073B66]"
                     >
@@ -331,7 +425,8 @@
                     <a
                         href="#contact"
                         @click="open = false"
-                        class="px-3 py-3 font-medium text-gray-800
+                        class="px-3 py-3
+                               font-medium text-gray-800
                                hover:bg-gray-50
                                hover:text-[#073B66]"
                     >
