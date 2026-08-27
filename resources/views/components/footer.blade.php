@@ -1,114 +1,206 @@
-<footer class="bg-[#073B66] text-white">
+<footer class="bg-[#062653] text-white">
 
-    {{-- =====================================================
+    {{-- =========================================================
          MAIN FOOTER
-    ====================================================== --}}
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+    ========================================================== --}}
+    <div class="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 py-10">
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-6">
 
 
             {{-- =================================================
                  COMPANY
             ================================================== --}}
-            <div class="lg:col-span-1">
+            <div class="lg:pr-5">
 
-                <a
-                    href="{{ route('home') }}"
-                    class="inline-block mb-5"
-                >
+                <div class="flex items-start gap-3 mb-4">
+
                     <img
                         src="{{ asset('images/asew-logo.jpg') }}"
                         alt="Associated Scientific & Engineering Works"
-                        class="h-16 w-auto object-contain bg-white"
+                        class="w-11 h-11 object-contain rounded-full bg-white"
                     >
-                </a>
 
-                <p class="text-gray-300 leading-7 text-sm">
-                    Associated Scientific & Engineering Works is engaged
-                    in scientific and material testing instruments and
-                    quality control equipment for construction,
-                    infrastructure and engineering applications.
+                    <div>
+                        <h3 class="text-sm font-bold uppercase leading-5">
+                            Associated Scientific &
+                            <br>
+                            Engineering Works
+                        </h3>
+                    </div>
+
+                </div>
+
+
+                <p class="text-[12px] leading-5 text-blue-100/80">
+                    Since 1975, ASEW has been a trusted name in manufacturing
+                    precision testing instruments and complete laboratory
+                    solutions for global industries.
                 </p>
 
-                <div class="mt-5">
 
-                    <span
-                        class="inline-flex items-center
-                               bg-[#E31E24]
-                               px-4 py-2
-                               text-sm font-semibold"
+                {{-- Social Icons --}}
+                <div class="flex items-center gap-2 mt-5">
+
+                    <a
+                        href="#"
+                        aria-label="LinkedIn"
+                        class="w-7 h-7 border border-blue-200/40
+                               rounded-full flex items-center justify-center
+                               text-xs font-semibold
+                               hover:bg-[#E31E24]
+                               hover:border-[#E31E24]
+                               transition"
                     >
-                        Established in 1975
-                    </span>
+                        in
+                    </a>
+
+                    <a
+                        href="#"
+                        aria-label="Instagram"
+                        class="w-7 h-7 border border-blue-200/40
+                               rounded-full flex items-center justify-center
+                               text-xs font-semibold
+                               hover:bg-[#E31E24]
+                               hover:border-[#E31E24]
+                               transition"
+                    >
+                        ◎
+                    </a>
+
+                    <a
+                        href="#"
+                        aria-label="Facebook"
+                        class="w-7 h-7 border border-blue-200/40
+                               rounded-full flex items-center justify-center
+                               text-xs font-semibold
+                               hover:bg-[#E31E24]
+                               hover:border-[#E31E24]
+                               transition"
+                    >
+                        f
+                    </a>
 
                 </div>
 
             </div>
 
 
+
+            {{-- =================================================
+                 PRODUCT CATEGORIES
+            ================================================== --}}
+            <div class="lg:border-l lg:border-white/15 lg:pl-6">
+
+                <h4 class="text-[11px] font-bold uppercase tracking-wide
+                           text-white mb-5">
+                    Product Categories
+                </h4>
+
+
+                <div class="space-y-1.5 text-[11px] text-blue-100/80">
+
+                    <a href="#products"
+                       class="block hover:text-white transition">
+                        Soil Testing
+                    </a>
+
+                    <a href="#products"
+                       class="block hover:text-white transition">
+                        Concrete Testing
+                    </a>
+
+                    <a href="#products"
+                       class="block hover:text-white transition">
+                        Cement Testing
+                    </a>
+
+                    <a href="#products"
+                       class="block hover:text-white transition">
+                        Aggregate Testing
+                    </a>
+
+                    <a href="#products"
+                       class="block hover:text-white transition">
+                        Bitumen / Asphalt Testing
+                    </a>
+
+                    <a href="#products"
+                       class="block hover:text-white transition">
+                        Rock Testing
+                    </a>
+
+                    <a href="#products"
+                       class="block hover:text-white transition">
+                        Material Testing
+                    </a>
+
+                    <a href="#products"
+                       class="block hover:text-white transition">
+                        Survey Instruments
+                    </a>
+
+                    <a href="#products"
+                       class="block hover:text-white transition">
+                        Laboratory Equipment
+                    </a>
+
+                </div>
+
+            </div>
+
+
+
             {{-- =================================================
                  QUICK LINKS
             ================================================== --}}
-            <div>
+            <div class="lg:border-l lg:border-white/15 lg:pl-6">
 
-                <h3 class="text-lg font-semibold mb-5">
+                <h4 class="text-[11px] font-bold uppercase tracking-wide
+                           text-white mb-5">
                     Quick Links
-                </h3>
+                </h4>
 
-                <div class="space-y-3 text-gray-300 text-sm">
 
-                    <a
-                        href="{{ route('home') }}"
-                        class="block hover:text-white
-                               hover:translate-x-1
-                               transition"
-                    >
+                <div class="space-y-1.5 text-[11px] text-blue-100/80">
+
+                    <a href="{{ route('home') }}"
+                       class="block hover:text-white transition">
                         Home
                     </a>
 
-                    <a
-                        href="#about"
-                        class="block hover:text-white
-                               hover:translate-x-1
-                               transition"
-                    >
+                    <a href="{{ route('home') }}#about"
+                       class="block hover:text-white transition">
                         About Us
                     </a>
 
-                    <a
-                        href="#products"
-                        class="block hover:text-white
-                               hover:translate-x-1
-                               transition"
-                    >
+                    <a href="{{ route('home') }}#products"
+                       class="block hover:text-white transition">
                         Products
                     </a>
 
-                    <a
-                        href="#applications"
-                        class="block hover:text-white
-                               hover:translate-x-1
-                               transition"
-                    >
-                        Applications
+                    <a href="{{ route('home') }}#manufacturing"
+                       class="block hover:text-white transition">
+                        Manufacturing
                     </a>
 
-                    <a
-                        href="#gallery"
-                        class="block hover:text-white
-                               hover:translate-x-1
-                               transition"
-                    >
-                        Gallery
+                    <a href="{{ route('home') }}#applications"
+                       class="block hover:text-white transition">
+                        Complete Lab Solutions
                     </a>
 
-                    <a
-                        href="#contact"
-                        class="block hover:text-white
-                               hover:translate-x-1
-                               transition"
-                    >
+                    <a href="{{ route('home') }}#services"
+                       class="block hover:text-white transition">
+                        Services & Support
+                    </a>
+
+                    <a href="#"
+                       class="block hover:text-white transition">
+                        Downloads
+                    </a>
+
+                    <a href="{{ route('home') }}#contact"
+                       class="block hover:text-white transition">
                         Contact Us
                     </a>
 
@@ -117,68 +209,104 @@
             </div>
 
 
+
             {{-- =================================================
-                 PRODUCTS / EXPERTISE
+                 SERVICES & SUPPORT
             ================================================== --}}
-            <div>
+            <div class="lg:border-l lg:border-white/15 lg:pl-6">
 
-                <h3 class="text-lg font-semibold mb-5">
-                    Our Expertise
-                </h3>
+                <h4 class="text-[11px] font-bold uppercase tracking-wide
+                           text-white mb-5">
+                    Services & Support
+                </h4>
 
-                <div class="space-y-3 text-gray-300 text-sm">
 
-                    <p>
-                        Scientific Testing Instruments
-                    </p>
+                <div class="space-y-1.5 text-[11px] text-blue-100/80">
 
-                    <p>
-                        Material Testing Instruments
-                    </p>
+                    <a href="#services"
+                       class="block hover:text-white transition">
+                        Installation
+                    </a>
 
-                    <p>
-                        QA / QC Equipment
-                    </p>
+                    <a href="#services"
+                       class="block hover:text-white transition">
+                        Calibration
+                    </a>
 
-                    <p>
-                        Construction Testing Equipment
-                    </p>
+                    <a href="#services"
+                       class="block hover:text-white transition">
+                        Training
+                    </a>
 
-                    <p>
-                        Engineering Testing Solutions
-                    </p>
+                    <a href="#services"
+                       class="block hover:text-white transition">
+                        Maintenance
+                    </a>
+
+                    <a href="#services"
+                       class="block hover:text-white transition">
+                        Annual Maintenance
+                    </a>
+
+                    <a href="#services"
+                       class="block hover:text-white transition">
+                        Contracts
+                    </a>
+
+                    <a href="#services"
+                       class="block hover:text-white transition">
+                        Spare Parts Supply
+                    </a>
 
                 </div>
 
             </div>
 
 
+
             {{-- =================================================
-                 CONTACT
+                 CONTACT US
             ================================================== --}}
-            <div>
+            <div class="lg:border-l lg:border-white/15 lg:pl-6">
 
-                <h3 class="text-lg font-semibold mb-5">
+                <h4 class="text-[11px] font-bold uppercase tracking-wide
+                           text-white mb-5">
                     Contact Us
-                </h3>
+                </h4>
 
-                <div class="space-y-4 text-sm">
+
+                <div class="space-y-4 text-[11px] text-blue-100/80">
+
+
+                    {{-- Address --}}
+                    <div class="flex items-start gap-3">
+
+                        <span class="text-[#E31E24] text-base mt-[-2px]">
+                            ◉
+                        </span>
+
+                        <p class="leading-5">
+                            C-40, Sector-10,
+                            <br>
+                            Noida-201301, India
+                        </p>
+
+                    </div>
+
 
                     {{-- Phone --}}
                     <a
                         href="tel:+919899211119"
-                        class="flex items-start gap-3
-                               text-gray-300
-                               hover:text-white
-                               transition"
+                        class="flex items-center gap-3
+                               hover:text-white transition"
                     >
 
-                        <span class="text-[#E31E24] text-lg">
+                        <span class="text-[#E31E24] text-base">
                             ☎
                         </span>
 
                         <span>
-                            +91 98992 11119
+                            +91 120 456 6201
                         </span>
 
                     </a>
@@ -186,60 +314,40 @@
 
                     {{-- Email --}}
                     <a
-                        href="mailto:jatin@asewindia.com"
-                        class="flex items-start gap-3
-                               text-gray-300
-                               hover:text-white
-                               transition"
+                        href="mailto:sales@asew.in"
+                        class="flex items-center gap-3
+                               hover:text-white transition"
                     >
 
-                        <span class="text-[#E31E24] text-lg">
+                        <span class="text-[#E31E24] text-base">
                             ✉
                         </span>
 
                         <span>
-                            jatin@asewindia.com
+                            sales@asew.in
                         </span>
 
                     </a>
 
 
-                    {{-- Business --}}
-                    <div class="flex items-start gap-3 text-gray-300">
+                    {{-- Website --}}
+                    <a
+                        href="{{ route('home') }}"
+                        class="flex items-center gap-3
+                               hover:text-white transition"
+                    >
 
-                        <span class="text-[#E31E24] text-lg">
-                            ◷
+                        <span class="text-[#E31E24] text-base">
+                            ◎
                         </span>
 
                         <span>
-                            Mon - Sat<br>
-                            9:00 AM - 6:00 PM
+                            www.asew.in
                         </span>
 
-                    </div>
+                    </a>
 
                 </div>
-
-
-                {{-- Quote Button --}}
-                <a
-                    href="#contact"
-                    class="inline-flex items-center
-                           mt-6
-                           bg-[#E31E24]
-                           hover:bg-[#C8181D]
-                           text-white
-                           px-5 py-3
-                           text-sm font-semibold
-                           transition duration-300"
-                >
-                    Request a Quote
-
-                    <span class="ml-2">
-                        →
-                    </span>
-
-                </a>
 
             </div>
 
@@ -248,53 +356,51 @@
     </div>
 
 
-    {{-- =====================================================
-         GLOBAL REACH
-    ====================================================== --}}
+
+    {{-- =========================================================
+         BOTTOM BAR
+    ========================================================== --}}
     <div class="border-t border-white/10">
 
         <div
             class="max-w-7xl mx-auto
-                   px-4 sm:px-6 lg:px-8
-                   py-5
+                   px-5 sm:px-6 lg:px-8
+                   py-3
                    flex flex-col md:flex-row
                    items-center
                    justify-between
                    gap-3
-                   text-sm"
+                   text-[10px]
+                   text-blue-100/70"
         >
 
-            <p class="text-gray-400 text-center md:text-left">
-                Serving scientific, construction and engineering
-                testing requirements.
+            {{-- Copyright --}}
+            <p class="text-center md:text-left">
+                © {{ date('Y') }} ASEW - Associated Scientific &
+                Engineering Works. All Rights Reserved.
             </p>
 
-            <p class="text-gray-400 text-center md:text-right">
-                Nigeria · Ethiopia · Latin America · Dubai · Europe
-            </p>
 
-        </div>
+            {{-- Legal Links --}}
+            <div class="flex items-center gap-4">
 
-    </div>
+                <a
+                    href="#"
+                    class="hover:text-white transition"
+                >
+                    Privacy Policy
+                </a>
 
+                <span class="text-white/20">|</span>
 
-    {{-- =====================================================
-         COPYRIGHT
-    ====================================================== --}}
-    <div class="border-t border-white/10">
+                <a
+                    href="#"
+                    class="hover:text-white transition"
+                >
+                    Terms & Conditions
+                </a>
 
-        <div
-            class="max-w-7xl mx-auto
-                   px-4 py-5
-                   text-center
-                   text-sm text-gray-400"
-        >
-
-            © {{ date('Y') }}
-            <span class="text-gray-300">
-                Associated Scientific & Engineering Works
-            </span>.
-            All Rights Reserved.
+            </div>
 
         </div>
 

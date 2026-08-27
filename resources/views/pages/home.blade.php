@@ -4,237 +4,454 @@
 
 @section('content')
 
+
 {{-- =========================================================
-     ASEW PREMIUM HERO
-     FULL IMAGE - NO CROPPING
+     ASEW PREMIUM HERO SECTION
+     PRECISION IN TESTING
 ========================================================= --}}
 
 <section
-    class="relative w-full overflow-hidden bg-[#061B2D]"
+    id="hero"
+    class="relative w-full overflow-hidden bg-[#f4f7fa]"
 >
 
     {{-- =====================================================
-         FULL BACKGROUND IMAGE
-         IMPORTANT: NO object-cover
+         HERO BACKGROUND
     ====================================================== --}}
-    <img
-        src="{{ asset('images/hero-testing.jpg') }}"
-        alt="Associated Scientific & Engineering Testing Equipment"
-        class="absolute inset-0
-               w-full h-full
-               object-fill"
-    >
+
+    <div class="absolute inset-0">
+
+        {{-- Soft technical background --}}
+        <div class="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-[#edf3f8]"></div>
+
+        {{-- Subtle engineering grid --}}
+        <div
+            class="absolute inset-0 opacity-[0.035]"
+            style="
+                background-image:
+                    linear-gradient(#073B66 1px, transparent 1px),
+                    linear-gradient(90deg, #073B66 1px, transparent 1px);
+                background-size: 45px 45px;
+            "
+        ></div>
+
+        {{-- Right side glow --}}
+        <div
+            class="absolute right-[-10%] top-0 w-[55%] h-full
+                   bg-gradient-to-l from-[#dfeaf2]/70 to-transparent
+                   pointer-events-none"
+        ></div>
+
+    </div>
 
 
     {{-- =====================================================
-         LIGHT OVERLAY
+         MAIN HERO CONTAINER
     ====================================================== --}}
-    <div
-        class="absolute inset-0
-               bg-black/10
-               pointer-events-none"
-    ></div>
 
-
-    {{-- =====================================================
-         LEFT TEXT READABILITY
-    ====================================================== --}}
-    <div
-        class="absolute inset-0
-               bg-gradient-to-r
-               from-[#061B2D]/70
-               via-[#061B2D]/30
-               to-transparent
-               pointer-events-none"
-    ></div>
-
-
-    {{-- =====================================================
-         CONTENT
-    ====================================================== --}}
     <div
         class="relative z-10
-               w-full
-               min-h-[520px]
-               sm:min-h-[580px]
-               lg:min-h-0
-               aspect-[2.04/1]
+               max-w-[1440px]
+               mx-auto
+               min-h-[590px]
+               lg:min-h-[620px]
+               px-5 sm:px-8 lg:px-12 xl:px-16
                flex items-center"
     >
 
-        <div
-            class="w-full
-                   max-w-7xl
-                   mx-auto
-                   px-5
-                   sm:px-8
-                   lg:px-10"
-        >
+        <div class="grid grid-cols-1 lg:grid-cols-[46%_54%] w-full items-center">
+
+
+            {{-- =================================================
+                 LEFT CONTENT
+            ================================================== --}}
 
             <div
-                class="max-w-[620px]
-                       py-10
-                       sm:py-14
-                       lg:py-16"
+                class="relative z-20
+                       pt-12 pb-16
+                       lg:py-20
+                       max-w-[620px]"
             >
 
-                {{-- EYEBROW --}}
+                {{-- Since 1975 --}}
                 <div
                     class="flex items-center gap-3
-                           mb-4
-                           sm:mb-5
-                           lg:mb-6"
+                           mb-5
+                           animate-[fadeInUp_.7s_ease-out]"
                 >
 
                     <span
-                        class="w-10
-                               sm:w-12
-                               h-[2px]
-                               bg-[#E31E24]"
-                    ></span>
+                        class="text-[12px] sm:text-[13px]
+                               font-bold
+                               tracking-[0.16em]
+                               text-[#E31E24]"
+                    >
+                        SINCE 1975
+                    </span>
 
                     <span
-                        class="text-white
-                               text-[10px]
-                               sm:text-xs
-                               lg:text-sm
-                               font-semibold
-                               tracking-[0.18em]
-                               sm:tracking-[0.22em]
-                               uppercase"
-                    >
-                        Scientific & Material Testing
-                    </span>
+                        class="w-10 h-[2px]
+                               bg-[#E31E24]"
+                    ></span>
 
                 </div>
 
 
-                {{-- HEADING --}}
+                {{-- Main Heading --}}
                 <h1
-                    class="text-white
-                           text-3xl
-                           sm:text-4xl
-                           md:text-5xl
-                           lg:text-6xl
-                           xl:text-7xl
-                           font-bold
-                           leading-[1.02]
-                           tracking-tight"
+                    class="text-[39px]
+                           sm:text-[48px]
+                           md:text-[54px]
+                           lg:text-[55px]
+                           xl:text-[62px]
+                           leading-[0.98]
+                           font-extrabold
+                           tracking-[-0.035em]
+                           text-[#073B66]"
                 >
 
-                    Precision Testing
+                    PRECISION IN
+                    <br>
 
-                    <span class="block text-[#E31E24]">
-                        Instruments
+                    <span class="text-[#E31E24]">
+                        TESTING.
                     </span>
 
-                    <span class="block">
-                        for Modern Engineering
+                    <br>
+
+                    <span class="text-[#E31E24]">
+                        CONFIDENCE IN
                     </span>
+
+                    <br>
+
+                    EVERY RESULT.
 
                 </h1>
 
 
-                {{-- DESCRIPTION --}}
+                {{-- Description --}}
                 <p
-                    class="mt-4
-                           sm:mt-5
-                           lg:mt-6
-                           max-w-xl
-                           text-sm
-                           sm:text-base
-                           lg:text-lg
-                           leading-6
-                           sm:leading-7
-                           text-white/90"
+                    class="mt-6
+                           max-w-[510px]
+                           text-[14px]
+                           sm:text-[15px]
+                           leading-[1.7]
+                           text-slate-600"
                 >
-                    Reliable scientific and engineering testing
-                    equipment for construction, infrastructure,
-                    laboratories and material testing applications.
+
+                    Designing and manufacturing advanced material testing
+                    instruments and complete laboratory solutions
+                    for more than 50 years.
+
                 </p>
 
 
-                {{-- TRUST ITEMS --}}
+                {{-- =================================================
+                     TRUST / FEATURE STATS
+                ================================================== --}}
+
                 <div
-                    class="mt-5
-                           sm:mt-6
+                    class="mt-7
                            flex flex-wrap
-                           gap-x-6
-                           gap-y-3"
+                           items-stretch
+                           max-w-[590px]"
                 >
 
+                    {{-- 50+ Years --}}
                     <div
-                        class="flex items-center gap-2"
+                        class="flex items-center gap-2
+                               pr-4 mr-4
+                               border-r border-slate-300"
                     >
 
-                        <div
-                            class="flex items-center justify-center
-                                   w-8 h-8
-                                   border border-white/30
-                                   text-[#E31E24]
-                                   text-xs
-                                   font-bold"
-                        >
-                            50+
+                        <div class="text-[#073B66]">
+
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="w-6 h-6"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                                stroke-width="1.6"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M12 3v18M5.25 6.75h9.5a3.25 3.25 0 0 1 0 6.5h-9.5M5.25 13.25h10.5a3.25 3.25 0 0 1 0 6.5h-10.5"
+                                />
+                            </svg>
+
                         </div>
 
                         <div>
 
-                            <p
-                                class="text-white
-                                       font-semibold
-                                       text-xs
-                                       sm:text-sm"
+                            <strong
+                                class="block text-[16px] font-extrabold text-[#073B66]"
                             >
-                                Years of Experience
-                            </p>
+                                50+
+                            </strong>
 
-                            <p
-                                class="text-white/60
-                                       text-[10px]
-                                       sm:text-xs"
+                            <span
+                                class="block text-[10px] leading-3 text-slate-500"
                             >
-                                Since 1975
-                            </p>
+                                Years<br>Experience
+                            </span>
 
                         </div>
 
                     </div>
 
 
+                    {{-- Made in India --}}
                     <div
-                        class="flex items-center gap-2"
+                        class="flex items-center gap-2
+                               pr-4 mr-4
+                               border-r border-slate-300"
                     >
 
-                        <div
-                            class="flex items-center justify-center
-                                   w-8 h-8
-                                   border border-white/30
-                                   text-[#E31E24]
-                                   text-sm
-                                   font-bold"
-                        >
-                            ✓
+                        <div class="text-[#073B66]">
+
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="w-6 h-6"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                                stroke-width="1.6"
+                            >
+                                <circle cx="12" cy="12" r="9"></circle>
+
+                                <path
+                                    stroke-linecap="round"
+                                    d="M3 12h18M12 3c2.2 2.4 3.3 5.4 3.3 9s-1.1 6.6-3.3 9c-2.2-2.4-3.3-5.4-3.3-9S9.8 5.4 12 3Z"
+                                />
+
+                            </svg>
+
                         </div>
 
                         <div>
 
-                            <p
-                                class="text-white
-                                       font-semibold
-                                       text-xs
-                                       sm:text-sm"
+                            <strong
+                                class="block text-[13px] font-bold text-[#073B66]"
                             >
-                                Precision Equipment
-                            </p>
+                                Made in
+                            </strong>
 
-                            <p
-                                class="text-white/60
-                                       text-[10px]
-                                       sm:text-xs"
+                            <span
+                                class="block text-[10px] text-slate-500"
                             >
-                                Professional Solutions
-                            </p>
+                                India
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    {{-- Global Presence --}}
+                    <div
+                        class="flex items-center gap-2
+                               pr-4 mr-4
+                               border-r border-slate-300"
+                    >
+
+                        <div class="text-[#073B66]">
+
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="w-6 h-6"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                                stroke-width="1.6"
+                            >
+
+                                <circle
+                                    cx="12"
+                                    cy="12"
+                                    r="9"
+                                />
+
+                                <path
+                                    stroke-linecap="round"
+                                    d="M3 12h18M12 3c2.2 2.4 3.3 5.4 3.3 9s-1.1 6.6-3.3 9c-2.2-2.4-3.3-5.4-3.3-9S9.8 5.4 12 3Z"
+                                />
+
+                            </svg>
+
+                        </div>
+
+                        <div>
+
+                            <strong
+                                class="block text-[12px] font-bold text-[#073B66]"
+                            >
+                                Global
+                            </strong>
+
+                            <span
+                                class="block text-[10px] text-slate-500"
+                            >
+                                Presence
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    {{-- Quality --}}
+                    <div
+                        class="flex items-center gap-2
+                               pr-4 mr-4
+                               border-r border-slate-300"
+                    >
+
+                        <div class="text-[#073B66]">
+
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="w-6 h-6"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                                stroke-width="1.6"
+                            >
+
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M12 3 19 6v5c0 4.5-2.9 8.1-7 10-4.1-1.9-7-5.5-7-10V6l7-3Z"
+                                />
+
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="m9 12 2 2 4-4"
+                                />
+
+                            </svg>
+
+                        </div>
+
+                        <div>
+
+                            <strong
+                                class="block text-[12px] font-bold text-[#073B66]"
+                            >
+                                Quality &
+                            </strong>
+
+                            <span
+                                class="block text-[10px] text-slate-500"
+                            >
+                                Precision
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    {{-- Complete Lab --}}
+                    <div
+                        class="flex items-center gap-2
+                               pr-4 mr-4
+                               border-r border-slate-300"
+                    >
+
+                        <div class="text-[#073B66]">
+
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="w-6 h-6"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                                stroke-width="1.6"
+                            >
+
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M9 3h6M10 3v5.5L5.5 17a2.5 2.5 0 0 0 2.2 3.75h8.6A2.5 2.5 0 0 0 18.5 17L14 8.5V3"
+                                />
+
+                                <path
+                                    stroke-linecap="round"
+                                    d="M8 15h8"
+                                />
+
+                            </svg>
+
+                        </div>
+
+                        <div>
+
+                            <strong
+                                class="block text-[11px] font-bold text-[#073B66]"
+                            >
+                                Complete Lab
+                            </strong>
+
+                            <span
+                                class="block text-[10px] text-slate-500"
+                            >
+                                Solutions
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    {{-- Installation --}}
+                    <div
+                        class="flex items-center gap-2"
+                    >
+
+                        <div class="text-[#073B66]">
+
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="w-6 h-6"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                                stroke-width="1.6"
+                            >
+
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M14.5 6.5 17.5 3.5M16 4l4 4M12.5 8.5 5 16l3 3 7.5-7.5"
+                                />
+
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M4 20h4"
+                                />
+
+                            </svg>
+
+                        </div>
+
+                        <div>
+
+                            <strong
+                                class="block text-[11px] font-bold text-[#073B66]"
+                            >
+                                Installation
+                            </strong>
+
+                            <span
+                                class="block text-[10px] text-slate-500"
+                            >
+                                Support
+                            </span>
 
                         </div>
 
@@ -243,129 +460,266 @@
                 </div>
 
 
-                {{-- BUTTONS --}}
+                {{-- =================================================
+                     BUTTONS
+                ================================================== --}}
+
                 <div
-                    class="mt-6
-                           sm:mt-7
-                           flex flex-col
-                           sm:flex-row
+                    class="mt-8
+                           flex flex-wrap
+                           items-center
                            gap-3"
                 >
 
+                    {{-- Explore Products --}}
                     <a
-                        href="#products"
-                        class="inline-flex
+                        href="{{ route('home') }}#products"
+                        class="group
+                               inline-flex
                                items-center
                                justify-center
+                               gap-2
                                bg-[#E31E24]
-                               hover:bg-[#C8181D]
+                               hover:bg-[#073B66]
                                text-white
                                px-6
                                sm:px-7
-                               py-3
-                               sm:py-3.5
-                               font-semibold
-                               text-xs
-                               sm:text-sm
+                               h-12
+                               text-[12px]
+                               font-bold
+                               tracking-wide
                                transition-all
                                duration-300
                                shadow-lg
-                               shadow-black/20"
+                               shadow-red-900/10"
                     >
-                        Explore Our Products
+
+                        <span>
+                            EXPLORE PRODUCTS
+                        </span>
 
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            class="w-4 h-4
-                                   ml-2
-                                   transition-transform
-                                   group-hover:translate-x-1"
+                            class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
                             fill="none"
                             viewBox="0 0 24 24"
                             stroke="currentColor"
                             stroke-width="2"
                         >
+
                             <path
                                 stroke-linecap="round"
                                 stroke-linejoin="round"
-                                d="M17 8l4 4m0 0-4 4m4-4H3"
+                                d="M5 12h14m-6-6 6 6-6 6"
                             />
+
                         </svg>
 
                     </a>
 
 
+                    {{-- Quote --}}
                     <a
-                        href="#contact"
-                        class="inline-flex
+                        href="{{ route('home') }}#contact"
+                        class="group
+                               inline-flex
                                items-center
                                justify-center
+                               gap-2
+                               bg-white
+                               hover:bg-[#073B66]
+                               text-[#073B66]
+                               hover:text-white
                                border
-                               border-white/60
-                               hover:border-white
-                               hover:bg-white
-                               hover:text-[#073B66]
-                               text-white
+                               border-[#073B66]/50
+                               hover:border-[#073B66]
                                px-6
                                sm:px-7
-                               py-3
-                               sm:py-3.5
-                               font-semibold
-                               text-xs
-                               sm:text-sm
+                               h-12
+                               text-[12px]
+                               font-bold
+                               tracking-wide
                                transition-all
                                duration-300"
                     >
-                        Request a Quote
+
+                        <span>
+                            REQUEST A QUOTE
+                        </span>
+
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                        >
+
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M5 12h14m-6-6 6 6-6 6"
+                            />
+
+                        </svg>
+
                     </a>
 
                 </div>
 
+            </div>
 
-                {{-- TESTING AREAS --}}
+
+            {{-- =================================================
+                 RIGHT MACHINE IMAGE
+            ================================================== --}}
+
+            <div
+                class="relative
+                       min-h-[390px]
+                       sm:min-h-[480px]
+                       lg:min-h-[620px]
+                       flex items-end justify-center"
+            >
+
+                {{-- Background architectural shape --}}
                 <div
-                    class="mt-6
-                           pt-4
-                           border-t
-                           border-white/20"
+                    class="absolute
+                           right-[-10%]
+                           top-0
+                           w-[85%]
+                           h-full
+                           bg-gradient-to-br
+                           from-[#e9f1f6]
+                           to-transparent
+                           opacity-80"
+                ></div>
+
+
+                {{-- Decorative circle --}}
+                <div
+                    class="absolute
+                           right-[8%]
+                           top-[13%]
+                           w-[330px]
+                           h-[330px]
+                           rounded-full
+                           border
+                           border-[#073B66]/10"
+                ></div>
+
+                <div
+                    class="absolute
+                           right-[13%]
+                           top-[19%]
+                           w-[285px]
+                           h-[285px]
+                           rounded-full
+                           border
+                           border-[#073B66]/5"
+                ></div>
+
+
+                {{-- Technical label --}}
+                <div
+                    class="absolute
+                           right-[8%]
+                           top-[9%]
+                           hidden md:flex
+                           items-center gap-2
+                           text-[9px]
+                           tracking-[0.18em]
+                           font-bold
+                           text-[#073B66]/50"
                 >
 
-                    <p
-                        class="text-[9px]
-                               sm:text-[10px]
-                               uppercase
-                               tracking-[0.2em]
-                               text-white/50
-                               mb-2"
+                    <span class="w-7 h-px bg-[#073B66]/30"></span>
+
+                    ADVANCED MATERIAL TESTING
+
+                </div>
+
+
+                {{-- Machine Image --}}
+                <div
+                    class="relative z-10
+                           w-full
+                           h-full
+                           flex items-center justify-center
+                           lg:justify-end"
+                >
+
+                    <img
+                        src="{{ asset('images/hero-testing-machine.png') }}"
+                        alt="ASEW Material Testing Machine"
+                        class="relative
+                               z-10
+                               w-[78%]
+                               sm:w-[70%]
+                               lg:w-[88%]
+                               xl:w-[91%]
+                               max-w-[700px]
+                               h-auto
+                               object-contain
+                               drop-shadow-[0_25px_30px_rgba(7,59,102,0.16)]"
                     >
-                        Testing Solutions
-                    </p>
+
+                </div>
+
+
+                {{-- Machine technical card --}}
+                <div
+                    class="absolute
+                           z-20
+                           bottom-[9%]
+                           right-[3%]
+                           hidden md:block
+                           bg-white/95
+                           backdrop-blur-sm
+                           border
+                           border-slate-200
+                           shadow-xl
+                           px-5
+                           py-4
+                           min-w-[175px]"
+                >
 
                     <div
-                        class="flex flex-wrap
-                               items-center
-                               gap-x-3
-                               gap-y-1
-                               text-[10px]
-                               sm:text-xs
-                               text-white/85"
+                        class="flex items-center gap-2 mb-2"
                     >
 
-                        <span>Soil Testing</span>
+                        <span
+                            class="w-2 h-2 rounded-full bg-[#E31E24]"
+                        ></span>
 
-                        <span class="text-[#E31E24]">•</span>
-
-                        <span>Concrete Testing</span>
-
-                        <span class="text-[#E31E24]">•</span>
-
-                        <span>Cement Testing</span>
-
-                        <span class="text-[#E31E24]">•</span>
-
-                        <span>Material Testing</span>
+                        <span
+                            class="text-[9px]
+                                   uppercase
+                                   tracking-[0.15em]
+                                   font-bold
+                                   text-slate-400"
+                        >
+                            ASEW ENGINEERING
+                        </span>
 
                     </div>
+
+                    <p
+                        class="text-[13px]
+                               font-bold
+                               text-[#073B66]"
+                    >
+                        Precision Testing
+                    </p>
+
+                    <p
+                        class="mt-1
+                               text-[10px]
+                               text-slate-500"
+                    >
+                        Built for reliable results
+                    </p>
 
                 </div>
 
@@ -375,1276 +729,941 @@
 
     </div>
 
+
+    {{-- =====================================================
+         SLIDER ARROW - LEFT
+    ====================================================== --}}
+
+    <button
+        type="button"
+        aria-label="Previous slide"
+        class="absolute
+               left-3
+               sm:left-5
+               lg:left-6
+               top-1/2
+               -translate-y-1/2
+               z-30
+               w-9
+               h-9
+               sm:w-10
+               sm:h-10
+               rounded-full
+               bg-[#073B66]/70
+               hover:bg-[#E31E24]
+               text-white
+               flex items-center justify-center
+               backdrop-blur-sm
+               transition-all duration-300
+               shadow-lg"
+    >
+
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-4 h-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+        >
+
+            <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="m15 19-7-7 7-7"
+            />
+
+        </svg>
+
+    </button>
+
+
+    {{-- =====================================================
+         SLIDER ARROW - RIGHT
+    ====================================================== --}}
+
+    <button
+        type="button"
+        aria-label="Next slide"
+        class="absolute
+               right-3
+               sm:right-5
+               lg:right-6
+               top-1/2
+               -translate-y-1/2
+               z-30
+               w-9
+               h-9
+               sm:w-10
+               sm:h-10
+               rounded-full
+               bg-[#073B66]/70
+               hover:bg-[#E31E24]
+               text-white
+               flex items-center justify-center
+               backdrop-blur-sm
+               transition-all duration-300
+               shadow-lg"
+    >
+
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-4 h-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+        >
+
+            <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="m9 5 7 7-7 7"
+            />
+
+        </svg>
+
+    </button>
+
+
+    {{-- =====================================================
+         SLIDER DOTS
+    ====================================================== --}}
+
+    <div
+        class="absolute
+               bottom-5
+               sm:bottom-6
+               left-1/2
+               -translate-x-1/2
+               z-30
+               flex items-center gap-2"
+    >
+
+        <button
+            type="button"
+            class="w-9 h-1.5 rounded-full bg-[#E31E24]"
+            aria-label="Slide 1"
+        ></button>
+
+        <button
+            type="button"
+            class="w-2 h-2 rounded-full bg-slate-300 hover:bg-[#073B66] transition"
+            aria-label="Slide 2"
+        ></button>
+
+        <button
+            type="button"
+            class="w-2 h-2 rounded-full bg-slate-300 hover:bg-[#073B66] transition"
+            aria-label="Slide 3"
+        ></button>
+
+        <button
+            type="button"
+            class="w-2 h-2 rounded-full bg-slate-300 hover:bg-[#073B66] transition"
+            aria-label="Slide 4"
+        ></button>
+
+    </div>
+
 </section>
 
 
+{{-- =========================================================
+     HERO ANIMATION
+========================================================= --}}
+
+<style>
+
+@keyframes fadeInUp {
+
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+</style>
 
 
 {{-- =========================================================
-     TESTING SOLUTIONS - STANDARD HOMEPAGE
+     ASEW — OUR PRODUCTS
+     WIDE RANGE OF TESTING EQUIPMENT
 ========================================================= --}}
 
 <section
-    id="solutions"
-    class="relative bg-white py-20 lg:py-28 overflow-hidden"
+    id="products"
+    class="relative w-full bg-white py-16 sm:py-20 lg:py-24 overflow-hidden"
 >
 
-    <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    {{-- =====================================================
+         BACKGROUND
+    ====================================================== --}}
 
-        {{-- Section Header --}}
+    <div class="absolute inset-0 pointer-events-none">
+
+        {{-- Very subtle technical grid --}}
         <div
-            class="max-w-3xl mb-14"
-        >
+            class="absolute inset-0 opacity-[0.025]"
+            style="
+                background-image:
+                    linear-gradient(#073B66 1px, transparent 1px),
+                    linear-gradient(90deg, #073B66 1px, transparent 1px);
+                background-size: 40px 40px;
+            "
+        ></div>
 
-            <div class="flex items-center gap-3 mb-5">
+        {{-- Soft top glow --}}
+        <div
+            class="absolute top-0 left-1/2 -translate-x-1/2
+                   w-[500px] h-[180px]
+                   bg-[#073B66]/[0.025]
+                   blur-3xl rounded-full"
+        ></div>
+
+    </div>
+
+
+    {{-- =====================================================
+         CONTAINER
+    ====================================================== --}}
+
+    <div
+        class="relative z-10
+               max-w-[1440px]
+               mx-auto
+               px-4 sm:px-6 lg:px-10 xl:px-14"
+    >
+
+
+        {{-- =================================================
+             SECTION HEADING
+        ================================================== --}}
+
+        <div class="text-center mb-9 sm:mb-11">
+
+            {{-- Small Red Label --}}
+            <div class="flex items-center justify-center gap-3 mb-3">
 
                 <span
-                    class="w-10 h-[2px] bg-[#E31E24]"
+                    class="w-7 sm:w-9 h-[2px] bg-[#E31E24]"
                 ></span>
 
                 <span
-                    class="text-[#E31E24]
-                           text-xs font-bold
-                           uppercase
-                           tracking-[0.22em]"
+                    class="text-[11px] sm:text-[12px]
+                           font-bold
+                           tracking-[0.15em]
+                           text-[#E31E24]"
                 >
-                    Our Testing Solutions
+                    OUR PRODUCTS
                 </span>
+
+                <span
+                    class="w-7 sm:w-9 h-[2px] bg-[#E31E24]"
+                ></span>
 
             </div>
 
 
+            {{-- Main Heading --}}
             <h2
-                class="text-[#073B66]
-                       text-4xl sm:text-5xl lg:text-6xl
-                       font-bold
-                       leading-tight"
+                class="text-[27px]
+                       sm:text-[34px]
+                       lg:text-[40px]
+                       leading-tight
+                       font-extrabold
+                       tracking-[-0.025em]
+                       text-[#073B66]"
             >
-                Complete testing solutions
-                <span class="text-[#E31E24]">
-                    for engineering.
+                WIDE RANGE OF
+                <span class="text-[#073B66]">
+                    TESTING EQUIPMENT
                 </span>
             </h2>
 
 
+            {{-- Small Description --}}
             <p
-                class="mt-5
-                       text-gray-600
-                       text-base lg:text-lg
-                       leading-8
-                       max-w-2xl"
+                class="max-w-[650px]
+                       mx-auto
+                       mt-3
+                       text-[13px]
+                       sm:text-[14px]
+                       leading-6
+                       text-slate-500"
             >
-                Associated Scientific & Engineering provides
-                professional testing and measurement equipment
-                for laboratories, construction, civil engineering
-                and industrial applications.
+                Precision-engineered testing instruments and laboratory
+                equipment for reliable results across diverse applications.
             </p>
 
         </div>
 
 
-        {{-- Solutions Grid --}}
+        {{-- =================================================
+             PRODUCT GRID
+        ================================================== --}}
+
         <div
-            class="grid grid-cols-1
-                   md:grid-cols-2
-                   lg:grid-cols-3
-                   gap-6"
+            class="grid
+                   grid-cols-2
+                   sm:grid-cols-3
+                   md:grid-cols-3
+                   lg:grid-cols-9
+                   gap-2.5
+                   sm:gap-3
+                   lg:gap-2"
         >
 
-            {{-- Soil --}}
+
+            {{-- =================================================
+                 01 — SOIL TESTING
+            ================================================== --}}
+
             <a
-                href="#products"
+                href="#"
                 class="group relative
-                       min-h-[260px]
-                       border border-gray-200
+                       min-h-[225px]
+                       sm:min-h-[245px]
+                       lg:min-h-[255px]
                        bg-white
-                       p-7
+                       border border-slate-200
+                       rounded-[5px]
                        overflow-hidden
-                       hover:border-[#073B66]
-                       hover:shadow-xl
-                       transition-all duration-500"
-            >
-
-                <div
-                    class="absolute
-                           right-0 top-0
-                           w-28 h-28
-                           bg-[#073B66]/[0.04]
-                           rounded-bl-full
-                           group-hover:bg-[#E31E24]/[0.08]
-                           transition"
-                ></div>
-
-
-                <div class="relative z-10">
-
-                    <span
-                        class="text-[#E31E24]
-                               text-xs font-bold
-                               tracking-widest"
-                    >
-                        01
-                    </span>
-
-
-                    <div
-                        class="mt-6
-                               w-12 h-12
-                               bg-[#F1F5F8]
-                               text-[#073B66]
-                               flex items-center justify-center
-                               group-hover:bg-[#073B66]
-                               group-hover:text-white
-                               transition"
-                    >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="w-6 h-6"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            stroke-width="1.5"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M4 19h16M5 19c0-5 3-9 7-12 4 3 7 7 7 12M8 19v-4m4 4v-7m4 7v-4"
-                            />
-                        </svg>
-                    </div>
-
-
-                    <h3
-                        class="mt-6
-                               text-2xl
-                               font-bold
-                               text-[#073B66]
-                               group-hover:text-[#E31E24]
-                               transition"
-                    >
-                        Soil Testing
-                    </h3>
-
-
-                    <p
-                        class="mt-3
-                               text-sm
-                               text-gray-500
-                               leading-6
-                               max-w-sm"
-                    >
-                        Equipment for evaluation and testing
-                        of soil properties and performance.
-                    </p>
-
-
-                    <span
-                        class="inline-flex
-                               mt-6
-                               text-sm
-                               font-semibold
-                               text-[#073B66]
-                               group-hover:text-[#E31E24]"
-                    >
-                        Explore →
-                    </span>
-
-                </div>
-
-            </a>
-
-
-            {{-- Cement --}}
-            <a
-                href="#products"
-                class="group relative
-                       min-h-[260px]
-                       border border-gray-200
-                       bg-white
-                       p-7
-                       overflow-hidden
-                       hover:border-[#073B66]
-                       hover:shadow-xl
-                       transition-all duration-500"
-            >
-
-                <div
-                    class="absolute
-                           right-0 top-0
-                           w-28 h-28
-                           bg-[#073B66]/[0.04]
-                           rounded-bl-full
-                           group-hover:bg-[#E31E24]/[0.08]
-                           transition"
-                ></div>
-
-
-                <div class="relative z-10">
-
-                    <span
-                        class="text-[#E31E24]
-                               text-xs font-bold
-                               tracking-widest"
-                    >
-                        02
-                    </span>
-
-
-                    <div
-                        class="mt-6
-                               w-12 h-12
-                               bg-[#F1F5F8]
-                               text-[#073B66]
-                               flex items-center justify-center
-                               group-hover:bg-[#073B66]
-                               group-hover:text-white
-                               transition"
-                    >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="w-6 h-6"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            stroke-width="1.5"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M6 20h12M7 20V8h10v12M9 8V4h6v4M10 12h4M10 15h4"
-                            />
-                        </svg>
-                    </div>
-
-
-                    <h3
-                        class="mt-6
-                               text-2xl
-                               font-bold
-                               text-[#073B66]
-                               group-hover:text-[#E31E24]
-                               transition"
-                    >
-                        Cement Testing
-                    </h3>
-
-
-                    <p
-                        class="mt-3
-                               text-sm
-                               text-gray-500
-                               leading-6
-                               max-w-sm"
-                    >
-                        Professional instruments for cement
-                        quality and performance testing.
-                    </p>
-
-
-                    <span
-                        class="inline-flex
-                               mt-6
-                               text-sm
-                               font-semibold
-                               text-[#073B66]
-                               group-hover:text-[#E31E24]"
-                    >
-                        Explore →
-                    </span>
-
-                </div>
-
-            </a>
-
-
-            {{-- Concrete --}}
-            <a
-                href="#products"
-                class="group relative
-                       min-h-[260px]
-                       border border-gray-200
-                       bg-white
-                       p-7
-                       overflow-hidden
-                       hover:border-[#073B66]
-                       hover:shadow-xl
-                       transition-all duration-500"
-            >
-
-                <div
-                    class="absolute
-                           right-0 top-0
-                           w-28 h-28
-                           bg-[#073B66]/[0.04]
-                           rounded-bl-full
-                           group-hover:bg-[#E31E24]/[0.08]
-                           transition"
-                ></div>
-
-
-                <div class="relative z-10">
-
-                    <span
-                        class="text-[#E31E24]
-                               text-xs font-bold
-                               tracking-widest"
-                    >
-                        03
-                    </span>
-
-
-                    <div
-                        class="mt-6
-                               w-12 h-12
-                               bg-[#F1F5F8]
-                               text-[#073B66]
-                               flex items-center justify-center
-                               group-hover:bg-[#073B66]
-                               group-hover:text-white
-                               transition"
-                    >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="w-6 h-6"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            stroke-width="1.5"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M5 20h14M7 20V9h10v11M9 9V5h6v4M9 13h6M9 16h6"
-                            />
-                        </svg>
-                    </div>
-
-
-                    <h3
-                        class="mt-6
-                               text-2xl
-                               font-bold
-                               text-[#073B66]
-                               group-hover:text-[#E31E24]
-                               transition"
-                    >
-                        Concrete Testing
-                    </h3>
-
-
-                    <p
-                        class="mt-3
-                               text-sm
-                               text-gray-500
-                               leading-6
-                               max-w-sm"
-                    >
-                        Testing equipment for concrete strength,
-                        quality and material evaluation.
-                    </p>
-
-
-                    <span
-                        class="inline-flex
-                               mt-6
-                               text-sm
-                               font-semibold
-                               text-[#073B66]
-                               group-hover:text-[#E31E24]"
-                    >
-                        Explore →
-                    </span>
-
-                </div>
-
-            </a>
-
-
-            {{-- Aggregate --}}
-            <a
-                href="#products"
-                class="group relative
-                       min-h-[260px]
-                       border border-gray-200
-                       bg-white
-                       p-7
-                       overflow-hidden
-                       hover:border-[#073B66]
-                       hover:shadow-xl
-                       transition-all duration-500"
-            >
-
-                <div
-                    class="absolute
-                           right-0 top-0
-                           w-28 h-28
-                           bg-[#073B66]/[0.04]
-                           rounded-bl-full
-                           group-hover:bg-[#E31E24]/[0.08]
-                           transition"
-                ></div>
-
-
-                <div class="relative z-10">
-
-                    <span
-                        class="text-[#E31E24]
-                               text-xs font-bold
-                               tracking-widest"
-                    >
-                        04
-                    </span>
-
-
-                    <div
-                        class="mt-6
-                               w-12 h-12
-                               bg-[#F1F5F8]
-                               text-[#073B66]
-                               flex items-center justify-center
-                               group-hover:bg-[#073B66]
-                               group-hover:text-white
-                               transition"
-                    >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="w-6 h-6"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            stroke-width="1.5"
-                        >
-                            <circle cx="8" cy="9" r="2.5"/>
-                            <circle cx="16" cy="7" r="2"/>
-                            <circle cx="15" cy="16" r="3"/>
-                            <circle cx="7" cy="17" r="2"/>
-                        </svg>
-                    </div>
-
-
-                    <h3
-                        class="mt-6
-                               text-2xl
-                               font-bold
-                               text-[#073B66]
-                               group-hover:text-[#E31E24]
-                               transition"
-                    >
-                        Aggregate Testing
-                    </h3>
-
-
-                    <p
-                        class="mt-3
-                               text-sm
-                               text-gray-500
-                               leading-6
-                               max-w-sm"
-                    >
-                        Instruments for aggregate grading,
-                        quality and material characterization.
-                    </p>
-
-
-                    <span
-                        class="inline-flex
-                               mt-6
-                               text-sm
-                               font-semibold
-                               text-[#073B66]
-                               group-hover:text-[#E31E24]"
-                    >
-                        Explore →
-                    </span>
-
-                </div>
-
-            </a>
-
-
-            {{-- Bitumen --}}
-            <a
-                href="#products"
-                class="group relative
-                       min-h-[260px]
-                       border border-gray-200
-                       bg-white
-                       p-7
-                       overflow-hidden
-                       hover:border-[#073B66]
-                       hover:shadow-xl
-                       transition-all duration-500"
-            >
-
-                <div
-                    class="absolute
-                           right-0 top-0
-                           w-28 h-28
-                           bg-[#073B66]/[0.04]
-                           rounded-bl-full
-                           group-hover:bg-[#E31E24]/[0.08]
-                           transition"
-                ></div>
-
-
-                <div class="relative z-10">
-
-                    <span
-                        class="text-[#E31E24]
-                               text-xs font-bold
-                               tracking-widest"
-                    >
-                        05
-                    </span>
-
-
-                    <div
-                        class="mt-6
-                               w-12 h-12
-                               bg-[#F1F5F8]
-                               text-[#073B66]
-                               flex items-center justify-center
-                               group-hover:bg-[#073B66]
-                               group-hover:text-white
-                               transition"
-                    >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="w-6 h-6"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            stroke-width="1.5"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M12 3c3 4 6 7 6 11a6 6 0 11-12 0c0-4 3-7 6-11Z"
-                            />
-                        </svg>
-                    </div>
-
-
-                    <h3
-                        class="mt-6
-                               text-2xl
-                               font-bold
-                               text-[#073B66]
-                               group-hover:text-[#E31E24]
-                               transition"
-                    >
-                        Bitumen & Asphalt
-                    </h3>
-
-
-                    <p
-                        class="mt-3
-                               text-sm
-                               text-gray-500
-                               leading-6
-                               max-w-sm"
-                    >
-                        Testing solutions for bitumen and
-                        asphalt material performance.
-                    </p>
-
-
-                    <span
-                        class="inline-flex
-                               mt-6
-                               text-sm
-                               font-semibold
-                               text-[#073B66]
-                               group-hover:text-[#E31E24]"
-                    >
-                        Explore →
-                    </span>
-
-                </div>
-
-            </a>
-
-
-            {{-- Laboratory --}}
-            <a
-                href="#products"
-                class="group relative
-                       min-h-[260px]
-                       border border-gray-200
-                       bg-white
-                       p-7
-                       overflow-hidden
-                       hover:border-[#073B66]
-                       hover:shadow-xl
-                       transition-all duration-500"
-            >
-
-                <div
-                    class="absolute
-                           right-0 top-0
-                           w-28 h-28
-                           bg-[#073B66]/[0.04]
-                           rounded-bl-full
-                           group-hover:bg-[#E31E24]/[0.08]
-                           transition"
-                ></div>
-
-
-                <div class="relative z-10">
-
-                    <span
-                        class="text-[#E31E24]
-                               text-xs font-bold
-                               tracking-widest"
-                    >
-                        06
-                    </span>
-
-
-                    <div
-                        class="mt-6
-                               w-12 h-12
-                               bg-[#F1F5F8]
-                               text-[#073B66]
-                               flex items-center justify-center
-                               group-hover:bg-[#073B66]
-                               group-hover:text-white
-                               transition"
-                    >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="w-6 h-6"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            stroke-width="1.5"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M9 3h6M10 3v6l-4.5 8.5A2 2 0 007.2 21h9.6a2 2 0 001.7-3.5L14 9V3M8 16h8"
-                            />
-                        </svg>
-                    </div>
-
-
-                    <h3
-                        class="mt-6
-                               text-2xl
-                               font-bold
-                               text-[#073B66]
-                               group-hover:text-[#E31E24]
-                               transition"
-                    >
-                        Laboratory Equipment
-                    </h3>
-
-
-                    <p
-                        class="mt-3
-                               text-sm
-                               text-gray-500
-                               leading-6
-                               max-w-sm"
-                    >
-                        Professional laboratory instruments
-                        for testing, research and measurement.
-                    </p>
-
-
-                    <span
-                        class="inline-flex
-                               mt-6
-                               text-sm
-                               font-semibold
-                               text-[#073B66]
-                               group-hover:text-[#E31E24]"
-                    >
-                        Explore →
-                    </span>
-
-                </div>
-
-            </a>
-
-        </div>
-
-
-        {{-- Bottom CTA --}}
-        <div
-            class="mt-10
-                   flex flex-col sm:flex-row
-                   items-start sm:items-center
-                   justify-between
-                   gap-6
-                   bg-[#F4F6F8]
-                   border border-gray-200
-                   px-7 py-6"
-        >
-
-            <div>
-
-                <h3
-                    class="text-[#073B66]
-                           font-bold text-lg"
-                >
-                    Looking for a specific testing instrument?
-                </h3>
-
-                <p
-                    class="mt-1
-                           text-sm text-gray-500"
-                >
-                    Explore our complete range of products.
-                </p>
-
-            </div>
-
-
-            <a
-                href="#products"
-                class="shrink-0
-                       inline-flex
-                       items-center
-                       bg-[#E31E24]
-                       hover:bg-[#C8181D]
-                       text-white
-                       px-6 py-3
-                       text-sm
-                       font-semibold
-                       transition"
-            >
-                View Products
-
-                <span class="ml-3">
-                    →
-                </span>
-            </a>
-
-        </div>
-
-    </div>
-
-</section>
-
-{{-- =========================================================
-     FEATURED PRODUCTS - 4 PRODUCTS ONLY
-========================================================= --}}
-
-<section
-    id="products"
-    class="relative bg-[#F6F8FA] py-20 lg:py-28 overflow-hidden"
->
-
-    <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
-
-        {{-- Section Header --}}
-        <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-12">
-
-            <div class="max-w-3xl">
-
-                <div class="flex items-center gap-3 mb-5">
-
-                    <span class="w-10 h-[2px] bg-[#E31E24]"></span>
-
-                    <span
-                        class="text-[#E31E24]
-                               text-xs font-bold
-                               uppercase
-                               tracking-[0.22em]"
-                    >
-                        Featured Equipment
-                    </span>
-
-                </div>
-
-                <h2
-                    class="text-[#073B66]
-                           text-4xl sm:text-5xl
-                           lg:text-6xl
-                           font-bold
-                           leading-tight"
-                >
-                    Testing equipment
-                    <span class="text-[#E31E24]">
-                        you can rely on.
-                    </span>
-                </h2>
-
-                <p
-                    class="mt-5
-                           text-gray-600
-                           text-base lg:text-lg
-                           leading-8
-                           max-w-2xl"
-                >
-                    Explore a selection of our testing and
-                    measurement equipment for professional
-                    engineering and laboratory applications.
-                </p>
-
-            </div>
-
-
-            {{-- View All --}}
-            <a
-                href="{{ route('products') }}"
-                class="shrink-0
-                       inline-flex
-                       items-center
-                       text-[#073B66]
-                       font-semibold
-                       border-b-2
-                       border-[#073B66]
-                       pb-1
-                       hover:text-[#E31E24]
-                       hover:border-[#E31E24]
-                       transition"
-            >
-                View All Products
-                <span class="ml-3">→</span>
-            </a>
-
-        </div>
-
-
-        {{-- 4 Products --}}
-        <div
-            class="grid grid-cols-1
-                   sm:grid-cols-2
-                   lg:grid-cols-4
-                   gap-6"
-        >
-
-            {{-- PRODUCT 01 --}}
-            <article
-                class="group bg-white
-                       border border-gray-200
-                       hover:border-[#073B66]
-                       hover:shadow-xl
-                       transition-all duration-500"
+                       shadow-[0_3px_14px_rgba(7,59,102,0.06)]
+                       hover:border-[#073B66]/25
+                       hover:shadow-[0_12px_30px_rgba(7,59,102,0.12)]
+                       hover:-translate-y-1
+                       transition-all duration-300"
             >
 
                 {{-- Image --}}
                 <div
-                    class="relative
-                           h-[270px]
-                           bg-white
-                           overflow-hidden"
+                    class="h-[130px]
+                           sm:h-[140px]
+                           lg:h-[145px]
+                           flex items-center justify-center
+                           p-3
+                           bg-gradient-to-b from-white to-slate-50"
                 >
 
                     <img
-                        src="{{ asset('images/products/product-1.jpg') }}"
-                        alt="Testing Equipment"
-                        class="w-full h-full
-                               object-contain
-                               p-7
-                               group-hover:scale-105
-                               transition-transform duration-500"
+                        src="{{ asset('images/products/soil-testing.png') }}"
+                        alt="Soil Testing Equipment"
+                        class="max-h-full max-w-full object-contain
+                               transition-transform duration-500
+                               group-hover:scale-105"
                     >
-
-                    {{-- Product number --}}
-                    <span
-                        class="absolute
-                               top-4 left-4
-                               bg-[#073B66]
-                               text-white
-                               text-[10px]
-                               font-bold
-                               px-3 py-1.5
-                               tracking-widest"
-                    >
-                        01
-                    </span>
 
                 </div>
 
 
                 {{-- Content --}}
-                <div class="p-6 border-t border-gray-100">
-
-                    <p
-                        class="text-[#E31E24]
-                               text-[10px]
-                               font-bold
-                               uppercase
-                               tracking-widest"
-                    >
-                        Featured Equipment
-                    </p>
+                <div class="px-3 pb-3">
 
                     <h3
-                        class="mt-2
-                               text-xl
-                               font-bold
-                               text-[#073B66]
-                               group-hover:text-[#E31E24]
-                               transition"
+                        class="text-[11px]
+                               sm:text-[12px]
+                               font-extrabold
+                               leading-[1.25]
+                               uppercase
+                               text-[#073B66]"
                     >
-                        Product Name One
+                        SOIL
+                        <br>
+                        TESTING
                     </h3>
 
-                    <p
-                        class="mt-3
-                               text-sm
-                               text-gray-500
-                               leading-6"
-                    >
-                        Professional testing equipment
-                        designed for accurate measurement.
-                    </p>
-
-                    <a
-                        href="{{ route('products') }}"
-                        class="inline-flex
-                               mt-5
-                               text-sm
-                               font-semibold
-                               text-[#073B66]
-                               group-hover:text-[#E31E24]
-                               transition"
-                    >
-                        View Product
-                        <span class="ml-2">→</span>
-                    </a>
-
-                </div>
-
-            </article>
-
-
-            {{-- PRODUCT 02 --}}
-            <article
-                class="group bg-white
-                       border border-gray-200
-                       hover:border-[#073B66]
-                       hover:shadow-xl
-                       transition-all duration-500"
-            >
-
-                <div
-                    class="relative
-                           h-[270px]
-                           bg-white
-                           overflow-hidden"
-                >
-
-                    <img
-                        src="{{ asset('images/products/product-2.jpg') }}"
-                        alt="Engineering Testing Equipment"
-                        class="w-full h-full
-                               object-contain
-                               p-7
-                               group-hover:scale-105
-                               transition-transform duration-500"
-                    >
-
                     <span
-                        class="absolute
-                               top-4 left-4
-                               bg-[#073B66]
-                               text-white
-                               text-[10px]
-                               font-bold
-                               px-3 py-1.5
-                               tracking-widest"
+                        class="mt-4
+                               inline-flex
+                               items-center
+                               gap-1
+                               text-[9px]
+                               sm:text-[10px]
+                               font-semibold
+                               text-slate-600
+                               group-hover:text-[#E31E24]
+                               transition-colors"
                     >
-                        02
+                        View Products
+
+                        <span
+                            class="text-[#E31E24]
+                                   transition-transform
+                                   duration-300
+                                   group-hover:translate-x-1"
+                        >
+                            →
+                        </span>
                     </span>
 
                 </div>
 
-
-                <div class="p-6 border-t border-gray-100">
-
-                    <p
-                        class="text-[#E31E24]
-                               text-[10px]
-                               font-bold
-                               uppercase
-                               tracking-widest"
-                    >
-                        Featured Equipment
-                    </p>
-
-                    <h3
-                        class="mt-2
-                               text-xl
-                               font-bold
-                               text-[#073B66]
-                               group-hover:text-[#E31E24]
-                               transition"
-                    >
-                        Product Name Two
-                    </h3>
-
-                    <p
-                        class="mt-3
-                               text-sm
-                               text-gray-500
-                               leading-6"
-                    >
-                        Reliable equipment for demanding
-                        testing applications.
-                    </p>
-
-                    <a
-                        href="{{ route('products') }}"
-                        class="inline-flex
-                               mt-5
-                               text-sm
-                               font-semibold
-                               text-[#073B66]
-                               group-hover:text-[#E31E24]
-                               transition"
-                    >
-                        View Product
-                        <span class="ml-2">→</span>
-                    </a>
-
-                </div>
-
-            </article>
+            </a>
 
 
-            {{-- PRODUCT 03 --}}
-            <article
-                class="group bg-white
-                       border border-gray-200
-                       hover:border-[#073B66]
-                       hover:shadow-xl
-                       transition-all duration-500"
+            {{-- =================================================
+                 02 — CONCRETE TESTING
+            ================================================== --}}
+
+            <a
+                href="#"
+                class="group relative
+                       min-h-[225px]
+                       sm:min-h-[245px]
+                       lg:min-h-[255px]
+                       bg-white
+                       border border-slate-200
+                       rounded-[5px]
+                       overflow-hidden
+                       shadow-[0_3px_14px_rgba(7,59,102,0.06)]
+                       hover:border-[#073B66]/25
+                       hover:shadow-[0_12px_30px_rgba(7,59,102,0.12)]
+                       hover:-translate-y-1
+                       transition-all duration-300"
             >
 
                 <div
-                    class="relative
-                           h-[270px]
-                           bg-white
-                           overflow-hidden"
+                    class="h-[130px]
+                           sm:h-[140px]
+                           lg:h-[145px]
+                           flex items-center justify-center
+                           p-3
+                           bg-gradient-to-b from-white to-slate-50"
                 >
 
                     <img
-                        src="{{ asset('images/products/product-3.jpg') }}"
-                        alt="Laboratory Testing Equipment"
-                        class="w-full h-full
-                               object-contain
-                               p-7
-                               group-hover:scale-105
-                               transition-transform duration-500"
+                        src="{{ asset('images/products/concrete-testing.png') }}"
+                        alt="Concrete Testing Equipment"
+                        class="max-h-full max-w-full object-contain
+                               transition-transform duration-500
+                               group-hover:scale-105"
                     >
 
-                    <span
-                        class="absolute
-                               top-4 left-4
-                               bg-[#073B66]
-                               text-white
-                               text-[10px]
-                               font-bold
-                               px-3 py-1.5
-                               tracking-widest"
+                </div>
+
+                <div class="px-3 pb-3">
+
+                    <h3
+                        class="text-[11px] sm:text-[12px]
+                               font-extrabold
+                               leading-[1.25]
+                               uppercase
+                               text-[#073B66]"
                     >
-                        03
+                        CONCRETE
+                        <br>
+                        TESTING
+                    </h3>
+
+                    <span
+                        class="mt-4 inline-flex items-center gap-1
+                               text-[9px] sm:text-[10px]
+                               font-semibold text-slate-600
+                               group-hover:text-[#E31E24]"
+                    >
+                        View Products
+                        <span class="text-[#E31E24] group-hover:translate-x-1 transition-transform">
+                            →
+                        </span>
                     </span>
 
                 </div>
 
-
-                <div class="p-6 border-t border-gray-100">
-
-                    <p
-                        class="text-[#E31E24]
-                               text-[10px]
-                               font-bold
-                               uppercase
-                               tracking-widest"
-                    >
-                        Featured Equipment
-                    </p>
-
-                    <h3
-                        class="mt-2
-                               text-xl
-                               font-bold
-                               text-[#073B66]
-                               group-hover:text-[#E31E24]
-                               transition"
-                    >
-                        Product Name Three
-                    </h3>
-
-                    <p
-                        class="mt-3
-                               text-sm
-                               text-gray-500
-                               leading-6"
-                    >
-                        Precision-focused equipment for
-                        laboratory testing.
-                    </p>
-
-                    <a
-                        href="{{ route('products') }}"
-                        class="inline-flex
-                               mt-5
-                               text-sm
-                               font-semibold
-                               text-[#073B66]
-                               group-hover:text-[#E31E24]
-                               transition"
-                    >
-                        View Product
-                        <span class="ml-2">→</span>
-                    </a>
-
-                </div>
-
-            </article>
+            </a>
 
 
-            {{-- PRODUCT 04 --}}
-            <article
-                class="group bg-white
-                       border border-gray-200
-                       hover:border-[#073B66]
-                       hover:shadow-xl
-                       transition-all duration-500"
+            {{-- =================================================
+                 03 — CEMENT TESTING
+            ================================================== --}}
+
+            <a
+                href="#"
+                class="group relative
+                       min-h-[225px] sm:min-h-[245px] lg:min-h-[255px]
+                       bg-white border border-slate-200 rounded-[5px]
+                       overflow-hidden
+                       shadow-[0_3px_14px_rgba(7,59,102,0.06)]
+                       hover:border-[#073B66]/25
+                       hover:shadow-[0_12px_30px_rgba(7,59,102,0.12)]
+                       hover:-translate-y-1
+                       transition-all duration-300"
             >
 
                 <div
-                    class="relative
-                           h-[270px]
-                           bg-white
-                           overflow-hidden"
+                    class="h-[130px] sm:h-[140px] lg:h-[145px]
+                           flex items-center justify-center p-3
+                           bg-gradient-to-b from-white to-slate-50"
                 >
 
                     <img
-                        src="{{ asset('images/products/product-4.jpg') }}"
-                        alt="Scientific Testing Equipment"
-                        class="w-full h-full
-                               object-contain
-                               p-7
-                               group-hover:scale-105
-                               transition-transform duration-500"
+                        src="{{ asset('images/products/cement-testing.png') }}"
+                        alt="Cement Testing Equipment"
+                        class="max-h-full max-w-full object-contain
+                               transition-transform duration-500
+                               group-hover:scale-105"
                     >
 
-                    <span
-                        class="absolute
-                               top-4 left-4
-                               bg-[#073B66]
-                               text-white
-                               text-[10px]
-                               font-bold
-                               px-3 py-1.5
-                               tracking-widest"
+                </div>
+
+                <div class="px-3 pb-3">
+
+                    <h3
+                        class="text-[11px] sm:text-[12px]
+                               font-extrabold leading-[1.25]
+                               uppercase text-[#073B66]"
                     >
-                        04
+                        CEMENT
+                        <br>
+                        TESTING
+                    </h3>
+
+                    <span
+                        class="mt-4 inline-flex items-center gap-1
+                               text-[9px] sm:text-[10px]
+                               font-semibold text-slate-600
+                               group-hover:text-[#E31E24]"
+                    >
+                        View Products
+                        <span class="text-[#E31E24] group-hover:translate-x-1 transition-transform">
+                            →
+                        </span>
                     </span>
 
                 </div>
 
+            </a>
 
-                <div class="p-6 border-t border-gray-100">
 
-                    <p
-                        class="text-[#E31E24]
-                               text-[10px]
-                               font-bold
-                               uppercase
-                               tracking-widest"
+            {{-- =================================================
+                 04 — AGGREGATE TESTING
+            ================================================== --}}
+
+            <a
+                href="#"
+                class="group relative
+                       min-h-[225px] sm:min-h-[245px] lg:min-h-[255px]
+                       bg-white border border-slate-200 rounded-[5px]
+                       overflow-hidden
+                       shadow-[0_3px_14px_rgba(7,59,102,0.06)]
+                       hover:border-[#073B66]/25
+                       hover:shadow-[0_12px_30px_rgba(7,59,102,0.12)]
+                       hover:-translate-y-1
+                       transition-all duration-300"
+            >
+
+                <div
+                    class="h-[130px] sm:h-[140px] lg:h-[145px]
+                           flex items-center justify-center p-3
+                           bg-gradient-to-b from-white to-slate-50"
+                >
+
+                    <img
+                        src="{{ asset('images/products/aggregate-testing.png') }}"
+                        alt="Aggregate Testing Equipment"
+                        class="max-h-full max-w-full object-contain
+                               transition-transform duration-500
+                               group-hover:scale-105"
                     >
-                        Featured Equipment
-                    </p>
-
-                    <h3
-                        class="mt-2
-                               text-xl
-                               font-bold
-                               text-[#073B66]
-                               group-hover:text-[#E31E24]
-                               transition"
-                    >
-                        Product Name Four
-                    </h3>
-
-                    <p
-                        class="mt-3
-                               text-sm
-                               text-gray-500
-                               leading-6"
-                    >
-                        Engineering instruments built for
-                        dependable testing results.
-                    </p>
-
-                    <a
-                        href="{{ route('products') }}"
-                        class="inline-flex
-                               mt-5
-                               text-sm
-                               font-semibold
-                               text-[#073B66]
-                               group-hover:text-[#E31E24]
-                               transition"
-                    >
-                        View Product
-                        <span class="ml-2">→</span>
-                    </a>
 
                 </div>
 
-            </article>
+                <div class="px-3 pb-3">
+
+                    <h3
+                        class="text-[11px] sm:text-[12px]
+                               font-extrabold leading-[1.25]
+                               uppercase text-[#073B66]"
+                    >
+                        AGGREGATE
+                        <br>
+                        TESTING
+                    </h3>
+
+                    <span
+                        class="mt-4 inline-flex items-center gap-1
+                               text-[9px] sm:text-[10px]
+                               font-semibold text-slate-600
+                               group-hover:text-[#E31E24]"
+                    >
+                        View Products
+                        <span class="text-[#E31E24] group-hover:translate-x-1 transition-transform">
+                            →
+                        </span>
+                    </span>
+
+                </div>
+
+            </a>
+
+
+            {{-- =================================================
+                 05 — BITUMEN / ASPHALT
+            ================================================== --}}
+
+            <a
+                href="#"
+                class="group relative
+                       min-h-[225px] sm:min-h-[245px] lg:min-h-[255px]
+                       bg-white border border-slate-200 rounded-[5px]
+                       overflow-hidden
+                       shadow-[0_3px_14px_rgba(7,59,102,0.06)]
+                       hover:border-[#073B66]/25
+                       hover:shadow-[0_12px_30px_rgba(7,59,102,0.12)]
+                       hover:-translate-y-1
+                       transition-all duration-300"
+            >
+
+                <div
+                    class="h-[130px] sm:h-[140px] lg:h-[145px]
+                           flex items-center justify-center p-3
+                           bg-gradient-to-b from-white to-slate-50"
+                >
+
+                    <img
+                        src="{{ asset('images/products/bitumen-testing.png') }}"
+                        alt="Bitumen Asphalt Testing Equipment"
+                        class="max-h-full max-w-full object-contain
+                               transition-transform duration-500
+                               group-hover:scale-105"
+                    >
+
+                </div>
+
+                <div class="px-3 pb-3">
+
+                    <h3
+                        class="text-[10px] sm:text-[11px]
+                               font-extrabold leading-[1.25]
+                               uppercase text-[#073B66]"
+                    >
+                        BITUMEN /
+                        <br>
+                        ASPHALT TESTING
+                    </h3>
+
+                    <span
+                        class="mt-4 inline-flex items-center gap-1
+                               text-[9px] sm:text-[10px]
+                               font-semibold text-slate-600
+                               group-hover:text-[#E31E24]"
+                    >
+                        View Products
+                        <span class="text-[#E31E24] group-hover:translate-x-1 transition-transform">
+                            →
+                        </span>
+                    </span>
+
+                </div>
+
+            </a>
+
+
+            {{-- =================================================
+                 06 — ROCK TESTING
+            ================================================== --}}
+
+            <a
+                href="#"
+                class="group relative
+                       min-h-[225px] sm:min-h-[245px] lg:min-h-[255px]
+                       bg-white border border-slate-200 rounded-[5px]
+                       overflow-hidden
+                       shadow-[0_3px_14px_rgba(7,59,102,0.06)]
+                       hover:border-[#073B66]/25
+                       hover:shadow-[0_12px_30px_rgba(7,59,102,0.12)]
+                       hover:-translate-y-1
+                       transition-all duration-300"
+            >
+
+                <div
+                    class="h-[130px] sm:h-[140px] lg:h-[145px]
+                           flex items-center justify-center p-3
+                           bg-gradient-to-b from-white to-slate-50"
+                >
+
+                    <img
+                        src="{{ asset('images/products/rock-testing.png') }}"
+                        alt="Rock Testing Equipment"
+                        class="max-h-full max-w-full object-contain
+                               transition-transform duration-500
+                               group-hover:scale-105"
+                    >
+
+                </div>
+
+                <div class="px-3 pb-3">
+
+                    <h3
+                        class="text-[11px] sm:text-[12px]
+                               font-extrabold leading-[1.25]
+                               uppercase text-[#073B66]"
+                    >
+                        ROCK
+                        <br>
+                        TESTING
+                    </h3>
+
+                    <span
+                        class="mt-4 inline-flex items-center gap-1
+                               text-[9px] sm:text-[10px]
+                               font-semibold text-slate-600
+                               group-hover:text-[#E31E24]"
+                    >
+                        View Products
+                        <span class="text-[#E31E24] group-hover:translate-x-1 transition-transform">
+                            →
+                        </span>
+                    </span>
+
+                </div>
+
+            </a>
+
+
+            {{-- =================================================
+                 07 — MATERIAL TESTING
+            ================================================== --}}
+
+            <a
+                href="#"
+                class="group relative
+                       min-h-[225px] sm:min-h-[245px] lg:min-h-[255px]
+                       bg-white border border-slate-200 rounded-[5px]
+                       overflow-hidden
+                       shadow-[0_3px_14px_rgba(7,59,102,0.06)]
+                       hover:border-[#073B66]/25
+                       hover:shadow-[0_12px_30px_rgba(7,59,102,0.12)]
+                       hover:-translate-y-1
+                       transition-all duration-300"
+            >
+
+                <div
+                    class="h-[130px] sm:h-[140px] lg:h-[145px]
+                           flex items-center justify-center p-3
+                           bg-gradient-to-b from-white to-slate-50"
+                >
+
+                    <img
+                        src="{{ asset('images/products/material-testing.png') }}"
+                        alt="Material Testing Equipment"
+                        class="max-h-full max-w-full object-contain
+                               transition-transform duration-500
+                               group-hover:scale-105"
+                    >
+
+                </div>
+
+                <div class="px-3 pb-3">
+
+                    <h3
+                        class="text-[11px] sm:text-[12px]
+                               font-extrabold leading-[1.25]
+                               uppercase text-[#073B66]"
+                    >
+                        MATERIAL
+                        <br>
+                        TESTING
+                    </h3>
+
+                    <span
+                        class="mt-4 inline-flex items-center gap-1
+                               text-[9px] sm:text-[10px]
+                               font-semibold text-slate-600
+                               group-hover:text-[#E31E24]"
+                    >
+                        View Products
+                        <span class="text-[#E31E24] group-hover:translate-x-1 transition-transform">
+                            →
+                        </span>
+                    </span>
+
+                </div>
+
+            </a>
+
+
+            {{-- =================================================
+                 08 — SURVEY INSTRUMENTS
+            ================================================== --}}
+
+            <a
+                href="#"
+                class="group relative
+                       min-h-[225px] sm:min-h-[245px] lg:min-h-[255px]
+                       bg-white border border-slate-200 rounded-[5px]
+                       overflow-hidden
+                       shadow-[0_3px_14px_rgba(7,59,102,0.06)]
+                       hover:border-[#073B66]/25
+                       hover:shadow-[0_12px_30px_rgba(7,59,102,0.12)]
+                       hover:-translate-y-1
+                       transition-all duration-300"
+            >
+
+                <div
+                    class="h-[130px] sm:h-[140px] lg:h-[145px]
+                           flex items-center justify-center p-3
+                           bg-gradient-to-b from-white to-slate-50"
+                >
+
+                    <img
+                        src="{{ asset('images/products/survey-instruments.png') }}"
+                        alt="Survey Instruments"
+                        class="max-h-full max-w-full object-contain
+                               transition-transform duration-500
+                               group-hover:scale-105"
+                    >
+
+                </div>
+
+                <div class="px-3 pb-3">
+
+                    <h3
+                        class="text-[10px] sm:text-[11px]
+                               font-extrabold leading-[1.25]
+                               uppercase text-[#073B66]"
+                    >
+                        SURVEY
+                        <br>
+                        INSTRUMENTS
+                    </h3>
+
+                    <span
+                        class="mt-4 inline-flex items-center gap-1
+                               text-[9px] sm:text-[10px]
+                               font-semibold text-slate-600
+                               group-hover:text-[#E31E24]"
+                    >
+                        View Products
+                        <span class="text-[#E31E24] group-hover:translate-x-1 transition-transform">
+                            →
+                        </span>
+                    </span>
+
+                </div>
+
+            </a>
+
+
+            {{-- =================================================
+                 09 — LABORATORY EQUIPMENT
+            ================================================== --}}
+
+            <a
+                href="#"
+                class="group relative
+                       min-h-[225px] sm:min-h-[245px] lg:min-h-[255px]
+                       bg-white border border-slate-200 rounded-[5px]
+                       overflow-hidden
+                       shadow-[0_3px_14px_rgba(7,59,102,0.06)]
+                       hover:border-[#073B66]/25
+                       hover:shadow-[0_12px_30px_rgba(7,59,102,0.12)]
+                       hover:-translate-y-1
+                       transition-all duration-300"
+            >
+
+                <div
+                    class="h-[130px] sm:h-[140px] lg:h-[145px]
+                           flex items-center justify-center p-3
+                           bg-gradient-to-b from-white to-slate-50"
+                >
+
+                    <img
+                        src="{{ asset('images/products/laboratory-equipment.png') }}"
+                        alt="Laboratory Equipment"
+                        class="max-h-full max-w-full object-contain
+                               transition-transform duration-500
+                               group-hover:scale-105"
+                    >
+
+                </div>
+
+                <div class="px-3 pb-3">
+
+                    <h3
+                        class="text-[10px] sm:text-[11px]
+                               font-extrabold leading-[1.25]
+                               uppercase text-[#073B66]"
+                    >
+                        LABORATORY
+                        <br>
+                        EQUIPMENT
+                    </h3>
+
+                    <span
+                        class="mt-4 inline-flex items-center gap-1
+                               text-[9px] sm:text-[10px]
+                               font-semibold text-slate-600
+                               group-hover:text-[#E31E24]"
+                    >
+                        View Products
+                        <span class="text-[#E31E24] group-hover:translate-x-1 transition-transform">
+                            →
+                        </span>
+                    </span>
+
+                </div>
+
+            </a>
 
         </div>
 
 
-        {{-- Bottom CTA --}}
-        <div
-            class="mt-10
-                   flex flex-col md:flex-row
-                   items-start md:items-center
-                   justify-between
-                   gap-5
-                   bg-[#073B66]
-                   px-7 sm:px-9
-                   py-7"
-        >
+        {{-- =================================================
+             VIEW ALL PRODUCTS BUTTON
+        ================================================== --}}
 
-            <div>
-
-                <p
-                    class="text-white
-                           text-lg
-                           font-bold"
-                >
-                    Can't find the equipment you need?
-                </p>
-
-                <p
-                    class="mt-1
-                           text-blue-100/60
-                           text-sm"
-                >
-                    Contact our team for the right testing solution.
-                </p>
-
-            </div>
-
+        <div class="flex justify-center mt-8 sm:mt-10">
 
             <a
-                href="#contact"
-                class="shrink-0
+                href="#"
+                class="group
                        inline-flex
                        items-center
-                       bg-[#E31E24]
-                       hover:bg-[#C8181D]
+                       justify-center
+                       gap-3
+                       bg-[#073B66]
+                       hover:bg-[#E31E24]
                        text-white
-                       px-6 py-3
-                       text-sm
-                       font-semibold
-                       transition"
+                       min-w-[165px]
+                       sm:min-w-[185px]
+                       h-11
+                       px-6
+                       text-[10px]
+                       sm:text-[11px]
+                       font-bold
+                       tracking-wide
+                       shadow-lg
+                       shadow-[#073B66]/10
+                       transition-all
+                       duration-300"
             >
-                Request a Quote
-                <span class="ml-3">→</span>
+
+                <span>
+                    VIEW ALL PRODUCTS
+                </span>
+
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="2"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M5 12h14m-6-6 6 6-6 6"
+                    />
+                </svg>
+
             </a>
 
         </div>
@@ -1653,353 +1672,286 @@
 
 </section>
 
+
 {{-- =========================================================
-     APPLICATIONS / INDUSTRIES
+     LABORATORY SOLUTIONS + MANUFACTURING EXCELLENCE
 ========================================================= --}}
 
-<section
-    id="applications"
-    class="relative bg-white py-20 lg:py-28 overflow-hidden"
->
+<section class="bg-white">
 
-    <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    {{-- =====================================================
+         PART 1 — COMPLETE LAB SOLUTIONS
+    ====================================================== --}}
 
-        {{-- Header --}}
-        <div
-            class="grid lg:grid-cols-2 gap-8
-                   items-end mb-14"
-        >
+    <div class="bg-[#F4F7FA] py-10 lg:py-12">
 
-            <div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-                <div class="flex items-center gap-3 mb-5">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+
+                {{-- LEFT CONTENT --}}
+                <div class="lg:col-span-4">
 
                     <span
-                        class="w-10 h-[2px]
-                               bg-[#E31E24]"
-                    ></span>
-
-                    <span
-                        class="text-[#E31E24]
-                               text-xs font-bold
-                               uppercase
-                               tracking-[0.22em]"
+                        class="block text-[#E31E24]
+                               text-xs sm:text-sm
+                               font-bold uppercase
+                               tracking-wide mb-3"
                     >
-                        Applications
+                        Complete Lab Solutions
                     </span>
+
+                    <h2
+                        class="text-2xl sm:text-3xl lg:text-[32px]
+                               leading-tight
+                               font-bold
+                               text-[#073B66]
+                               uppercase"
+                    >
+                        From Individual Instruments
+                        <br class="hidden sm:block">
+                        to Complete Laboratory Setups
+                    </h2>
+
+                    <p
+                        class="mt-4
+                               text-sm
+                               leading-6
+                               text-gray-600
+                               max-w-md"
+                    >
+                        We provide complete scientific and engineering
+                        testing solutions including equipment supply,
+                        installation, calibration, training and
+                        after-sales support.
+                    </p>
+
+                    <a
+                        href="{{ route('home') }}#products"
+                        class="inline-flex items-center gap-3
+                               mt-5
+                               border border-[#073B66]
+                               text-[#073B66]
+                               px-5 py-2.5
+                               text-xs font-bold uppercase
+                               hover:bg-[#073B66]
+                               hover:text-white
+                               transition duration-300"
+                    >
+                        Explore Solutions
+
+                        <span class="text-base">→</span>
+                    </a>
 
                 </div>
 
-                <h2
-                    class="text-[#073B66]
-                           text-4xl sm:text-5xl
-                           lg:text-6xl
-                           font-bold
-                           leading-tight"
-                >
-                    Solutions across
-                    <span class="text-[#E31E24]">
-                        industries.
-                    </span>
-                </h2>
 
-            </div>
+                {{-- RIGHT CATEGORY CARDS --}}
+                <div class="lg:col-span-8">
 
+                    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5">
 
-            <p
-                class="text-gray-600
-                       text-base lg:text-lg
-                       leading-8
-                       max-w-xl
-                       lg:ml-auto"
-            >
-                From construction materials to laboratory
-                testing, our equipment supports professionals
-                across a wide range of engineering and
-                scientific applications.
-            </p>
+                        {{-- Soil --}}
+                        <a
+                            href="#products"
+                            class="group relative h-[145px] sm:h-[160px]
+                                   overflow-hidden rounded-md
+                                   shadow-sm"
+                        >
 
-        </div>
+                            <img
+                                src="{{ asset('images/soil-laboratory.jpg') }}"
+                                alt="Soil Laboratory"
+                                class="absolute inset-0
+                                       w-full h-full
+                                       object-cover
+                                       transition duration-500
+                                       group-hover:scale-110"
+                            >
 
+                            <div
+                                class="absolute inset-0
+                                       bg-gradient-to-t
+                                       from-[#073B66]
+                                       via-[#073B66]/40
+                                       to-transparent"
+                            ></div>
 
-        {{-- Application Grid --}}
-        <div
-            class="grid grid-cols-1
-                   md:grid-cols-2
-                   lg:grid-cols-4
-                   gap-5"
-        >
+                            <div class="absolute bottom-0 left-0 right-0 p-3">
 
-            {{-- Construction --}}
-            <div
-                class="group relative
-                       min-h-[330px]
-                       overflow-hidden
-                       bg-[#073B66]"
-            >
+                                <h3 class="text-white text-[11px] sm:text-xs font-bold uppercase">
+                                    Soil
+                                    <span class="block text-[#F2B84B]">
+                                        Laboratory
+                                    </span>
+                                </h3>
 
-                <img
-                    src="{{ asset('images/applications/construction.jpg') }}"
-                    alt="Construction Testing"
-                    class="absolute inset-0
-                           w-full h-full
-                           object-cover
-                           opacity-45
-                           group-hover:scale-105
-                           group-hover:opacity-55
-                           transition-all duration-700"
-                >
+                            </div>
 
-                <div
-                    class="absolute inset-0
-                           bg-gradient-to-t
-                           from-[#061B2D]
-                           via-[#073B66]/60
-                           to-transparent"
-                ></div>
+                        </a>
 
 
-                <div
-                    class="relative z-10
-                           h-full min-h-[330px]
-                           p-7
-                           flex flex-col
-                           justify-end"
-                >
+                        {{-- Concrete --}}
+                        <a
+                            href="#products"
+                            class="group relative h-[145px] sm:h-[160px]
+                                   overflow-hidden rounded-md
+                                   shadow-sm"
+                        >
 
-                    <span
-                        class="text-[#E31E24]
-                               text-xs font-bold
-                               tracking-widest"
-                    >
-                        01
-                    </span>
+                            <img
+                                src="{{ asset('images/concrete-laboratory.jpg') }}"
+                                alt="Concrete Laboratory"
+                                class="absolute inset-0
+                                       w-full h-full
+                                       object-cover
+                                       transition duration-500
+                                       group-hover:scale-110"
+                            >
 
-                    <h3
-                        class="mt-3
-                               text-white
-                               text-2xl
-                               font-bold"
-                    >
-                        Construction
-                    </h3>
+                            <div
+                                class="absolute inset-0
+                                       bg-gradient-to-t
+                                       from-[#073B66]
+                                       via-[#073B66]/40
+                                       to-transparent"
+                            ></div>
 
-                    <p
-                        class="mt-2
-                               text-white/65
-                               text-sm
-                               leading-6"
-                    >
-                        Testing solutions for construction
-                        materials and engineering projects.
-                    </p>
+                            <div class="absolute bottom-0 left-0 right-0 p-3">
 
-                </div>
+                                <h3 class="text-white text-[11px] sm:text-xs font-bold uppercase">
+                                    Concrete
+                                    <span class="block text-[#F2B84B]">
+                                        Laboratory
+                                    </span>
+                                </h3>
 
-            </div>
+                            </div>
 
-
-            {{-- Civil Engineering --}}
-            <div
-                class="group relative
-                       min-h-[330px]
-                       overflow-hidden
-                       bg-[#073B66]"
-            >
-
-                <img
-                    src="{{ asset('images/applications/civil-engineering.jpg') }}"
-                    alt="Civil Engineering Testing"
-                    class="absolute inset-0
-                           w-full h-full
-                           object-cover
-                           opacity-45
-                           group-hover:scale-105
-                           group-hover:opacity-55
-                           transition-all duration-700"
-                >
-
-                <div
-                    class="absolute inset-0
-                           bg-gradient-to-t
-                           from-[#061B2D]
-                           via-[#073B66]/60
-                           to-transparent"
-                ></div>
+                        </a>
 
 
-                <div
-                    class="relative z-10
-                           h-full min-h-[330px]
-                           p-7
-                           flex flex-col
-                           justify-end"
-                >
+                        {{-- Cement --}}
+                        <a
+                            href="#products"
+                            class="group relative h-[145px] sm:h-[160px]
+                                   overflow-hidden rounded-md
+                                   shadow-sm"
+                        >
 
-                    <span
-                        class="text-[#E31E24]
-                               text-xs font-bold
-                               tracking-widest"
-                    >
-                        02
-                    </span>
+                            <img
+                                src="{{ asset('images/cement-laboratory.jpg') }}"
+                                alt="Cement Laboratory"
+                                class="absolute inset-0
+                                       w-full h-full
+                                       object-cover
+                                       transition duration-500
+                                       group-hover:scale-110"
+                            >
 
-                    <h3
-                        class="mt-3
-                               text-white
-                               text-2xl
-                               font-bold"
-                    >
-                        Civil Engineering
-                    </h3>
+                            <div
+                                class="absolute inset-0
+                                       bg-gradient-to-t
+                                       from-[#073B66]
+                                       via-[#073B66]/40
+                                       to-transparent"
+                            ></div>
 
-                    <p
-                        class="mt-2
-                               text-white/65
-                               text-sm
-                               leading-6"
-                    >
-                        Equipment for material testing,
-                        evaluation and quality control.
-                    </p>
+                            <div class="absolute bottom-0 left-0 right-0 p-3">
 
-                </div>
+                                <h3 class="text-white text-[11px] sm:text-xs font-bold uppercase">
+                                    Cement
+                                    <span class="block text-[#F2B84B]">
+                                        Laboratory
+                                    </span>
+                                </h3>
 
-            </div>
+                            </div>
 
-
-            {{-- Research & Laboratory --}}
-            <div
-                class="group relative
-                       min-h-[330px]
-                       overflow-hidden
-                       bg-[#073B66]"
-            >
-
-                <img
-                    src="{{ asset('images/applications/laboratory.jpg') }}"
-                    alt="Laboratory Testing"
-                    class="absolute inset-0
-                           w-full h-full
-                           object-cover
-                           opacity-45
-                           group-hover:scale-105
-                           group-hover:opacity-55
-                           transition-all duration-700"
-                >
-
-                <div
-                    class="absolute inset-0
-                           bg-gradient-to-t
-                           from-[#061B2D]
-                           via-[#073B66]/60
-                           to-transparent"
-                ></div>
+                        </a>
 
 
-                <div
-                    class="relative z-10
-                           h-full min-h-[330px]
-                           p-7
-                           flex flex-col
-                           justify-end"
-                >
+                        {{-- Bitumen --}}
+                        <a
+                            href="#products"
+                            class="group relative h-[145px] sm:h-[160px]
+                                   overflow-hidden rounded-md
+                                   shadow-sm"
+                        >
 
-                    <span
-                        class="text-[#E31E24]
-                               text-xs font-bold
-                               tracking-widest"
-                    >
-                        03
-                    </span>
+                            <img
+                                src="{{ asset('images/bitumen-laboratory.jpg') }}"
+                                alt="Bitumen Laboratory"
+                                class="absolute inset-0
+                                       w-full h-full
+                                       object-cover
+                                       transition duration-500
+                                       group-hover:scale-110"
+                            >
 
-                    <h3
-                        class="mt-3
-                               text-white
-                               text-2xl
-                               font-bold"
-                    >
-                        Laboratories
-                    </h3>
+                            <div
+                                class="absolute inset-0
+                                       bg-gradient-to-t
+                                       from-[#073B66]
+                                       via-[#073B66]/40
+                                       to-transparent"
+                            ></div>
 
-                    <p
-                        class="mt-2
-                               text-white/65
-                               text-sm
-                               leading-6"
-                    >
-                        Precision instruments for laboratory,
-                        research and quality testing.
-                    </p>
+                            <div class="absolute bottom-0 left-0 right-0 p-3">
 
-                </div>
+                                <h3 class="text-white text-[11px] sm:text-xs font-bold uppercase">
+                                    Bitumen / Asphalt
+                                    <span class="block text-[#F2B84B]">
+                                        Laboratory
+                                    </span>
+                                </h3>
 
-            </div>
+                            </div>
 
-
-            {{-- Industrial --}}
-            <div
-                class="group relative
-                       min-h-[330px]
-                       overflow-hidden
-                       bg-[#073B66]"
-            >
-
-                <img
-                    src="{{ asset('images/applications/industrial.jpg') }}"
-                    alt="Industrial Testing"
-                    class="absolute inset-0
-                           w-full h-full
-                           object-cover
-                           opacity-45
-                           group-hover:scale-105
-                           group-hover:opacity-55
-                           transition-all duration-700"
-                >
-
-                <div
-                    class="absolute inset-0
-                           bg-gradient-to-t
-                           from-[#061B2D]
-                           via-[#073B66]/60
-                           to-transparent"
-                ></div>
+                        </a>
 
 
-                <div
-                    class="relative z-10
-                           h-full min-h-[330px]
-                           p-7
-                           flex flex-col
-                           justify-end"
-                >
+                        {{-- Material Testing --}}
+                        <a
+                            href="#products"
+                            class="group relative h-[145px] sm:h-[160px]
+                                   overflow-hidden rounded-md
+                                   shadow-sm
+                                   col-span-2 sm:col-span-1"
+                        >
 
-                    <span
-                        class="text-[#E31E24]
-                               text-xs font-bold
-                               tracking-widest"
-                    >
-                        04
-                    </span>
+                            <img
+                                src="{{ asset('images/material-testing.jpg') }}"
+                                alt="Material Testing Laboratory"
+                                class="absolute inset-0
+                                       w-full h-full
+                                       object-cover
+                                       transition duration-500
+                                       group-hover:scale-110"
+                            >
 
-                    <h3
-                        class="mt-3
-                               text-white
-                               text-2xl
-                               font-bold"
-                    >
-                        Industrial
-                    </h3>
+                            <div
+                                class="absolute inset-0
+                                       bg-gradient-to-t
+                                       from-[#073B66]
+                                       via-[#073B66]/40
+                                       to-transparent"
+                            ></div>
 
-                    <p
-                        class="mt-2
-                               text-white/65
-                               text-sm
-                               leading-6"
-                    >
-                        Reliable testing and measurement
-                        solutions for industrial applications.
-                    </p>
+                            <div class="absolute bottom-0 left-0 right-0 p-3">
+
+                                <h3 class="text-white text-[11px] sm:text-xs font-bold uppercase">
+                                    Material Testing
+                                    <span class="block text-[#F2B84B]">
+                                        Laboratory
+                                    </span>
+                                </h3>
+
+                            </div>
+
+                        </a>
+
+                    </div>
 
                 </div>
 
@@ -2007,34 +1959,160 @@
 
         </div>
 
+    </div>
 
-        {{-- Bottom Statement --}}
-        <div
-            class="mt-10
-                   border-l-4
-                   border-[#E31E24]
-                   bg-[#F6F8FA]
-                   px-6 sm:px-8
-                   py-6"
-        >
 
-            <p
-                class="text-[#073B66]
-                       text-lg
-                       font-semibold"
-            >
-                One partner for your testing and measurement needs.
-            </p>
+    {{-- =====================================================
+         PART 2 — MANUFACTURING EXCELLENCE
+    ====================================================== --}}
 
-            <p
-                class="mt-2
-                       text-gray-500
-                       text-sm
-                       leading-6"
-            >
-                Speak with our team to find the right equipment
-                for your specific application.
-            </p>
+    <div class="py-12 lg:py-14">
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+
+                {{-- IMAGE COLLAGE --}}
+                <div class="lg:col-span-6">
+
+                    <div class="grid grid-cols-2 gap-2.5">
+
+                        {{-- Image 1 --}}
+                        <div class="h-[150px] sm:h-[190px] overflow-hidden rounded-md">
+                            <img
+                                src="{{ asset('images/manufacturing-1.jpg') }}"
+                                alt="ASEW Manufacturing"
+                                class="w-full h-full object-cover
+                                       hover:scale-105
+                                       transition duration-500"
+                            >
+                        </div>
+
+                        {{-- Image 2 --}}
+                        <div class="h-[150px] sm:h-[190px] overflow-hidden rounded-md">
+                            <img
+                                src="{{ asset('images/manufacturing-2.jpg') }}"
+                                alt="Testing Equipment Manufacturing"
+                                class="w-full h-full object-cover
+                                       hover:scale-105
+                                       transition duration-500"
+                            >
+                        </div>
+
+                        {{-- Image 3 --}}
+                        <div class="h-[150px] sm:h-[190px] overflow-hidden rounded-md">
+                            <img
+                                src="{{ asset('images/manufacturing-3.jpg') }}"
+                                alt="Engineering Manufacturing"
+                                class="w-full h-full object-cover
+                                       hover:scale-105
+                                       transition duration-500"
+                            >
+                        </div>
+
+                        {{-- Image 4 --}}
+                        <div class="h-[150px] sm:h-[190px] overflow-hidden rounded-md">
+                            <img
+                                src="{{ asset('images/manufacturing-4.jpg') }}"
+                                alt="Scientific Equipment"
+                                class="w-full h-full object-cover
+                                       hover:scale-105
+                                       transition duration-500"
+                            >
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                {{-- RIGHT CONTENT --}}
+                <div class="lg:col-span-6">
+
+                    <span
+                        class="block text-[#E31E24]
+                               text-xs sm:text-sm
+                               font-bold uppercase
+                               tracking-wide mb-3"
+                    >
+                        Manufacturing Excellence
+                    </span>
+
+
+                    <h2
+                        class="text-2xl sm:text-3xl
+                               lg:text-[32px]
+                               leading-tight
+                               font-bold
+                               text-[#073B66]
+                               uppercase"
+                    >
+                        Engineered With Precision.
+                        <br>
+                        Built For Performance.
+                    </h2>
+
+
+                    <p
+                        class="mt-4
+                               text-sm
+                               leading-6
+                               text-gray-600
+                               max-w-xl"
+                    >
+                        Associated Scientific & Engineering combines
+                        advanced manufacturing technology with skilled
+                        engineering to deliver reliable, accurate and
+                        durable testing equipment.
+                    </p>
+
+
+                    {{-- Features --}}
+                    <div class="mt-5 space-y-2.5">
+
+                        <div class="flex items-start gap-2 text-sm text-gray-700">
+                            <span class="text-[#E31E24] font-bold">●</span>
+                            <span>State-of-the-art manufacturing quality</span>
+                        </div>
+
+                        <div class="flex items-start gap-2 text-sm text-gray-700">
+                            <span class="text-[#E31E24] font-bold">●</span>
+                            <span>Precision engineering & rigorous quality control</span>
+                        </div>
+
+                        <div class="flex items-start gap-2 text-sm text-gray-700">
+                            <span class="text-[#E31E24] font-bold">●</span>
+                            <span>Modern machinery & technology</span>
+                        </div>
+
+                        <div class="flex items-start gap-2 text-sm text-gray-700">
+                            <span class="text-[#E31E24] font-bold">●</span>
+                            <span>Experienced & skilled workforce</span>
+                        </div>
+
+                    </div>
+
+
+                    {{-- CTA --}}
+                    <a
+                        href="{{ route('home') }}#contact"
+                        class="inline-flex items-center gap-3
+                               mt-6
+                               bg-[#073B66]
+                               hover:bg-[#E31E24]
+                               text-white
+                               px-5 py-3
+                               text-xs font-bold uppercase
+                               transition duration-300"
+                    >
+                        Our Manufacturing
+
+                        <span class="text-base">→</span>
+                    </a>
+
+                </div>
+
+            </div>
 
         </div>
 
@@ -2042,1561 +2120,1083 @@
 
 </section>
 
+
 {{-- =========================================================
-     WHY CHOOSE ASEW
+     TRUSTED WORLDWIDE / COMPANY STATS
+========================================================= --}}
+
+<section
+    class="relative overflow-hidden bg-[#062653] text-white"
+>
+
+    {{-- Subtle background pattern --}}
+    <div
+        class="absolute inset-0 opacity-[0.08]"
+        style="
+            background-image:
+                radial-gradient(circle at 1px 1px, #ffffff 1px, transparent 1px);
+            background-size: 22px 22px;
+        "
+    ></div>
+
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        {{-- =================================================
+             HEADING
+        ================================================== --}}
+
+        <div class="text-center pt-7 pb-5">
+
+            <p
+                class="text-[#E31E24]
+                       text-[11px] sm:text-xs
+                       font-bold
+                       uppercase
+                       tracking-wider
+                       mb-1"
+            >
+                Trusted Worldwide
+            </p>
+
+            <h2
+                class="text-white
+                       text-sm sm:text-base
+                       md:text-lg
+                       font-semibold"
+            >
+                Delivering Quality Testing Solutions Across The Globe
+            </h2>
+
+        </div>
+
+
+        {{-- =================================================
+             STATISTICS
+        ================================================== --}}
+
+        <div
+            class="grid grid-cols-2
+                   md:grid-cols-5
+                   pb-7"
+        >
+
+
+            {{-- =================================================
+                 50+ YEARS
+            ================================================== --}}
+
+            <div
+                class="group flex items-center
+                       justify-center
+                       gap-3
+                       px-3 py-4
+                       border-r border-white/15
+                       md:border-r"
+            >
+
+                <div
+                    class="shrink-0
+                           w-11 h-11
+                           sm:w-12 sm:h-12
+                           rounded-full
+                           border border-[#D9A441]
+                           flex items-center justify-center"
+                >
+
+                    <svg
+                        class="w-6 h-6 text-[#D9A441]"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                    >
+                        <circle cx="12" cy="12" r="9"/>
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M12 7v5l3 2"
+                        />
+                    </svg>
+
+                </div>
+
+                <div>
+                    <div
+                        class="text-[#D9A441]
+                               text-xl sm:text-2xl
+                               font-bold leading-none"
+                    >
+                        50+
+                    </div>
+
+                    <div
+                        class="text-gray-200
+                               text-[10px] sm:text-xs
+                               leading-4 mt-1"
+                    >
+                        Years of<br>
+                        Experience
+                    </div>
+                </div>
+
+            </div>
+
+
+            {{-- =================================================
+                 5000+ PRODUCTS
+            ================================================== --}}
+
+            <div
+                class="group flex items-center
+                       justify-center
+                       gap-3
+                       px-3 py-4
+                       md:border-r border-white/15"
+            >
+
+                <div
+                    class="shrink-0
+                           w-11 h-11
+                           sm:w-12 sm:h-12
+                           rounded-full
+                           border border-[#D9A441]
+                           flex items-center justify-center"
+                >
+
+                    <svg
+                        class="w-6 h-6 text-[#D9A441]"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M3 7.5 12 3l9 4.5-9 4.5-9-4.5Z"
+                        />
+
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M3 12.5 12 17l9-4.5"
+                        />
+
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M3 17 12 21l9-4"
+                        />
+                    </svg>
+
+                </div>
+
+                <div>
+                    <div
+                        class="text-[#D9A441]
+                               text-xl sm:text-2xl
+                               font-bold leading-none"
+                    >
+                        5000+
+                    </div>
+
+                    <div
+                        class="text-gray-200
+                               text-[10px] sm:text-xs
+                               leading-4 mt-1"
+                    >
+                        Products<br>
+                        Supplied
+                    </div>
+                </div>
+
+            </div>
+
+
+            {{-- =================================================
+                 100+ COUNTRIES
+            ================================================== --}}
+
+            <div
+                class="group flex items-center
+                       justify-center
+                       gap-3
+                       px-3 py-4
+                       border-r border-white/15"
+            >
+
+                <div
+                    class="shrink-0
+                           w-11 h-11
+                           sm:w-12 sm:h-12
+                           rounded-full
+                           border border-[#D9A441]
+                           flex items-center justify-center"
+                >
+
+                    <svg
+                        class="w-6 h-6 text-[#D9A441]"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                    >
+                        <circle cx="12" cy="12" r="9"/>
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M3 12h18"
+                        />
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M12 3c2.5 2.5 3.5 5.5 3.5 9s-1 6.5-3.5 9c-2.5-2.5-3.5-5.5-3.5-9S9.5 5.5 12 3Z"
+                        />
+                    </svg>
+
+                </div>
+
+                <div>
+                    <div
+                        class="text-[#D9A441]
+                               text-xl sm:text-2xl
+                               font-bold leading-none"
+                    >
+                        100+
+                    </div>
+
+                    <div
+                        class="text-gray-200
+                               text-[10px] sm:text-xs
+                               leading-4 mt-1"
+                    >
+                        Countries<br>
+                        Served
+                    </div>
+                </div>
+
+            </div>
+
+
+            {{-- =================================================
+                 10000+ LABORATORIES
+            ================================================== --}}
+
+            <div
+                class="group flex items-center
+                       justify-center
+                       gap-3
+                       px-3 py-4
+                       md:border-r border-white/15"
+            >
+
+                <div
+                    class="shrink-0
+                           w-11 h-11
+                           sm:w-12 sm:h-12
+                           rounded-full
+                           border border-[#D9A441]
+                           flex items-center justify-center"
+                >
+
+                    <svg
+                        class="w-6 h-6 text-[#D9A441]"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M9 3h6"
+                        />
+
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M10 3v6.5L5 18a2 2 0 0 0 1.8 3h10.4A2 2 0 0 0 19 18l-5-8.5V3"
+                        />
+
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M7.5 16h9"
+                        />
+                    </svg>
+
+                </div>
+
+                <div>
+                    <div
+                        class="text-[#D9A441]
+                               text-xl sm:text-2xl
+                               font-bold leading-none"
+                    >
+                        10000+
+                    </div>
+
+                    <div
+                        class="text-gray-200
+                               text-[10px] sm:text-xs
+                               leading-4 mt-1"
+                    >
+                        Laboratories<br>
+                        Equipped
+                    </div>
+                </div>
+
+            </div>
+
+
+            {{-- =================================================
+                 24/7 SUPPORT
+            ================================================== --}}
+
+            <div
+                class="group col-span-2
+                       md:col-span-1
+                       flex items-center
+                       justify-center
+                       gap-3
+                       px-3 py-4"
+            >
+
+                <div
+                    class="shrink-0
+                           w-11 h-11
+                           sm:w-12 sm:h-12
+                           rounded-full
+                           border border-[#D9A441]
+                           flex items-center justify-center"
+                >
+
+                    <svg
+                        class="w-6 h-6 text-[#D9A441]"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                    >
+                        <circle cx="12" cy="12" r="9"/>
+
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M12 7v5l3 2"
+                        />
+
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M5 5l-1.5-1.5M19 5l1.5-1.5"
+                        />
+                    </svg>
+
+                </div>
+
+                <div>
+                    <div
+                        class="text-[#D9A441]
+                               text-xl sm:text-2xl
+                               font-bold leading-none"
+                    >
+                        24/7
+                    </div>
+
+                    <div
+                        class="text-gray-200
+                               text-[10px] sm:text-xs
+                               leading-4 mt-1"
+                    >
+                        Support &<br>
+                        Service
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+{{-- =========================================================
+     WHY ASEW SECTION
 ========================================================= --}}
 
 <section
     id="why-asew"
-    class="relative bg-[#073B66] py-20 lg:py-28 overflow-hidden"
+    class="relative bg-white py-12 sm:py-14 lg:py-16"
 >
 
-    {{-- Decorative background --}}
-    <div
-        class="absolute right-0 top-0
-               w-[420px] h-[420px]
-               border border-white/[0.06]
-               rounded-full
-               translate-x-1/3 -translate-y-1/3"
-    ></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-    <div
-        class="absolute right-20 top-20
-               w-[260px] h-[260px]
-               border border-white/[0.05]
-               rounded-full"
-    ></div>
+        {{-- =================================================
+             SECTION HEADING
+        ================================================== --}}
 
-
-    <div class="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
-
-        {{-- Header --}}
-        <div class="max-w-3xl mb-14">
-
-            <div class="flex items-center gap-3 mb-5">
-
-                <span
-                    class="w-10 h-[2px] bg-[#E31E24]"
-                ></span>
-
-                <span
-                    class="text-[#E31E24]
-                           text-xs font-bold
-                           uppercase
-                           tracking-[0.22em]"
-                >
-                    Why ASEW
-                </span>
-
-            </div>
-
-            <h2
-                class="text-white
-                       text-4xl sm:text-5xl lg:text-6xl
-                       font-bold
-                       leading-tight"
-            >
-                Built around
-                <span class="text-[#E31E24]">
-                    precision.
-                </span>
-                <br>
-                Trusted for performance.
-            </h2>
+        <div class="text-center mb-8 sm:mb-10">
 
             <p
-                class="mt-5
-                       text-blue-100/65
-                       text-base lg:text-lg
-                       leading-8
-                       max-w-2xl"
+                class="text-[#E31E24]
+                       text-[11px] sm:text-xs
+                       font-bold
+                       uppercase
+                       tracking-wide
+                       mb-2"
             >
-                We combine testing expertise, dependable
-                equipment and application-focused support to
-                help professionals make confident decisions.
+                Why ASEW
             </p>
 
-        </div>
-
-
-        {{-- Trust Metrics --}}
-        <div
-            class="grid grid-cols-2
-                   lg:grid-cols-4
-                   border-y border-white/10"
-        >
-
-            <div
-                class="px-5 sm:px-8
-                       py-8 sm:py-10
-                       border-r border-white/10"
+            <h2
+                class="text-[#062653]
+                       text-2xl sm:text-3xl lg:text-[32px]
+                       font-bold
+                       uppercase
+                       leading-tight"
             >
-
-                <span
-                    class="block
-                           text-4xl sm:text-5xl
-                           font-bold
-                           text-white"
-                >
-                    01
-                </span>
-
-                <p
-                    class="mt-3
-                           text-[#E31E24]
-                           text-xs
-                           font-bold
-                           uppercase
-                           tracking-widest"
-                >
-                    Expertise
-                </p>
-
-                <p
-                    class="mt-2
-                           text-sm
-                           text-blue-100/50
-                           leading-6"
-                >
-                    Application-focused
-                    testing solutions.
-                </p>
-
-            </div>
-
-
-            <div
-                class="px-5 sm:px-8
-                       py-8 sm:py-10
-                       lg:border-r
-                       border-white/10"
-            >
-
-                <span
-                    class="block
-                           text-4xl sm:text-5xl
-                           font-bold
-                           text-white"
-                >
-                    02
-                </span>
-
-                <p
-                    class="mt-3
-                           text-[#E31E24]
-                           text-xs
-                           font-bold
-                           uppercase
-                           tracking-widest"
-                >
-                    Reliability
-                </p>
-
-                <p
-                    class="mt-2
-                           text-sm
-                           text-blue-100/50
-                           leading-6"
-                >
-                    Equipment selected for
-                    dependable performance.
-                </p>
-
-            </div>
-
-
-            <div
-                class="px-5 sm:px-8
-                       py-8 sm:py-10
-                       border-r border-white/10"
-            >
-
-                <span
-                    class="block
-                           text-4xl sm:text-5xl
-                           font-bold
-                           text-white"
-                >
-                    03
-                </span>
-
-                <p
-                    class="mt-3
-                           text-[#E31E24]
-                           text-xs
-                           font-bold
-                           uppercase
-                           tracking-widest"
-                >
-                    Applications
-                </p>
-
-                <p
-                    class="mt-2
-                           text-sm
-                           text-blue-100/50
-                           leading-6"
-                >
-                    Solutions across engineering
-                    and laboratory environments.
-                </p>
-
-            </div>
-
-
-            <div
-                class="px-5 sm:px-8
-                       py-8 sm:py-10"
-            >
-
-                <span
-                    class="block
-                           text-4xl sm:text-5xl
-                           font-bold
-                           text-white"
-                >
-                    04
-                </span>
-
-                <p
-                    class="mt-3
-                           text-[#E31E24]
-                           text-xs
-                           font-bold
-                           uppercase
-                           tracking-widest"
-                >
-                    Support
-                </p>
-
-                <p
-                    class="mt-2
-                           text-sm
-                           text-blue-100/50
-                           leading-6"
-                >
-                    Assistance from product selection
-                    to enquiry.
-                </p>
-
-            </div>
+                The Reasons Industries Choose ASEW
+            </h2>
 
         </div>
 
 
-        {{-- Capabilities --}}
+        {{-- =================================================
+             REASONS CARDS
+        ================================================== --}}
+
         <div
-            class="grid lg:grid-cols-2
-                   gap-12 lg:gap-20
-                   mt-16
-                   items-center"
+            class="grid
+                   grid-cols-1
+                   sm:grid-cols-2
+                   lg:grid-cols-3
+                   xl:grid-cols-6
+                   gap-4"
         >
 
-            <div>
+
+            {{-- =================================================
+                 CARD 1
+            ================================================== --}}
+
+            <div
+                class="group
+                       bg-white
+                       border border-gray-200
+                       rounded-lg
+                       p-5
+                       text-center
+                       shadow-sm
+                       hover:shadow-lg
+                       hover:-translate-y-1
+                       transition-all duration-300"
+            >
+
+                <div
+                    class="mx-auto mb-4
+                           w-12 h-12
+                           flex items-center justify-center
+                           text-[#062653]
+                           border border-[#062653]/20
+                           rounded-full
+                           group-hover:bg-[#062653]
+                           group-hover:text-white
+                           transition duration-300"
+                >
+
+                    <svg
+                        class="w-6 h-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="1.6"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M4 19h16M6 17V7l6-4 6 4v10"
+                        />
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M9 12h6M9 15h6"
+                        />
+                    </svg>
+
+                </div>
 
                 <h3
-                    class="text-2xl sm:text-3xl
+                    class="text-[#111827]
                            font-bold
-                           text-white"
+                           text-sm
+                           leading-5
+                           min-h-[40px]"
                 >
-                    More than equipment.
-                    <span class="text-[#E31E24]">
-                        A testing partner.
-                    </span>
+                    50+ Years<br>
+                    of Expertise
                 </h3>
 
                 <p
-                    class="mt-5
-                           text-blue-100/60
-                           leading-7"
+                    class="mt-3
+                           text-gray-600
+                           text-[11px]
+                           leading-5"
                 >
-                    The right testing equipment depends on
-                    the material, application and required
-                    testing method. Our approach starts with
-                    understanding that requirement.
+                    Decades of experience in
+                    manufacturing testing
+                    instruments and
+                    laboratory solutions.
                 </p>
 
+            </div>
+
+
+            {{-- =================================================
+                 CARD 2
+            ================================================== --}}
+
+            <div
+                class="group
+                       bg-white
+                       border border-gray-200
+                       rounded-lg
+                       p-5
+                       text-center
+                       shadow-sm
+                       hover:shadow-lg
+                       hover:-translate-y-1
+                       transition-all duration-300"
+            >
+
+                <div
+                    class="mx-auto mb-4
+                           w-12 h-12
+                           flex items-center justify-center
+                           text-[#062653]
+                           border border-[#062653]/20
+                           rounded-full
+                           group-hover:bg-[#062653]
+                           group-hover:text-white
+                           transition duration-300"
+                >
+
+                    <svg
+                        class="w-6 h-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="1.6"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M12 3a5 5 0 0 0-5 5v2a5 5 0 0 0 10 0V8a5 5 0 0 0-5-5Z"
+                        />
+
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M4 21a8 8 0 0 1 16 0"
+                        />
+
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M8 9h.01M16 9h.01"
+                        />
+                    </svg>
+
+                </div>
+
+                <h3
+                    class="text-[#111827]
+                           font-bold
+                           text-sm
+                           leading-5
+                           min-h-[40px]"
+                >
+                    Complete<br>
+                    Lab Solutions
+                </h3>
+
+                <p
+                    class="mt-3
+                           text-gray-600
+                           text-[11px]
+                           leading-5"
+                >
+                    From single instruments
+                    to turnkey laboratory
+                    setup and training.
+                </p>
+
+            </div>
+
+
+            {{-- =================================================
+                 CARD 3
+            ================================================== --}}
+
+            <div
+                class="group
+                       bg-white
+                       border border-gray-200
+                       rounded-lg
+                       p-5
+                       text-center
+                       shadow-sm
+                       hover:shadow-lg
+                       hover:-translate-y-1
+                       transition-all duration-300"
+            >
+
+                <div
+                    class="mx-auto mb-4
+                           w-12 h-12
+                           flex items-center justify-center
+                           text-[#062653]
+                           border border-[#062653]/20
+                           rounded-full
+                           group-hover:bg-[#062653]
+                           group-hover:text-white
+                           transition duration-300"
+                >
+
+                    <svg
+                        class="w-6 h-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="1.6"
+                    >
+                        <circle cx="12" cy="12" r="9"/>
+
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M3 12h18"
+                        />
+
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M12 3c2.5 2.5 3.5 5.5 3.5 9s-1 6.5-3.5 9c-2.5-2.5-3.5-5.5-3.5-9S9.5 5.5 12 3Z"
+                        />
+                    </svg>
+
+                </div>
+
+                <h3
+                    class="text-[#111827]
+                           font-bold
+                           text-sm
+                           leading-5
+                           min-h-[40px]"
+                >
+                    Standards<br>
+                    Compliance
+                </h3>
+
+                <p
+                    class="mt-3
+                           text-gray-600
+                           text-[11px]
+                           leading-5"
+                >
+                    Products conform to
+                    IS, ASTM, BS, EN &
+                    other international
+                    standards.
+                </p>
+
+            </div>
+
+
+            {{-- =================================================
+                 CARD 4
+            ================================================== --}}
+
+            <div
+                class="group
+                       bg-white
+                       border border-gray-200
+                       rounded-lg
+                       p-5
+                       text-center
+                       shadow-sm
+                       hover:shadow-lg
+                       hover:-translate-y-1
+                       transition-all duration-300"
+            >
+
+                <div
+                    class="mx-auto mb-4
+                           w-12 h-12
+                           flex items-center justify-center
+                           text-[#062653]
+                           border border-[#062653]/20
+                           rounded-full
+                           group-hover:bg-[#062653]
+                           group-hover:text-white
+                           transition duration-300"
+                >
+
+                    <svg
+                        class="w-6 h-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="1.6"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M7 3h10v18H7z"
+                        />
+
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M10 7h4M10 11h4"
+                        />
+
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M5 6h2M17 6h2"
+                        />
+                    </svg>
+
+                </div>
+
+                <h3
+                    class="text-[#111827]
+                           font-bold
+                           text-sm
+                           leading-5
+                           min-h-[40px]"
+                >
+                    Installation &<br>
+                    Calibration
+                </h3>
+
+                <p
+                    class="mt-3
+                           text-gray-600
+                           text-[11px]
+                           leading-5"
+                >
+                    Professional installation,
+                    calibration and
+                    after-sales support.
+                </p>
+
+            </div>
+
+
+            {{-- =================================================
+                 CARD 5
+            ================================================== --}}
+
+            <div
+                class="group
+                       bg-white
+                       border border-gray-200
+                       rounded-lg
+                       p-5
+                       text-center
+                       shadow-sm
+                       hover:shadow-lg
+                       hover:-translate-y-1
+                       transition-all duration-300"
+            >
+
+                <div
+                    class="mx-auto mb-4
+                           w-12 h-12
+                           flex items-center justify-center
+                           text-[#062653]
+                           border border-[#062653]/20
+                           rounded-full
+                           group-hover:bg-[#062653]
+                           group-hover:text-white
+                           transition duration-300"
+                >
+
+                    <svg
+                        class="w-6 h-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="1.6"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M12 3l2.2 2.2 3.1-.3.8 3 2.5 1.8-1.5 2.7 1.5 2.7-2.5 1.8-.8 3-3.1-.3L12 21l-2.2-2.2-3.1.3-.8-3-2.5-1.8 1.5-2.7-1.5-2.7L5.9 7.9l.8-3 3.1.3L12 3Z"
+                        />
+
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="m9 12 2 2 4-4"
+                        />
+                    </svg>
+
+                </div>
+
+                <h3
+                    class="text-[#111827]
+                           font-bold
+                           text-sm
+                           leading-5
+                           min-h-[40px]"
+                >
+                    Quality<br>
+                    Assurance
+                </h3>
+
+                <p
+                    class="mt-3
+                           text-gray-600
+                           text-[11px]
+                           leading-5"
+                >
+                    Every product is tested
+                    for precision, accuracy
+                    and long life.
+                </p>
+
+            </div>
+
+
+            {{-- =================================================
+                 CARD 6
+            ================================================== --}}
+
+            <div
+                class="group
+                       bg-white
+                       border border-gray-200
+                       rounded-lg
+                       p-5
+                       text-center
+                       shadow-sm
+                       hover:shadow-lg
+                       hover:-translate-y-1
+                       transition-all duration-300"
+            >
+
+                <div
+                    class="mx-auto mb-4
+                           w-12 h-12
+                           flex items-center justify-center
+                           text-[#062653]
+                           border border-[#062653]/20
+                           rounded-full
+                           group-hover:bg-[#062653]
+                           group-hover:text-white
+                           transition duration-300"
+                >
+
+                    <svg
+                        class="w-6 h-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="1.6"
+                    >
+                        <circle cx="12" cy="12" r="9"/>
+
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M3 12h18M12 3c2 2.5 3 5.5 3 9s-1 6.5-3 9c-2-3.5-3-6.5-3-9s1-6.5 3-9Z"
+                        />
+
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M5 7h14M5 17h14"
+                        />
+                    </svg>
+
+                </div>
+
+                <h3
+                    class="text-[#111827]
+                           font-bold
+                           text-sm
+                           leading-5
+                           min-h-[40px]"
+                >
+                    Global<br>
+                    Presence
+                </h3>
+
+                <p
+                    class="mt-3
+                           text-gray-600
+                           text-[11px]
+                           leading-5"
+                >
+                    Serving customers
+                    worldwide with trust
+                    and reliability.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        {{-- =================================================
+             CTA BANNER
+        ================================================== --}}
+
+        <div
+            class="mt-6
+                   relative
+                   overflow-hidden
+                   rounded-lg
+                   bg-[#062653]
+                   border border-[#12396c]
+                   px-5 sm:px-8
+                   py-5 sm:py-6"
+        >
+
+            {{-- Background dots --}}
+            <div
+                class="absolute inset-0 opacity-[0.08]"
+                style="
+                    background-image:
+                        radial-gradient(circle at 1px 1px, #ffffff 1px, transparent 1px);
+                    background-size: 18px 18px;
+                "
+            ></div>
+
+
+            <div
+                class="relative
+                       flex flex-col
+                       sm:flex-row
+                       items-center
+                       justify-between
+                       gap-5"
+            >
+
+                {{-- Left --}}
+                <div
+                    class="flex items-center
+                           gap-4
+                           text-center sm:text-left"
+                >
+
+                    <div
+                        class="hidden sm:flex
+                               shrink-0
+                               w-11 h-11
+                               rounded-full
+                               border border-white/30
+                               items-center justify-center"
+                    >
+
+                        <svg
+                            class="w-6 h-6 text-white"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            stroke-width="1.5"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M4 4h16v12H4z"
+                            />
+
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M8 20h8M12 16v4"
+                            />
+                        </svg>
+
+                    </div>
+
+
+                    <div>
+
+                        <h3
+                            class="text-white
+                                   font-bold
+                                   text-base sm:text-lg
+                                   uppercase"
+                        >
+                            Looking for the Right Testing Solution?
+                        </h3>
+
+                        <p
+                            class="text-gray-300
+                                   text-xs sm:text-sm
+                                   mt-1"
+                        >
+                            Our experts are ready to help you choose
+                            the right equipment for your needs.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                {{-- Button --}}
                 <a
-                    href="#contact"
-                    class="inline-flex
+                    href="{{ route('home') }}#contact"
+                    class="shrink-0
+                           inline-flex
                            items-center
-                           mt-8
+                           justify-center
+                           gap-2
                            bg-[#E31E24]
                            hover:bg-[#C8181D]
                            text-white
-                           px-6 py-3.5
-                           text-sm
-                           font-semibold
-                           transition"
+                           px-6 py-3
+                           rounded-sm
+                           text-xs
+                           font-bold
+                           uppercase
+                           transition duration-300
+                           shadow-md"
                 >
-                    Discuss Your Requirement
+                    Request a Quote
 
-                    <span class="ml-3">→</span>
+                    <svg
+                        class="w-4 h-4"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M5 12h14M13 6l6 6-6 6"
+                        />
+                    </svg>
+
                 </a>
 
             </div>
 
-
-            {{-- Capability List --}}
-            <div class="space-y-4">
-
-                <div
-                    class="flex items-center
-                           gap-5
-                           bg-white/[0.06]
-                           border border-white/10
-                           px-5 py-5
-                           hover:bg-white/[0.1]
-                           transition"
-                >
-
-                    <span
-                        class="shrink-0
-                               w-10 h-10
-                               bg-[#E31E24]
-                               text-white
-                               flex items-center
-                               justify-center
-                               font-bold"
-                    >
-                        01
-                    </span>
-
-                    <div>
-
-                        <h4
-                            class="font-bold text-white"
-                        >
-                            Testing & Measurement
-                        </h4>
-
-                        <p
-                            class="mt-1
-                                   text-sm
-                                   text-blue-100/50"
-                        >
-                            Equipment for professional
-                            testing requirements.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div
-                    class="flex items-center
-                           gap-5
-                           bg-white/[0.06]
-                           border border-white/10
-                           px-5 py-5
-                           hover:bg-white/[0.1]
-                           transition"
-                >
-
-                    <span
-                        class="shrink-0
-                               w-10 h-10
-                               bg-[#E31E24]
-                               text-white
-                               flex items-center
-                               justify-center
-                               font-bold"
-                    >
-                        02
-                    </span>
-
-                    <div>
-
-                        <h4
-                            class="font-bold text-white"
-                        >
-                            Engineering Applications
-                        </h4>
-
-                        <p
-                            class="mt-1
-                                   text-sm
-                                   text-blue-100/50"
-                        >
-                            Solutions for construction,
-                            civil and industrial applications.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div
-                    class="flex items-center
-                           gap-5
-                           bg-white/[0.06]
-                           border border-white/10
-                           px-5 py-5
-                           hover:bg-white/[0.1]
-                           transition"
-                >
-
-                    <span
-                        class="shrink-0
-                               w-10 h-10
-                               bg-[#E31E24]
-                               text-white
-                               flex items-center
-                               justify-center
-                               font-bold"
-                    >
-                        03
-                    </span>
-
-                    <div>
-
-                        <h4
-                            class="font-bold text-white"
-                        >
-                            Professional Support
-                        </h4>
-
-                        <p
-                            class="mt-1
-                                   text-sm
-                                   text-blue-100/50"
-                        >
-                            Helping customers identify
-                            suitable testing solutions.
-                        </p>
-
-                    </div>
-
-                </div>
-
-            </div>
-
         </div>
 
     </div>
 
 </section>
-
-{{-- =========================================================
-     ABOUT ASEW
-========================================================= --}}
-
-<section
-    id="about"
-    class="relative bg-[#F6F8FA] py-20 lg:py-28 overflow-hidden"
->
-
-    <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
-
-        <div
-            class="grid lg:grid-cols-2
-                   gap-12 lg:gap-20
-                   items-center"
-        >
-
-            {{-- LEFT: IMAGE --}}
-            <div class="relative">
-
-                <div
-                    class="relative
-                           h-[430px] sm:h-[520px]
-                           overflow-hidden
-                           bg-[#073B66]"
-                >
-
-                    <img
-                        src="{{ asset('images/about-asew.jpg') }}"
-                        alt="Associated Scientific & Engineering"
-                        class="w-full h-full
-                               object-cover
-                               hover:scale-105
-                               transition-transform
-                               duration-700"
-                    >
-
-                    {{-- Image Overlay --}}
-                    <div
-                        class="absolute inset-0
-                               bg-gradient-to-t
-                               from-[#061B2D]/75
-                               via-transparent
-                               to-transparent"
-                    ></div>
-
-
-                    {{-- Image caption --}}
-                    <div
-                        class="absolute
-                               left-6 bottom-6
-                               right-6"
-                    >
-
-                        <p
-                            class="text-white/60
-                                   text-[10px]
-                                   uppercase
-                                   tracking-[0.2em]"
-                        >
-                            Associated Scientific & Engineering
-                        </p>
-
-                        <p
-                            class="mt-2
-                                   text-white
-                                   text-xl
-                                   font-bold"
-                        >
-                            Testing & Measurement Solutions
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                {{-- Decorative block --}}
-                <div
-                    class="absolute
-                           -left-4 -top-4
-                           w-20 h-20
-                           border-2
-                           border-[#E31E24]"
-                ></div>
-
-
-                {{-- Floating card --}}
-                <div
-                    class="absolute
-                           -bottom-7
-                           right-5 sm:-right-7
-                           bg-[#E31E24]
-                           text-white
-                           px-6 py-5
-                           shadow-xl"
-                >
-
-                    <p
-                        class="text-2xl
-                               font-bold"
-                    >
-                        ASEW
-                    </p>
-
-                    <p
-                        class="mt-1
-                               text-xs
-                               uppercase
-                               tracking-widest
-                               text-white/70"
-                    >
-                        Engineering Solutions
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            {{-- RIGHT: CONTENT --}}
-            <div>
-
-                {{-- Eyebrow --}}
-                <div
-                    class="flex items-center gap-3 mb-5"
-                >
-
-                    <span
-                        class="w-10 h-[2px]
-                               bg-[#E31E24]"
-                    ></span>
-
-                    <span
-                        class="text-[#E31E24]
-                               text-xs font-bold
-                               uppercase
-                               tracking-[0.22em]"
-                    >
-                        About ASEW
-                    </span>
-
-                </div>
-
-
-                {{-- Heading --}}
-                <h2
-                    class="text-[#073B66]
-                           text-4xl sm:text-5xl
-                           lg:text-6xl
-                           font-bold
-                           leading-tight"
-                >
-                    Engineering
-                    <span class="text-[#E31E24]">
-                        confidence
-                    </span>
-                    through testing.
-                </h2>
-
-
-                {{-- Main paragraph --}}
-                <p
-                    class="mt-7
-                           text-gray-600
-                           text-base lg:text-lg
-                           leading-8"
-                >
-                    Associated Scientific & Engineering provides
-                    testing and measurement equipment for
-                    scientific, engineering and industrial
-                    applications.
-                </p>
-
-
-                <p
-                    class="mt-5
-                           text-gray-500
-                           leading-7"
-                >
-                    Our solutions are designed to help
-                    laboratories, engineers and industry
-                    professionals evaluate materials, verify
-                    performance and make reliable decisions
-                    based on accurate testing.
-                </p>
-
-
-                {{-- Capability points --}}
-                <div
-                    class="mt-8
-                           grid sm:grid-cols-2
-                           gap-x-8 gap-y-5"
-                >
-
-                    <div class="flex gap-3">
-
-                        <span
-                            class="shrink-0
-                                   w-7 h-7
-                                   bg-[#073B66]
-                                   text-white
-                                   flex items-center
-                                   justify-center
-                                   text-xs
-                                   font-bold"
-                        >
-                            ✓
-                        </span>
-
-                        <div>
-
-                            <h3
-                                class="font-bold
-                                       text-[#073B66]"
-                            >
-                                Testing Equipment
-                            </h3>
-
-                            <p
-                                class="mt-1
-                                       text-sm
-                                       text-gray-500"
-                            >
-                                Professional instruments
-                                for testing applications.
-                            </p>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="flex gap-3">
-
-                        <span
-                            class="shrink-0
-                                   w-7 h-7
-                                   bg-[#073B66]
-                                   text-white
-                                   flex items-center
-                                   justify-center
-                                   text-xs
-                                   font-bold"
-                        >
-                            ✓
-                        </span>
-
-                        <div>
-
-                            <h3
-                                class="font-bold
-                                       text-[#073B66]"
-                            >
-                                Engineering Solutions
-                            </h3>
-
-                            <p
-                                class="mt-1
-                                       text-sm
-                                       text-gray-500"
-                            >
-                                Solutions for demanding
-                                engineering environments.
-                            </p>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="flex gap-3">
-
-                        <span
-                            class="shrink-0
-                                   w-7 h-7
-                                   bg-[#073B66]
-                                   text-white
-                                   flex items-center
-                                   justify-center
-                                   text-xs
-                                   font-bold"
-                        >
-                            ✓
-                        </span>
-
-                        <div>
-
-                            <h3
-                                class="font-bold
-                                       text-[#073B66]"
-                            >
-                                Laboratory Applications
-                            </h3>
-
-                            <p
-                                class="mt-1
-                                       text-sm
-                                       text-gray-500"
-                            >
-                                Equipment for professional
-                                laboratory testing.
-                            </p>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="flex gap-3">
-
-                        <span
-                            class="shrink-0
-                                   w-7 h-7
-                                   bg-[#073B66]
-                                   text-white
-                                   flex items-center
-                                   justify-center
-                                   text-xs
-                                   font-bold"
-                        >
-                            ✓
-                        </span>
-
-                        <div>
-
-                            <h3
-                                class="font-bold
-                                       text-[#073B66]"
-                            >
-                                Application Support
-                            </h3>
-
-                            <p
-                                class="mt-1
-                                       text-sm
-                                       text-gray-500"
-                            >
-                                Helping identify suitable
-                                testing solutions.
-                            </p>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                {{-- CTA --}}
-                <div
-                    class="mt-9
-                           flex flex-col sm:flex-row
-                           gap-4"
-                >
-
-                    <a
-                        href="#contact"
-                        class="inline-flex
-                               items-center
-                               justify-center
-                               bg-[#073B66]
-                               hover:bg-[#E31E24]
-                               text-white
-                               px-7 py-3.5
-                               font-semibold
-                               transition"
-                    >
-                        Talk to Our Team
-
-                        <span class="ml-3">→</span>
-                    </a>
-
-
-                    <a
-                        href="{{ route('products') }}"
-                        class="inline-flex
-                               items-center
-                               justify-center
-                               border border-gray-300
-                               text-[#073B66]
-                               hover:border-[#E31E24]
-                               hover:text-[#E31E24]
-                               px-7 py-3.5
-                               font-semibold
-                               transition"
-                    >
-                        Explore Products
-                    </a>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-{{-- =========================================================
-     INSIDE ASEW / CLIENT VIDEO
-========================================================= --}}
-
-<section
-    id="company-video"
-    class="relative bg-[#061B2D] py-20 lg:py-24 overflow-hidden"
->
-
-    <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
-
-        {{-- Header --}}
-        <div
-            class="flex flex-col lg:flex-row
-                   lg:items-end
-                   lg:justify-between
-                   gap-6 mb-10"
-        >
-
-            <div>
-
-                <div class="flex items-center gap-3 mb-5">
-
-                    <span
-                        class="w-10 h-[2px]
-                               bg-[#E31E24]"
-                    ></span>
-
-                    <span
-                        class="text-[#E31E24]
-                               text-xs font-bold
-                               uppercase
-                               tracking-[0.22em]"
-                    >
-                        Inside ASEW
-                    </span>
-
-                </div>
-
-                <h2
-                    class="text-white
-                           text-4xl sm:text-5xl
-                           lg:text-6xl
-                           font-bold
-                           leading-tight"
-                >
-                    See our world of
-                    <span class="text-[#E31E24]">
-                        testing.
-                    </span>
-                </h2>
-
-            </div>
-
-
-            <p
-                class="max-w-xl
-                       text-blue-100/60
-                       leading-7"
-            >
-                Take a closer look at our equipment,
-                engineering environment and approach to
-                testing and measurement.
-            </p>
-
-        </div>
-
-
-        {{-- Video --}}
-        <div
-            class="relative
-                   w-full
-                   aspect-video
-                   lg:aspect-[21/9]
-                   overflow-hidden
-                   bg-black
-                   border border-white/10"
-        >
-
-            <video
-                class="absolute inset-0
-                       w-full h-full
-                       object-cover"
-                autoplay
-                muted
-                loop
-                playsinline
-                preload="metadata"
-            >
-
-                <source
-                    src="{{ asset('videos/asew-company-intro.mp4') }}"
-                    type="video/mp4"
-                >
-
-                Your browser does not support the video tag.
-
-            </video>
-
-
-            {{-- Overlay --}}
-            <div
-                class="absolute inset-0
-                       bg-gradient-to-r
-                       from-[#061B2D]/60
-                       via-transparent
-                       to-transparent
-                       pointer-events-none"
-            ></div>
-
-
-            {{-- Video Label --}}
-            <div
-                class="absolute
-                       left-5 sm:left-8
-                       bottom-5 sm:bottom-8
-                       pointer-events-none"
-            >
-
-                <div
-                    class="flex items-center gap-3"
-                >
-
-                    <span
-                        class="w-9 h-9
-                               rounded-full
-                               bg-[#E31E24]
-                               text-white
-                               flex items-center
-                               justify-center
-                               text-xs"
-                    >
-                        ▶
-                    </span>
-
-                    <span
-                        class="text-white
-                               text-sm
-                               font-semibold
-                               tracking-wide"
-                    >
-                        Associated Scientific & Engineering
-                    </span>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-        {{-- Bottom Information --}}
-        <div
-            class="grid grid-cols-1
-                   md:grid-cols-3
-                   gap-px
-                   bg-white/10
-                   mt-8"
-        >
-
-            <div
-                class="bg-[#061B2D]
-                       p-6"
-            >
-
-                <p
-                    class="text-[#E31E24]
-                           text-xs
-                           font-bold
-                           uppercase
-                           tracking-widest"
-                >
-                    Testing
-                </p>
-
-                <p
-                    class="mt-2
-                           text-white/60
-                           text-sm
-                           leading-6"
-                >
-                    Equipment designed for
-                    professional testing requirements.
-                </p>
-
-            </div>
-
-
-            <div
-                class="bg-[#061B2D]
-                       p-6"
-            >
-
-                <p
-                    class="text-[#E31E24]
-                           text-xs
-                           font-bold
-                           uppercase
-                           tracking-widest"
-                >
-                    Engineering
-                </p>
-
-                <p
-                    class="mt-2
-                           text-white/60
-                           text-sm
-                           leading-6"
-                >
-                    Supporting engineering and
-                    industrial applications.
-                </p>
-
-            </div>
-
-
-            <div
-                class="bg-[#061B2D]
-                       p-6"
-            >
-
-                <p
-                    class="text-[#E31E24]
-                           text-xs
-                           font-bold
-                           uppercase
-                           tracking-widest"
-                >
-                    Precision
-                </p>
-
-                <p
-                    class="mt-2
-                           text-white/60
-                           text-sm
-                           leading-6"
-                >
-                    Reliable measurement for
-                    confident testing decisions.
-                </p>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-{{-- =========================================================
-     REQUEST A QUOTE / CONTACT
-========================================================= --}}
-
-<section
-    id="contact"
-    class="relative bg-[#F6F8FA] py-20 lg:py-28 overflow-hidden"
->
-
-    <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
-
-        <div
-            class="grid lg:grid-cols-2
-                   gap-12 lg:gap-20
-                   items-start"
-        >
-
-            {{-- LEFT CONTENT --}}
-            <div>
-
-                <div class="flex items-center gap-3 mb-5">
-
-                    <span
-                        class="w-10 h-[2px]
-                               bg-[#E31E24]"
-                    ></span>
-
-                    <span
-                        class="text-[#E31E24]
-                               text-xs font-bold
-                               uppercase
-                               tracking-[0.22em]"
-                    >
-                        Get In Touch
-                    </span>
-
-                </div>
-
-
-                <h2
-                    class="text-[#073B66]
-                           text-4xl sm:text-5xl
-                           lg:text-6xl
-                           font-bold
-                           leading-tight"
-                >
-                    Need the right
-                    <span class="text-[#E31E24]">
-                        testing solution?
-                    </span>
-                </h2>
-
-
-                <p
-                    class="mt-6
-                           text-gray-600
-                           text-base lg:text-lg
-                           leading-8
-                           max-w-xl"
-                >
-                    Tell us what you need to test, measure or
-                    evaluate. Our team can help you identify
-                    the right equipment for your application.
-                </p>
-
-
-                {{-- Contact Details --}}
-                <div class="mt-10 space-y-5">
-
-                    {{-- Phone --}}
-                    <a
-                        href="tel:+919999999999"
-                        class="flex items-start gap-4
-                               group"
-                    >
-
-                        <span
-                            class="w-12 h-12
-                                   shrink-0
-                                   bg-[#073B66]
-                                   text-white
-                                   flex items-center
-                                   justify-center
-                                   group-hover:bg-[#E31E24]
-                                   transition"
-                        >
-                            ☎
-                        </span>
-
-                        <div>
-
-                            <p
-                                class="text-xs
-                                       text-gray-400
-                                       uppercase
-                                       tracking-widest
-                                       font-semibold"
-                            >
-                                Call Us
-                            </p>
-
-                            <p
-                                class="mt-1
-                                       text-[#073B66]
-                                       font-semibold"
-                            >
-                                +91 99999 99999
-                            </p>
-
-                        </div>
-
-                    </a>
-
-
-                    {{-- Email --}}
-                    <a
-                        href="mailto:info@asew.in"
-                        class="flex items-start gap-4
-                               group"
-                    >
-
-                        <span
-                            class="w-12 h-12
-                                   shrink-0
-                                   bg-[#073B66]
-                                   text-white
-                                   flex items-center
-                                   justify-center
-                                   group-hover:bg-[#E31E24]
-                                   transition"
-                        >
-                            ✉
-                        </span>
-
-                        <div>
-
-                            <p
-                                class="text-xs
-                                       text-gray-400
-                                       uppercase
-                                       tracking-widest
-                                       font-semibold"
-                            >
-                                Email Us
-                            </p>
-
-                            <p
-                                class="mt-1
-                                       text-[#073B66]
-                                       font-semibold"
-                            >
-                                info@asew.in
-                            </p>
-
-                        </div>
-
-                    </a>
-
-
-                    {{-- Timing --}}
-                    <div
-                        class="flex items-start gap-4"
-                    >
-
-                        <span
-                            class="w-12 h-12
-                                   shrink-0
-                                   bg-[#073B66]
-                                   text-white
-                                   flex items-center
-                                   justify-center"
-                        >
-                            ◷
-                        </span>
-
-                        <div>
-
-                            <p
-                                class="text-xs
-                                       text-gray-400
-                                       uppercase
-                                       tracking-widest
-                                       font-semibold"
-                            >
-                                Business Hours
-                            </p>
-
-                            <p
-                                class="mt-1
-                                       text-[#073B66]
-                                       font-semibold"
-                            >
-                                Monday – Saturday
-                            </p>
-
-                            <p
-                                class="text-sm
-                                       text-gray-500"
-                            >
-                                9:00 AM – 6:00 PM
-                            </p>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            {{-- RIGHT: QUOTE FORM --}}
-            <div
-                class="bg-white
-                       border border-gray-200
-                       shadow-xl
-                       p-6 sm:p-8 lg:p-10"
-            >
-
-                <div class="mb-7">
-
-                    <p
-                        class="text-[#E31E24]
-                               text-xs
-                               font-bold
-                               uppercase
-                               tracking-[0.18em]"
-                    >
-                        Request a Quote
-                    </p>
-
-                    <h3
-                        class="mt-2
-                               text-2xl sm:text-3xl
-                               font-bold
-                               text-[#073B66]"
-                    >
-                        Tell us about your requirement
-                    </h3>
-
-                </div>
-
-
-                <form
-                    action="#"
-                    method="POST"
-                    class="space-y-5"
-                >
-
-                    @csrf
-
-                    {{-- Name --}}
-                    <div>
-
-                        <label
-                            for="name"
-                            class="block
-                                   text-sm
-                                   font-semibold
-                                   text-gray-700
-                                   mb-2"
-                        >
-                            Full Name
-                        </label>
-
-                        <input
-                            type="text"
-                            id="name"
-                            name="name"
-                            placeholder="Enter your name"
-                            required
-                            class="w-full
-                                   border border-gray-200
-                                   px-4 py-3
-                                   text-sm
-                                   text-gray-800
-                                   outline-none
-                                   focus:border-[#073B66]
-                                   focus:ring-1
-                                   focus:ring-[#073B66]
-                                   transition"
-                        >
-
-                    </div>
-
-
-                    {{-- Email + Phone --}}
-                    <div
-                        class="grid sm:grid-cols-2
-                               gap-5"
-                    >
-
-                        <div>
-
-                            <label
-                                for="email"
-                                class="block
-                                       text-sm
-                                       font-semibold
-                                       text-gray-700
-                                       mb-2"
-                            >
-                                Email Address
-                            </label>
-
-                            <input
-                                type="email"
-                                id="email"
-                                name="email"
-                                placeholder="you@example.com"
-                                required
-                                class="w-full
-                                       border border-gray-200
-                                       px-4 py-3
-                                       text-sm
-                                       text-gray-800
-                                       outline-none
-                                       focus:border-[#073B66]
-                                       focus:ring-1
-                                       focus:ring-[#073B66]
-                                       transition"
-                            >
-
-                        </div>
-
-
-                        <div>
-
-                            <label
-                                for="phone"
-                                class="block
-                                       text-sm
-                                       font-semibold
-                                       text-gray-700
-                                       mb-2"
-                            >
-                                Phone Number
-                            </label>
-
-                            <input
-                                type="tel"
-                                id="phone"
-                                name="phone"
-                                placeholder="+91"
-                                class="w-full
-                                       border border-gray-200
-                                       px-4 py-3
-                                       text-sm
-                                       text-gray-800
-                                       outline-none
-                                       focus:border-[#073B66]
-                                       focus:ring-1
-                                       focus:ring-[#073B66]
-                                       transition"
-                            >
-
-                        </div>
-
-                    </div>
-
-
-                    {{-- Company --}}
-                    <div>
-
-                        <label
-                            for="company"
-                            class="block
-                                   text-sm
-                                   font-semibold
-                                   text-gray-700
-                                   mb-2"
-                        >
-                            Company / Organisation
-                        </label>
-
-                        <input
-                            type="text"
-                            id="company"
-                            name="company"
-                            placeholder="Company name"
-                            class="w-full
-                                   border border-gray-200
-                                   px-4 py-3
-                                   text-sm
-                                   text-gray-800
-                                   outline-none
-                                   focus:border-[#073B66]
-                                   focus:ring-1
-                                   focus:ring-[#073B66]
-                                   transition"
-                        >
-
-                    </div>
-
-
-                    {{-- Requirement --}}
-                    <div>
-
-                        <label
-                            for="message"
-                            class="block
-                                   text-sm
-                                   font-semibold
-                                   text-gray-700
-                                   mb-2"
-                        >
-                            Your Requirement
-                        </label>
-
-                        <textarea
-                            id="message"
-                            name="message"
-                            rows="4"
-                            placeholder="Tell us about the equipment or testing requirement..."
-                            required
-                            class="w-full
-                                   border border-gray-200
-                                   px-4 py-3
-                                   text-sm
-                                   text-gray-800
-                                   outline-none
-                                   resize-none
-                                   focus:border-[#073B66]
-                                   focus:ring-1
-                                   focus:ring-[#073B66]
-                                   transition"
-                        ></textarea>
-
-                    </div>
-
-
-                    {{-- Submit --}}
-                    <button
-                        type="submit"
-                        class="w-full
-                               bg-[#E31E24]
-                               hover:bg-[#C8181D]
-                               text-white
-                               px-6 py-4
-                               font-bold
-                               text-sm
-                               transition
-                               duration-300"
-                    >
-                        Send Enquiry
-                        <span class="ml-2">→</span>
-                    </button>
-
-
-                    <p
-                        class="text-center
-                               text-xs
-                               text-gray-400"
-                    >
-                        Our team will get back to you regarding
-                        your requirement.
-                    </p>
-
-                </form>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
 
 
 @endsection
