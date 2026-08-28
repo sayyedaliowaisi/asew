@@ -6,890 +6,765 @@
 
 
 {{-- =========================================================
-     ASEW PREMIUM HERO SECTION
+     ASEW PREMIUM HERO SLIDER
      PRECISION IN TESTING
 ========================================================= --}}
 
 <section
-    id="hero"
+    x-data="{
+        current: 0,
+        total: 4,
+        timer: null,
+        startX: 0,
+        endX: 0,
+
+        slides: [
+            {
+                image: '{{ asset('images/hero (1).png') }}',
+                eyebrow: 'SINCE 1975',
+                title1: 'PRECISION IN TESTING.',
+                title2: 'CONFIDENCE IN EVERY RESULT.'
+            },
+            {
+                image: '{{ asset('images/hero (1).png') }}',
+                eyebrow: 'ADVANCED TECHNOLOGY',
+                title1: 'ADVANCED MATERIAL',
+                title2: 'TESTING SOLUTIONS.'
+            },
+            {
+                image: '{{ asset('images/hero (1).png') }}',
+                eyebrow: 'COMPLETE LAB SOLUTIONS',
+                title1: 'ENGINEERED FOR',
+                title2: 'ACCURATE RESULTS.'
+            },
+            {
+                image: '{{ asset('images/hero (1).png') }}',
+                eyebrow: 'ASEW ENGINEERING',
+                title1: 'RELIABLE EQUIPMENT.',
+                title2: 'PROFESSIONAL SUPPORT.'
+            }
+        ],
+
+        next() {
+            this.current = (this.current + 1) % this.total;
+            this.restart();
+        },
+
+        prev() {
+            this.current = (this.current - 1 + this.total) % this.total;
+            this.restart();
+        },
+
+        goTo(index) {
+            this.current = index;
+            this.restart();
+        },
+
+        start() {
+            clearInterval(this.timer);
+
+            this.timer = setInterval(() => {
+                this.current = (this.current + 1) % this.total;
+            }, 5000);
+        },
+
+        restart() {
+            clearInterval(this.timer);
+            this.start();
+        },
+
+        touchStart(e) {
+            this.startX = e.touches[0].clientX;
+        },
+
+        touchEnd(e) {
+            this.endX = e.changedTouches[0].clientX;
+
+            let distance = this.startX - this.endX;
+
+            if (Math.abs(distance) > 50) {
+                if (distance > 0) {
+                    this.next();
+                } else {
+                    this.prev();
+                }
+            }
+        }
+    }"
+
+    x-init="start()"
+
+    @mouseenter="clearInterval(timer)"
+    @mouseleave="start()"
+
+    @touchstart="touchStart($event)"
+    @touchend="touchEnd($event)"
+
     class="relative w-full overflow-hidden bg-[#f4f7fa]"
 >
 
-    {{-- =====================================================
-         HERO BACKGROUND
-    ====================================================== --}}
-
-    <div class="absolute inset-0">
-
-        {{-- Soft technical background --}}
-        <div class="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-[#edf3f8]"></div>
-
-        {{-- Subtle engineering grid --}}
-        <div
-            class="absolute inset-0 opacity-[0.035]"
-            style="
-                background-image:
-                    linear-gradient(#073B66 1px, transparent 1px),
-                    linear-gradient(90deg, #073B66 1px, transparent 1px);
-                background-size: 45px 45px;
-            "
-        ></div>
-
-        {{-- Right side glow --}}
-        <div
-            class="absolute right-[-10%] top-0 w-[55%] h-full
-                   bg-gradient-to-l from-[#dfeaf2]/70 to-transparent
-                   pointer-events-none"
-        ></div>
-
-    </div>
-
-
-    {{-- =====================================================
-         MAIN HERO CONTAINER
-    ====================================================== --}}
-
     <div
-        class="relative z-10
-               max-w-[1440px]
-               mx-auto
-               min-h-[590px]
-               lg:min-h-[620px]
-               px-5 sm:px-8 lg:px-12 xl:px-16
-               flex items-center"
+        class="relative
+               h-[720px]
+               sm:h-[700px]
+               md:h-[650px]
+               lg:h-[590px]"
     >
 
-        <div class="grid grid-cols-1 lg:grid-cols-[46%_54%] w-full items-center">
-
-
-            {{-- =================================================
-                 LEFT CONTENT
-            ================================================== --}}
+        <template
+            x-for="(slide, index) in slides"
+            :key="index"
+        >
 
             <div
-                class="relative z-20
-                       pt-12 pb-16
-                       lg:py-20
-                       max-w-[620px]"
+                x-show="current === index"
+
+                x-transition:enter="transition ease-out duration-700"
+                x-transition:enter-start="opacity-0"
+                x-transition:enter-end="opacity-100"
+
+                x-transition:leave="transition ease-in duration-500 absolute inset-0"
+                x-transition:leave-start="opacity-100"
+                x-transition:leave-end="opacity-0"
+
+                class="absolute inset-0"
             >
 
-                {{-- Since 1975 --}}
-                <div
-                    class="flex items-center gap-3
-                           mb-5
-                           animate-[fadeInUp_.7s_ease-out]"
-                >
-
-                    <span
-                        class="text-[12px] sm:text-[13px]
-                               font-bold
-                               tracking-[0.16em]
-                               text-[#E31E24]"
-                    >
-                        SINCE 1975
-                    </span>
-
-                    <span
-                        class="w-10 h-[2px]
-                               bg-[#E31E24]"
-                    ></span>
-
-                </div>
-
-
-                {{-- Main Heading --}}
-                <h1
-                    class="text-[39px]
-                           sm:text-[48px]
-                           md:text-[54px]
-                           lg:text-[55px]
-                           xl:text-[62px]
-                           leading-[0.98]
-                           font-extrabold
-                           tracking-[-0.035em]
-                           text-[#073B66]"
-                >
-
-                    PRECISION IN
-                    <br>
-
-                    <span class="text-[#E31E24]">
-                        TESTING.
-                    </span>
-
-                    <br>
-
-                    <span class="text-[#E31E24]">
-                        CONFIDENCE IN
-                    </span>
-
-                    <br>
-
-                    EVERY RESULT.
-
-                </h1>
-
-
-                {{-- Description --}}
-                <p
-                    class="mt-6
-                           max-w-[510px]
-                           text-[14px]
-                           sm:text-[15px]
-                           leading-[1.7]
-                           text-slate-600"
-                >
-
-                    Designing and manufacturing advanced material testing
-                    instruments and complete laboratory solutions
-                    for more than 50 years.
-
-                </p>
-
-
-                {{-- =================================================
-                     TRUST / FEATURE STATS
-                ================================================== --}}
-
-                <div
-                    class="mt-7
-                           flex flex-wrap
-                           items-stretch
-                           max-w-[590px]"
-                >
-
-                    {{-- 50+ Years --}}
-                    <div
-                        class="flex items-center gap-2
-                               pr-4 mr-4
-                               border-r border-slate-300"
-                    >
-
-                        <div class="text-[#073B66]">
-
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="w-6 h-6"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                                stroke-width="1.6"
-                            >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    d="M12 3v18M5.25 6.75h9.5a3.25 3.25 0 0 1 0 6.5h-9.5M5.25 13.25h10.5a3.25 3.25 0 0 1 0 6.5h-10.5"
-                                />
-                            </svg>
-
-                        </div>
-
-                        <div>
-
-                            <strong
-                                class="block text-[16px] font-extrabold text-[#073B66]"
-                            >
-                                50+
-                            </strong>
-
-                            <span
-                                class="block text-[10px] leading-3 text-slate-500"
-                            >
-                                Years<br>Experience
-                            </span>
-
-                        </div>
-
-                    </div>
-
-
-                    {{-- Made in India --}}
-                    <div
-                        class="flex items-center gap-2
-                               pr-4 mr-4
-                               border-r border-slate-300"
-                    >
-
-                        <div class="text-[#073B66]">
-
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="w-6 h-6"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                                stroke-width="1.6"
-                            >
-                                <circle cx="12" cy="12" r="9"></circle>
-
-                                <path
-                                    stroke-linecap="round"
-                                    d="M3 12h18M12 3c2.2 2.4 3.3 5.4 3.3 9s-1.1 6.6-3.3 9c-2.2-2.4-3.3-5.4-3.3-9S9.8 5.4 12 3Z"
-                                />
-
-                            </svg>
-
-                        </div>
-
-                        <div>
-
-                            <strong
-                                class="block text-[13px] font-bold text-[#073B66]"
-                            >
-                                Made in
-                            </strong>
-
-                            <span
-                                class="block text-[10px] text-slate-500"
-                            >
-                                India
-                            </span>
-
-                        </div>
-
-                    </div>
-
-
-                    {{-- Global Presence --}}
-                    <div
-                        class="flex items-center gap-2
-                               pr-4 mr-4
-                               border-r border-slate-300"
-                    >
-
-                        <div class="text-[#073B66]">
-
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="w-6 h-6"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                                stroke-width="1.6"
-                            >
-
-                                <circle
-                                    cx="12"
-                                    cy="12"
-                                    r="9"
-                                />
-
-                                <path
-                                    stroke-linecap="round"
-                                    d="M3 12h18M12 3c2.2 2.4 3.3 5.4 3.3 9s-1.1 6.6-3.3 9c-2.2-2.4-3.3-5.4-3.3-9S9.8 5.4 12 3Z"
-                                />
-
-                            </svg>
-
-                        </div>
-
-                        <div>
-
-                            <strong
-                                class="block text-[12px] font-bold text-[#073B66]"
-                            >
-                                Global
-                            </strong>
-
-                            <span
-                                class="block text-[10px] text-slate-500"
-                            >
-                                Presence
-                            </span>
-
-                        </div>
-
-                    </div>
-
-
-                    {{-- Quality --}}
-                    <div
-                        class="flex items-center gap-2
-                               pr-4 mr-4
-                               border-r border-slate-300"
-                    >
-
-                        <div class="text-[#073B66]">
-
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="w-6 h-6"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                                stroke-width="1.6"
-                            >
-
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    d="M12 3 19 6v5c0 4.5-2.9 8.1-7 10-4.1-1.9-7-5.5-7-10V6l7-3Z"
-                                />
-
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    d="m9 12 2 2 4-4"
-                                />
-
-                            </svg>
-
-                        </div>
-
-                        <div>
-
-                            <strong
-                                class="block text-[12px] font-bold text-[#073B66]"
-                            >
-                                Quality &
-                            </strong>
-
-                            <span
-                                class="block text-[10px] text-slate-500"
-                            >
-                                Precision
-                            </span>
-
-                        </div>
-
-                    </div>
-
-
-                    {{-- Complete Lab --}}
-                    <div
-                        class="flex items-center gap-2
-                               pr-4 mr-4
-                               border-r border-slate-300"
-                    >
-
-                        <div class="text-[#073B66]">
-
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="w-6 h-6"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                                stroke-width="1.6"
-                            >
-
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    d="M9 3h6M10 3v5.5L5.5 17a2.5 2.5 0 0 0 2.2 3.75h8.6A2.5 2.5 0 0 0 18.5 17L14 8.5V3"
-                                />
-
-                                <path
-                                    stroke-linecap="round"
-                                    d="M8 15h8"
-                                />
-
-                            </svg>
-
-                        </div>
-
-                        <div>
-
-                            <strong
-                                class="block text-[11px] font-bold text-[#073B66]"
-                            >
-                                Complete Lab
-                            </strong>
-
-                            <span
-                                class="block text-[10px] text-slate-500"
-                            >
-                                Solutions
-                            </span>
-
-                        </div>
-
-                    </div>
-
-
-                    {{-- Installation --}}
-                    <div
-                        class="flex items-center gap-2"
-                    >
-
-                        <div class="text-[#073B66]">
-
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="w-6 h-6"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                                stroke-width="1.6"
-                            >
-
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    d="M14.5 6.5 17.5 3.5M16 4l4 4M12.5 8.5 5 16l3 3 7.5-7.5"
-                                />
-
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    d="M4 20h4"
-                                />
-
-                            </svg>
-
-                        </div>
-
-                        <div>
-
-                            <strong
-                                class="block text-[11px] font-bold text-[#073B66]"
-                            >
-                                Installation
-                            </strong>
-
-                            <span
-                                class="block text-[10px] text-slate-500"
-                            >
-                                Support
-                            </span>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                {{-- =================================================
-                     BUTTONS
-                ================================================== --}}
-
-                <div
-                    class="mt-8
-                           flex flex-wrap
-                           items-center
-                           gap-3"
-                >
-
-                    {{-- Explore Products --}}
-                    <a
-                        href="{{ route('home') }}#products"
-                        class="group
-                               inline-flex
-                               items-center
-                               justify-center
-                               gap-2
-                               bg-[#E31E24]
-                               hover:bg-[#073B66]
-                               text-white
-                               px-6
-                               sm:px-7
-                               h-12
-                               text-[12px]
-                               font-bold
-                               tracking-wide
-                               transition-all
-                               duration-300
-                               shadow-lg
-                               shadow-red-900/10"
-                    >
-
-                        <span>
-                            EXPLORE PRODUCTS
-                        </span>
-
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            stroke-width="2"
-                        >
-
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M5 12h14m-6-6 6 6-6 6"
-                            />
-
-                        </svg>
-
-                    </a>
-
-
-                    {{-- Quote --}}
-                    <a
-                        href="{{ route('home') }}#contact"
-                        class="group
-                               inline-flex
-                               items-center
-                               justify-center
-                               gap-2
-                               bg-white
-                               hover:bg-[#073B66]
-                               text-[#073B66]
-                               hover:text-white
-                               border
-                               border-[#073B66]/50
-                               hover:border-[#073B66]
-                               px-6
-                               sm:px-7
-                               h-12
-                               text-[12px]
-                               font-bold
-                               tracking-wide
-                               transition-all
-                               duration-300"
-                    >
-
-                        <span>
-                            REQUEST A QUOTE
-                        </span>
-
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            stroke-width="1.8"
-                        >
-
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M5 12h14m-6-6 6 6-6 6"
-                            />
-
-                        </svg>
-
-                    </a>
-
-                </div>
-
-            </div>
-
-
-            {{-- =================================================
-                 RIGHT MACHINE IMAGE
-            ================================================== --}}
-
-            <div
-                class="relative
-                       min-h-[390px]
-                       sm:min-h-[480px]
-                       lg:min-h-[620px]
-                       flex items-end justify-center"
-            >
-
-                {{-- Background architectural shape --}}
-                <div
-                    class="absolute
-                           right-[-10%]
-                           top-0
-                           w-[85%]
-                           h-full
-                           bg-gradient-to-br
-                           from-[#e9f1f6]
-                           to-transparent
-                           opacity-80"
-                ></div>
-
-
-                {{-- Decorative circle --}}
-                <div
-                    class="absolute
-                           right-[8%]
-                           top-[13%]
-                           w-[330px]
-                           h-[330px]
-                           rounded-full
-                           border
-                           border-[#073B66]/10"
-                ></div>
-
-                <div
-                    class="absolute
-                           right-[13%]
-                           top-[19%]
-                           w-[285px]
-                           h-[285px]
-                           rounded-full
-                           border
-                           border-[#073B66]/5"
-                ></div>
-
-
-                {{-- Technical label --}}
-                <div
-                    class="absolute
-                           right-[8%]
-                           top-[9%]
-                           hidden md:flex
-                           items-center gap-2
-                           text-[9px]
-                           tracking-[0.18em]
-                           font-bold
-                           text-[#073B66]/50"
-                >
-
-                    <span class="w-7 h-px bg-[#073B66]/30"></span>
-
-                    ADVANCED MATERIAL TESTING
-
-                </div>
-
-
-                {{-- Machine Image --}}
-                <div
-                    class="relative z-10
-                           w-full
-                           h-full
-                           flex items-center justify-center
-                           lg:justify-end"
-                >
+                {{-- =====================================================
+                     BACKGROUND IMAGE
+                ====================================================== --}}
+
+                <div class="absolute inset-0">
 
                     <img
-                        src="{{ asset('images/hero-testing-machine.png') }}"
-                        alt="ASEW Material Testing Machine"
-                        class="relative
-                               z-10
-                               w-[78%]
-                               sm:w-[70%]
-                               lg:w-[88%]
-                               xl:w-[91%]
-                               max-w-[700px]
-                               h-auto
-                               object-contain
-                               drop-shadow-[0_25px_30px_rgba(7,59,102,0.16)]"
-                    >
+                        :src="slide.image"
+                        :alt="slide.title1"
+                        class="w-full h-full object-cover object-center"
+                    />
+
+                    {{-- Main readability overlay --}}
+                    <div
+                        class="absolute inset-0
+                               bg-white/10
+                               lg:bg-gradient-to-r
+                               lg:from-white
+                               lg:via-white/90
+                               lg:via-45%
+                               lg:to-white/0"
+                    ></div>
+
+                    {{-- Extra mobile overlay --}}
+                    <div
+                        class="absolute inset-0
+                               bg-white/65
+                               sm:bg-white/45
+                               lg:hidden"
+                    ></div>
+
+                    {{-- Bottom soft overlay --}}
+                    <div
+                        class="absolute inset-x-0 bottom-0 h-32
+                               bg-gradient-to-t
+                               from-white/40
+                               to-transparent
+                               lg:hidden"
+                    ></div>
 
                 </div>
 
 
-                {{-- Machine technical card --}}
+                {{-- =====================================================
+                     CONTENT
+                ====================================================== --}}
+
                 <div
-                    class="absolute
-                           z-20
-                           bottom-[9%]
-                           right-[3%]
-                           hidden md:block
-                           bg-white/95
-                           backdrop-blur-sm
-                           border
-                           border-slate-200
-                           shadow-xl
+                    class="relative z-20
+                           max-w-7xl
+                           mx-auto
+                           h-full
                            px-5
-                           py-4
-                           min-w-[175px]"
+                           sm:px-8
+                           lg:px-10"
                 >
 
                     <div
-                        class="flex items-center gap-2 mb-2"
+                        class="h-full
+                               flex items-center"
                     >
 
-                        <span
-                            class="w-2 h-2 rounded-full bg-[#E31E24]"
-                        ></span>
-
-                        <span
-                            class="text-[9px]
-                                   uppercase
-                                   tracking-[0.15em]
-                                   font-bold
-                                   text-slate-400"
+                        <div
+                            class="w-full
+                                   lg:w-[55%]
+                                   xl:w-[52%]
+                                   pt-10
+                                   sm:pt-12
+                                   lg:pt-0"
                         >
-                            ASEW ENGINEERING
-                        </span>
+
+                            {{-- =================================================
+                                 EYEBROW
+                            ================================================== --}}
+
+                            <div
+                                class="flex items-center gap-3 mb-4 sm:mb-5"
+                            >
+
+                                <span
+                                    class="w-8
+                                           sm:w-12
+                                           h-[3px]
+                                           bg-[#E31E24]"
+                                ></span>
+
+                                <span
+                                    class="text-[#E31E24]
+                                           text-xs
+                                           sm:text-sm
+                                           font-extrabold
+                                           tracking-wider"
+                                    x-text="slide.eyebrow"
+                                ></span>
+
+                            </div>
+
+
+                            {{-- =================================================
+                                 MAIN HEADING
+                            ================================================== --}}
+
+                            <h1
+                                class="font-extrabold
+                                       uppercase
+                                       tracking-tight
+                                       text-[#073B66]
+
+                                       text-[38px]
+                                       leading-[1.02]
+
+                                       sm:text-5xl
+                                       sm:leading-[1.02]
+
+                                       md:text-6xl
+
+                                       lg:text-[52px]
+                                       lg:leading-[1.02]
+
+                                       xl:text-[60px]"
+                            >
+
+                                <span
+                                    class="block"
+                                    x-text="slide.title1"
+                                ></span>
+
+                                <span
+                                    class="block text-[#D71920]"
+                                    x-text="slide.title2"
+                                ></span>
+
+                            </h1>
+
+
+                            {{-- =================================================
+                                 DESCRIPTION
+                            ================================================== --}}
+
+                            <p
+                                class="mt-5
+                                       sm:mt-6
+                                       max-w-xl
+
+                                       text-sm
+                                       leading-6
+
+                                       sm:text-base
+                                       sm:leading-7
+
+                                       text-gray-700
+                                       font-medium"
+                            >
+                                Designing and manufacturing advanced
+                                material testing instruments and complete
+                                laboratory solutions for more than
+                                <strong class="text-[#073B66]">
+                                    50 years.
+                                </strong>
+                            </p>
+
+
+                            {{-- =================================================
+                                 STATS
+                            ================================================== --}}
+
+                            <div
+                                class="mt-6
+                                       sm:mt-7
+
+                                       grid
+                                       grid-cols-2
+                                       sm:grid-cols-3
+                                       lg:grid-cols-6
+
+                                       gap-x-3
+                                       sm:gap-x-4
+                                       gap-y-4
+
+                                       max-w-3xl"
+                            >
+
+                                {{-- 50+ --}}
+                                <div
+                                    class="border-r
+                                           border-gray-300
+                                           pr-3"
+                                >
+
+                                    <div
+                                        class="text-lg
+                                               sm:text-xl
+                                               font-extrabold
+                                               text-[#073B66]"
+                                    >
+                                        50+
+                                    </div>
+
+                                    <div
+                                        class="text-[10px]
+                                               sm:text-xs
+                                               leading-4
+                                               text-gray-600"
+                                    >
+                                        Years<br>
+                                        Experience
+                                    </div>
+
+                                </div>
+
+
+                                {{-- Made in India --}}
+                                <div
+                                    class="border-r
+                                           border-gray-300
+                                           pr-3"
+                                >
+
+                                    <div
+                                        class="text-lg
+                                               sm:text-xl
+                                               font-extrabold
+                                               text-[#073B66]"
+                                    >
+                                        Made in
+                                    </div>
+
+                                    <div
+                                        class="text-[10px]
+                                               sm:text-xs
+                                               text-gray-600"
+                                    >
+                                        India
+                                    </div>
+
+                                </div>
+
+
+                                {{-- Global --}}
+                                <div
+                                    class="border-r
+                                           border-gray-300
+                                           pr-3"
+                                >
+
+                                    <div
+                                        class="text-lg
+                                               sm:text-xl
+                                               font-extrabold
+                                               text-[#073B66]"
+                                    >
+                                        Global
+                                    </div>
+
+                                    <div
+                                        class="text-[10px]
+                                               sm:text-xs
+                                               text-gray-600"
+                                    >
+                                        Presence
+                                    </div>
+
+                                </div>
+
+
+                                {{-- Quality --}}
+                                <div
+                                    class="border-r
+                                           border-gray-300
+                                           pr-3"
+                                >
+
+                                    <div
+                                        class="text-lg
+                                               sm:text-xl
+                                               font-extrabold
+                                               text-[#073B66]"
+                                    >
+                                        Quality
+                                    </div>
+
+                                    <div
+                                        class="text-[10px]
+                                               sm:text-xs
+                                               text-gray-600"
+                                    >
+                                        & Precision
+                                    </div>
+
+                                </div>
+
+
+                                {{-- Complete Lab --}}
+                                <div
+                                    class="border-r
+                                           border-gray-300
+                                           pr-3"
+                                >
+
+                                    <div
+                                        class="text-lg
+                                               sm:text-xl
+                                               font-extrabold
+                                               text-[#073B66]"
+                                    >
+                                        Complete
+                                    </div>
+
+                                    <div
+                                        class="text-[10px]
+                                               sm:text-xs
+                                               text-gray-600"
+                                    >
+                                        Lab Solutions
+                                    </div>
+
+                                </div>
+
+
+                                {{-- Installation --}}
+                                <div>
+
+                                    <div
+                                        class="text-lg
+                                               sm:text-xl
+                                               font-extrabold
+                                               text-[#073B66]"
+                                    >
+                                        Installation
+                                    </div>
+
+                                    <div
+                                        class="text-[10px]
+                                               sm:text-xs
+                                               text-gray-600"
+                                    >
+                                        Support
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            {{-- =================================================
+                                 BUTTONS
+                            ================================================== --}}
+
+                            <div
+                                class="mt-7
+                                       sm:mt-8
+
+                                       flex
+                                       flex-col
+                                       sm:flex-row
+
+                                       gap-3
+                                       sm:gap-4"
+                            >
+
+                                {{-- Explore Products --}}
+                                <a
+                                    href="{{ route('home') }}#products"
+
+                                    class="inline-flex
+                                           items-center
+                                           justify-center
+                                           gap-4
+
+                                           bg-[#E31E24]
+                                           hover:bg-[#C8181D]
+
+                                           text-white
+
+                                           px-6
+                                           sm:px-7
+
+                                           py-3.5
+                                           sm:py-4
+
+                                           font-bold
+                                           text-xs
+                                           sm:text-sm
+
+                                           uppercase
+                                           tracking-wide
+
+                                           transition
+                                           duration-300
+
+                                           shadow-lg
+
+                                           w-full
+                                           sm:w-auto"
+                                >
+
+                                    Explore Products
+
+                                    <span
+                                        class="text-xl"
+                                    >
+                                        →
+                                    </span>
+
+                                </a>
+
+
+                                {{-- Request Quote --}}
+                                <a
+                                    href="{{ route('home') }}#contact"
+
+                                    class="inline-flex
+                                           items-center
+                                           justify-center
+                                           gap-4
+
+                                           border-2
+                                           border-[#073B66]
+
+                                           text-[#073B66]
+
+                                           bg-white/80
+                                           backdrop-blur-sm
+
+                                           hover:bg-[#073B66]
+                                           hover:text-white
+
+                                           px-6
+                                           sm:px-7
+
+                                           py-3.5
+                                           sm:py-4
+
+                                           font-bold
+                                           text-xs
+                                           sm:text-sm
+
+                                           uppercase
+                                           tracking-wide
+
+                                           transition
+                                           duration-300
+
+                                           w-full
+                                           sm:w-auto"
+                                >
+
+                                    Request a Quote
+
+                                    <span
+                                        class="text-xl"
+                                    >
+                                        →
+                                    </span>
+
+                                </a>
+
+                            </div>
+
+                        </div>
 
                     </div>
-
-                    <p
-                        class="text-[13px]
-                               font-bold
-                               text-[#073B66]"
-                    >
-                        Precision Testing
-                    </p>
-
-                    <p
-                        class="mt-1
-                               text-[10px]
-                               text-slate-500"
-                    >
-                        Built for reliable results
-                    </p>
 
                 </div>
 
             </div>
+
+        </template>
+
+
+        {{-- =====================================================
+             LEFT ARROW
+        ====================================================== --}}
+
+        <button
+            type="button"
+            @click="prev()"
+
+            class="absolute
+                   left-3
+                   sm:left-5
+
+                   top-1/2
+                   -translate-y-1/2
+
+                   z-40
+
+                   w-9
+                   h-9
+
+                   sm:w-11
+                   sm:h-11
+
+                   rounded-full
+
+                   bg-[#073B66]/80
+                   hover:bg-[#E31E24]
+
+                   text-white
+
+                   flex
+                   items-center
+                   justify-center
+
+                   transition
+                   duration-300
+
+                   shadow-lg"
+        >
+
+            <svg
+                class="w-5 h-5 sm:w-6 sm:h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                stroke-width="2"
+            >
+
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M15 19l-7-7 7-7"
+                />
+
+            </svg>
+
+        </button>
+
+
+        {{-- =====================================================
+             RIGHT ARROW
+        ====================================================== --}}
+
+        <button
+            type="button"
+            @click="next()"
+
+            class="absolute
+                   right-3
+                   sm:right-5
+
+                   top-1/2
+                   -translate-y-1/2
+
+                   z-40
+
+                   w-9
+                   h-9
+
+                   sm:w-11
+                   sm:h-11
+
+                   rounded-full
+
+                   bg-[#073B66]/80
+                   hover:bg-[#E31E24]
+
+                   text-white
+
+                   flex
+                   items-center
+                   justify-center
+
+                   transition
+                   duration-300
+
+                   shadow-lg"
+        >
+
+            <svg
+                class="w-5 h-5 sm:w-6 sm:h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                stroke-width="2"
+            >
+
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M9 5l7 7-7 7"
+                />
+
+            </svg>
+
+        </button>
+
+
+        {{-- =====================================================
+             DOTS
+        ====================================================== --}}
+
+        <div
+            class="absolute
+                   bottom-5
+                   sm:bottom-6
+
+                   left-1/2
+                   -translate-x-1/2
+
+                   z-40
+
+                   flex
+                   items-center
+                   gap-2"
+        >
+
+            <template
+                x-for="index in total"
+                :key="index"
+            >
+
+                <button
+                    type="button"
+                    @click="goTo(index - 1)"
+
+                    :class="
+                        current === index - 1
+                        ? 'w-8 bg-[#E31E24]'
+                        : 'w-2.5 bg-gray-400 hover:bg-[#073B66]'
+                    "
+
+                    class="h-2.5
+                           rounded-full
+                           transition-all
+                           duration-300"
+                ></button>
+
+            </template>
 
         </div>
 
     </div>
 
-
-    {{-- =====================================================
-         SLIDER ARROW - LEFT
-    ====================================================== --}}
-
-    <button
-        type="button"
-        aria-label="Previous slide"
-        class="absolute
-               left-3
-               sm:left-5
-               lg:left-6
-               top-1/2
-               -translate-y-1/2
-               z-30
-               w-9
-               h-9
-               sm:w-10
-               sm:h-10
-               rounded-full
-               bg-[#073B66]/70
-               hover:bg-[#E31E24]
-               text-white
-               flex items-center justify-center
-               backdrop-blur-sm
-               transition-all duration-300
-               shadow-lg"
-    >
-
-        <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="w-4 h-4"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2"
-        >
-
-            <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="m15 19-7-7 7-7"
-            />
-
-        </svg>
-
-    </button>
-
-
-    {{-- =====================================================
-         SLIDER ARROW - RIGHT
-    ====================================================== --}}
-
-    <button
-        type="button"
-        aria-label="Next slide"
-        class="absolute
-               right-3
-               sm:right-5
-               lg:right-6
-               top-1/2
-               -translate-y-1/2
-               z-30
-               w-9
-               h-9
-               sm:w-10
-               sm:h-10
-               rounded-full
-               bg-[#073B66]/70
-               hover:bg-[#E31E24]
-               text-white
-               flex items-center justify-center
-               backdrop-blur-sm
-               transition-all duration-300
-               shadow-lg"
-    >
-
-        <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="w-4 h-4"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2"
-        >
-
-            <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="m9 5 7 7-7 7"
-            />
-
-        </svg>
-
-    </button>
-
-
-    {{-- =====================================================
-         SLIDER DOTS
-    ====================================================== --}}
-
-    <div
-        class="absolute
-               bottom-5
-               sm:bottom-6
-               left-1/2
-               -translate-x-1/2
-               z-30
-               flex items-center gap-2"
-    >
-
-        <button
-            type="button"
-            class="w-9 h-1.5 rounded-full bg-[#E31E24]"
-            aria-label="Slide 1"
-        ></button>
-
-        <button
-            type="button"
-            class="w-2 h-2 rounded-full bg-slate-300 hover:bg-[#073B66] transition"
-            aria-label="Slide 2"
-        ></button>
-
-        <button
-            type="button"
-            class="w-2 h-2 rounded-full bg-slate-300 hover:bg-[#073B66] transition"
-            aria-label="Slide 3"
-        ></button>
-
-        <button
-            type="button"
-            class="w-2 h-2 rounded-full bg-slate-300 hover:bg-[#073B66] transition"
-            aria-label="Slide 4"
-        ></button>
-
-    </div>
-
 </section>
-
-
-{{-- =========================================================
-     HERO ANIMATION
-========================================================= --}}
-
-<style>
-
-@keyframes fadeInUp {
-
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-}
-
-</style>
 
 
 {{-- =========================================================
@@ -1053,7 +928,7 @@
                 >
 
                     <img
-                        src="{{ asset('images/products/soil-testing.png') }}"
+                        src="{{ asset('images/hero (1).png') }}"
                         alt="Soil Testing Equipment"
                         class="max-h-full max-w-full object-contain
                                transition-transform duration-500
