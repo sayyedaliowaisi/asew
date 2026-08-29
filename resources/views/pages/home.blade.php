@@ -8,42 +8,21 @@
 <section
     x-data="{
         current: 0,
+        total: 4,
         timer: null,
         startX: 0,
-        endX: 0,
 
         slides: [
-    '{{ asset('images/hero (1).png') }}',
-    '{{ asset('images/hero (2).png') }}',
-    '{{ asset('images/hero (3).png') }}',
-    '{{ asset('images/hero (4).png') }}'
-],
+            '{{ asset('images/hero (1).png') }}',
+            '{{ asset('images/hero (2).png') }}',
+            '{{ asset('images/hero (3).png') }}',
+            '{{ asset('images/hero (4).png') }}'
+        ],
 
         start() {
             this.timer = setInterval(() => {
-                this.next(false);
+                this.current = (this.current + 1) % this.total;
             }, 5000);
-        },
-
-        stop() {
-            clearInterval(this.timer);
-        },
-
-        next(restart = true) {
-            this.current =
-                (this.current + 1) % this.slides.length;
-
-            if (restart) {
-                this.restart();
-            }
-        },
-
-        prev() {
-            this.current =
-                (this.current - 1 + this.slides.length)
-                % this.slides.length;
-
-            this.restart();
         },
 
         goTo(index) {
@@ -52,53 +31,46 @@
         },
 
         restart() {
-            this.stop();
+            clearInterval(this.timer);
             this.start();
         },
 
-        touchStart(event) {
-            this.startX = event.touches[0].clientX;
+        touchStart(e) {
+            this.startX = e.touches[0].clientX;
         },
 
-        touchEnd(event) {
-            this.endX = event.changedTouches[0].clientX;
-
-            const distance = this.startX - this.endX;
+        touchEnd(e) {
+            let endX = e.changedTouches[0].clientX;
+            let distance = this.startX - endX;
 
             if (Math.abs(distance) > 50) {
                 if (distance > 0) {
-                    this.next();
+                    this.current = (this.current + 1) % this.total;
                 } else {
-                    this.prev();
+                    this.current = (this.current - 1 + this.total) % this.total;
                 }
+
+                this.restart();
             }
         }
     }"
 
     x-init="start()"
 
-    @mouseenter="stop()"
+    @mouseenter="clearInterval(timer)"
     @mouseleave="start()"
 
     @touchstart="touchStart($event)"
     @touchend="touchEnd($event)"
 
-    class="relative w-full overflow-hidden bg-white"
+    class="relative w-full overflow-hidden bg-[#f4f7fa]"
 >
 
-    {{-- SLIDER --}}
-    <div
-        class="
-            relative
-            w-full
+    {{-- =====================================================
+         HERO SLIDER
+    ====================================================== --}}
 
-            h-[260px]
-            sm:h-[330px]
-            md:h-[420px]
-            lg:h-[500px]
-            xl:h-[540px]
-        "
-    >
+    <div class="relative w-full">
 
         <template
             x-for="(slide, index) in slides"
@@ -108,207 +80,75 @@
             <div
                 x-show="current === index"
 
-                x-transition:enter="transition ease-in-out duration-700"
+                x-transition:enter="transition-opacity ease-in-out duration-700"
                 x-transition:enter-start="opacity-0"
                 x-transition:enter-end="opacity-100"
 
-                x-transition:leave="transition ease-in-out duration-700"
+                x-transition:leave="transition-opacity ease-in-out duration-500"
                 x-transition:leave-start="opacity-100"
                 x-transition:leave-end="opacity-0"
 
-                class="absolute inset-0 w-full h-full"
+                class="w-full"
             >
+
+                {{-- =================================================
+                     FULL IMAGE - NO CROP
+                ================================================== --}}
 
                 <img
                     :src="slide"
                     alt="Associated Scientific & Engineering Works"
-
-                    class="
-                        absolute inset-0
-
-                        w-full
-                        h-full
-
-                        object-cover
-                        object-center
-
-                        select-none
-                        pointer-events-none
-
-                        block
-                    "
-
-                    draggable="false"
+                    class="block w-full h-auto
+                           object-contain
+                           select-none
+                           pointer-events-none"
                 >
 
             </div>
 
         </template>
 
+    </div>
 
-        {{-- LEFT ARROW --}}
-        <button
-            type="button"
-            @click="prev()"
 
-            class="
-                absolute
-                left-3
-                sm:left-5
-                lg:left-8
+    {{-- =====================================================
+         SLIDER DOTS
+    ====================================================== --}}
 
-                top-1/2
-                -translate-y-1/2
+    <div
+        class="absolute
+               bottom-4 sm:bottom-5
+               left-1/2
+               -translate-x-1/2
+               z-30
+               flex items-center gap-2"
+    >
 
-                z-20
-
-                w-9 h-9
-                sm:w-11 sm:h-11
-
-                rounded-full
-
-                bg-[#073B66]/80
-                hover:bg-[#E31E24]
-
-                text-white
-
-                flex
-                items-center
-                justify-center
-
-                transition-all
-                duration-300
-
-                shadow-lg
-            "
-
-            aria-label="Previous slide"
+        <template
+            x-for="index in total"
+            :key="index"
         >
 
-            <svg
-                class="w-5 h-5 sm:w-6 sm:h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                stroke-width="2"
-            >
+            <button
+                type="button"
+                @click="goTo(index - 1)"
 
-                <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M15 19l-7-7 7-7"
-                />
+                :class="
+                    current === index - 1
+                        ? 'w-8 bg-[#E31E24]'
+                        : 'w-2.5 bg-white/80 hover:bg-[#073B66]'
+                "
 
-            </svg>
+                class="h-2.5
+                       rounded-full
+                       shadow
+                       transition-all
+                       duration-300"
 
-        </button>
+                :aria-label="'Go to slide ' + index"
+            ></button>
 
-
-        {{-- RIGHT ARROW --}}
-        <button
-            type="button"
-            @click="next()"
-
-            class="
-                absolute
-                right-3
-                sm:right-5
-                lg:right-8
-
-                top-1/2
-                -translate-y-1/2
-
-                z-20
-
-                w-9 h-9
-                sm:w-11 sm:h-11
-
-                rounded-full
-
-                bg-[#073B66]/80
-                hover:bg-[#E31E24]
-
-                text-white
-
-                flex
-                items-center
-                justify-center
-
-                transition-all
-                duration-300
-
-                shadow-lg
-            "
-
-            aria-label="Next slide"
-        >
-
-            <svg
-                class="w-5 h-5 sm:w-6 sm:h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                stroke-width="2"
-            >
-
-                <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M9 5l7 7-7 7"
-                />
-
-            </svg>
-
-        </button>
-
-
-        {{-- DOTS --}}
-        <div
-            class="
-                absolute
-                bottom-4
-                sm:bottom-5
-
-                left-1/2
-                -translate-x-1/2
-
-                z-20
-
-                flex
-                items-center
-                gap-2
-            "
-        >
-
-            <template
-                x-for="(slide, index) in slides"
-                :key="index"
-            >
-
-                <button
-                    type="button"
-                    @click="goTo(index)"
-
-                    :class="
-                        current === index
-                            ? 'w-8 bg-[#E31E24]'
-                            : 'w-2.5 bg-white/80 hover:bg-white'
-                    "
-
-                    class="
-                        h-2.5
-                        rounded-full
-                        transition-all
-                        duration-300
-                        shadow
-                    "
-
-                    :aria-label="'Go to slide ' + (index + 1)"
-                ></button>
-
-            </template>
-
-        </div>
+        </template>
 
     </div>
 
@@ -476,7 +316,7 @@
                 >
 
                     <img
-                        src="{{ asset('images/soil-testing.png') }}"
+                        src="{{ asset('images/products/soil-testing.png') }}"
                         alt="Soil Testing Equipment"
                         class="max-h-full max-w-full object-contain
                                transition-transform duration-500
@@ -1334,46 +1174,7 @@
                         </a>
 
 
-                        {{-- Material Testing --}}
-                        <a
-                            href="#products"
-                            class="group relative h-[145px] sm:h-[160px]
-                                   overflow-hidden rounded-md
-                                   shadow-sm
-                                   col-span-2 sm:col-span-1"
-                        >
-
-                            <img
-                                src="{{ asset('images/material-testing.jpg') }}"
-                                alt="Material Testing Laboratory"
-                                class="absolute inset-0
-                                       w-full h-full
-                                       object-cover
-                                       transition duration-500
-                                       group-hover:scale-110"
-                            >
-
-                            <div
-                                class="absolute inset-0
-                                       bg-gradient-to-t
-                                       from-[#073B66]
-                                       via-[#073B66]/40
-                                       to-transparent"
-                            ></div>
-
-                            <div class="absolute bottom-0 left-0 right-0 p-3">
-
-                                <h3 class="text-white text-[11px] sm:text-xs font-bold uppercase">
-                                    Material Testing
-                                    <span class="block text-[#F2B84B]">
-                                        Laboratory
-                                    </span>
-                                </h3>
-
-                            </div>
-
-                        </a>
-
+                      
                     </div>
 
                 </div>
