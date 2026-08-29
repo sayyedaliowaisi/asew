@@ -5,53 +5,44 @@
 @section('content')
 
 
-{{-- =========================================================
-     ASEW PREMIUM HERO SLIDER
-     PRECISION IN TESTING
-========================================================= --}}
-
 <section
     x-data="{
         current: 0,
-        total: 4,
         timer: null,
         startX: 0,
         endX: 0,
 
         slides: [
-            {
-                image: '{{ asset('images/hero (1).png') }}',
-                eyebrow: 'SINCE 1975',
-                title1: 'PRECISION IN TESTING.',
-                title2: 'CONFIDENCE IN EVERY RESULT.'
-            },
-            {
-                image: '{{ asset('images/hero (1).png') }}',
-                eyebrow: 'ADVANCED TECHNOLOGY',
-                title1: 'ADVANCED MATERIAL',
-                title2: 'TESTING SOLUTIONS.'
-            },
-            {
-                image: '{{ asset('images/hero (1).png') }}',
-                eyebrow: 'COMPLETE LAB SOLUTIONS',
-                title1: 'ENGINEERED FOR',
-                title2: 'ACCURATE RESULTS.'
-            },
-            {
-                image: '{{ asset('images/hero (1).png') }}',
-                eyebrow: 'ASEW ENGINEERING',
-                title1: 'RELIABLE EQUIPMENT.',
-                title2: 'PROFESSIONAL SUPPORT.'
-            }
-        ],
+    '{{ asset('images/hero (1).png') }}',
+    '{{ asset('images/hero (2).png') }}',
+    '{{ asset('images/hero (3).png') }}',
+    '{{ asset('images/hero (4).png') }}'
+],
 
-        next() {
-            this.current = (this.current + 1) % this.total;
-            this.restart();
+        start() {
+            this.timer = setInterval(() => {
+                this.next(false);
+            }, 5000);
+        },
+
+        stop() {
+            clearInterval(this.timer);
+        },
+
+        next(restart = true) {
+            this.current =
+                (this.current + 1) % this.slides.length;
+
+            if (restart) {
+                this.restart();
+            }
         },
 
         prev() {
-            this.current = (this.current - 1 + this.total) % this.total;
+            this.current =
+                (this.current - 1 + this.slides.length)
+                % this.slides.length;
+
             this.restart();
         },
 
@@ -60,27 +51,19 @@
             this.restart();
         },
 
-        start() {
-            clearInterval(this.timer);
-
-            this.timer = setInterval(() => {
-                this.current = (this.current + 1) % this.total;
-            }, 5000);
-        },
-
         restart() {
-            clearInterval(this.timer);
+            this.stop();
             this.start();
         },
 
-        touchStart(e) {
-            this.startX = e.touches[0].clientX;
+        touchStart(event) {
+            this.startX = event.touches[0].clientX;
         },
 
-        touchEnd(e) {
-            this.endX = e.changedTouches[0].clientX;
+        touchEnd(event) {
+            this.endX = event.changedTouches[0].clientX;
 
-            let distance = this.startX - this.endX;
+            const distance = this.startX - this.endX;
 
             if (Math.abs(distance) > 50) {
                 if (distance > 0) {
@@ -94,21 +77,27 @@
 
     x-init="start()"
 
-    @mouseenter="clearInterval(timer)"
+    @mouseenter="stop()"
     @mouseleave="start()"
 
     @touchstart="touchStart($event)"
     @touchend="touchEnd($event)"
 
-    class="relative w-full overflow-hidden bg-[#f4f7fa]"
+    class="relative w-full overflow-hidden bg-white"
 >
 
+    {{-- SLIDER --}}
     <div
-        class="relative
-               h-[720px]
-               sm:h-[700px]
-               md:h-[650px]
-               lg:h-[590px]"
+        class="
+            relative
+            w-full
+
+            h-[260px]
+            sm:h-[330px]
+            md:h-[420px]
+            lg:h-[500px]
+            xl:h-[540px]
+        "
     >
 
         <template
@@ -119,525 +108,81 @@
             <div
                 x-show="current === index"
 
-                x-transition:enter="transition ease-out duration-700"
+                x-transition:enter="transition ease-in-out duration-700"
                 x-transition:enter-start="opacity-0"
                 x-transition:enter-end="opacity-100"
 
-                x-transition:leave="transition ease-in duration-500 absolute inset-0"
+                x-transition:leave="transition ease-in-out duration-700"
                 x-transition:leave-start="opacity-100"
                 x-transition:leave-end="opacity-0"
 
-                class="absolute inset-0"
+                class="absolute inset-0 w-full h-full"
             >
 
-                {{-- =====================================================
-                     BACKGROUND IMAGE
-                ====================================================== --}}
+                <img
+                    :src="slide"
+                    alt="Associated Scientific & Engineering Works"
 
-                <div class="absolute inset-0">
+                    class="
+                        absolute inset-0
 
-                    <img
-                        :src="slide.image"
-                        :alt="slide.title1"
-                        class="w-full h-full object-cover object-center"
-                    />
+                        w-full
+                        h-full
 
-                    {{-- Main readability overlay --}}
-                    <div
-                        class="absolute inset-0
-                               bg-white/10
-                               lg:bg-gradient-to-r
-                               lg:from-white
-                               lg:via-white/90
-                               lg:via-45%
-                               lg:to-white/0"
-                    ></div>
+                        object-cover
+                        object-center
 
-                    {{-- Extra mobile overlay --}}
-                    <div
-                        class="absolute inset-0
-                               bg-white/65
-                               sm:bg-white/45
-                               lg:hidden"
-                    ></div>
+                        select-none
+                        pointer-events-none
 
-                    {{-- Bottom soft overlay --}}
-                    <div
-                        class="absolute inset-x-0 bottom-0 h-32
-                               bg-gradient-to-t
-                               from-white/40
-                               to-transparent
-                               lg:hidden"
-                    ></div>
+                        block
+                    "
 
-                </div>
-
-
-                {{-- =====================================================
-                     CONTENT
-                ====================================================== --}}
-
-                <div
-                    class="relative z-20
-                           max-w-7xl
-                           mx-auto
-                           h-full
-                           px-5
-                           sm:px-8
-                           lg:px-10"
+                    draggable="false"
                 >
-
-                    <div
-                        class="h-full
-                               flex items-center"
-                    >
-
-                        <div
-                            class="w-full
-                                   lg:w-[55%]
-                                   xl:w-[52%]
-                                   pt-10
-                                   sm:pt-12
-                                   lg:pt-0"
-                        >
-
-                            {{-- =================================================
-                                 EYEBROW
-                            ================================================== --}}
-
-                            <div
-                                class="flex items-center gap-3 mb-4 sm:mb-5"
-                            >
-
-                                <span
-                                    class="w-8
-                                           sm:w-12
-                                           h-[3px]
-                                           bg-[#E31E24]"
-                                ></span>
-
-                                <span
-                                    class="text-[#E31E24]
-                                           text-xs
-                                           sm:text-sm
-                                           font-extrabold
-                                           tracking-wider"
-                                    x-text="slide.eyebrow"
-                                ></span>
-
-                            </div>
-
-
-                            {{-- =================================================
-                                 MAIN HEADING
-                            ================================================== --}}
-
-                            <h1
-                                class="font-extrabold
-                                       uppercase
-                                       tracking-tight
-                                       text-[#073B66]
-
-                                       text-[38px]
-                                       leading-[1.02]
-
-                                       sm:text-5xl
-                                       sm:leading-[1.02]
-
-                                       md:text-6xl
-
-                                       lg:text-[52px]
-                                       lg:leading-[1.02]
-
-                                       xl:text-[60px]"
-                            >
-
-                                <span
-                                    class="block"
-                                    x-text="slide.title1"
-                                ></span>
-
-                                <span
-                                    class="block text-[#D71920]"
-                                    x-text="slide.title2"
-                                ></span>
-
-                            </h1>
-
-
-                            {{-- =================================================
-                                 DESCRIPTION
-                            ================================================== --}}
-
-                            <p
-                                class="mt-5
-                                       sm:mt-6
-                                       max-w-xl
-
-                                       text-sm
-                                       leading-6
-
-                                       sm:text-base
-                                       sm:leading-7
-
-                                       text-gray-700
-                                       font-medium"
-                            >
-                                Designing and manufacturing advanced
-                                material testing instruments and complete
-                                laboratory solutions for more than
-                                <strong class="text-[#073B66]">
-                                    50 years.
-                                </strong>
-                            </p>
-
-
-                            {{-- =================================================
-                                 STATS
-                            ================================================== --}}
-
-                            <div
-                                class="mt-6
-                                       sm:mt-7
-
-                                       grid
-                                       grid-cols-2
-                                       sm:grid-cols-3
-                                       lg:grid-cols-6
-
-                                       gap-x-3
-                                       sm:gap-x-4
-                                       gap-y-4
-
-                                       max-w-3xl"
-                            >
-
-                                {{-- 50+ --}}
-                                <div
-                                    class="border-r
-                                           border-gray-300
-                                           pr-3"
-                                >
-
-                                    <div
-                                        class="text-lg
-                                               sm:text-xl
-                                               font-extrabold
-                                               text-[#073B66]"
-                                    >
-                                        50+
-                                    </div>
-
-                                    <div
-                                        class="text-[10px]
-                                               sm:text-xs
-                                               leading-4
-                                               text-gray-600"
-                                    >
-                                        Years<br>
-                                        Experience
-                                    </div>
-
-                                </div>
-
-
-                                {{-- Made in India --}}
-                                <div
-                                    class="border-r
-                                           border-gray-300
-                                           pr-3"
-                                >
-
-                                    <div
-                                        class="text-lg
-                                               sm:text-xl
-                                               font-extrabold
-                                               text-[#073B66]"
-                                    >
-                                        Made in
-                                    </div>
-
-                                    <div
-                                        class="text-[10px]
-                                               sm:text-xs
-                                               text-gray-600"
-                                    >
-                                        India
-                                    </div>
-
-                                </div>
-
-
-                                {{-- Global --}}
-                                <div
-                                    class="border-r
-                                           border-gray-300
-                                           pr-3"
-                                >
-
-                                    <div
-                                        class="text-lg
-                                               sm:text-xl
-                                               font-extrabold
-                                               text-[#073B66]"
-                                    >
-                                        Global
-                                    </div>
-
-                                    <div
-                                        class="text-[10px]
-                                               sm:text-xs
-                                               text-gray-600"
-                                    >
-                                        Presence
-                                    </div>
-
-                                </div>
-
-
-                                {{-- Quality --}}
-                                <div
-                                    class="border-r
-                                           border-gray-300
-                                           pr-3"
-                                >
-
-                                    <div
-                                        class="text-lg
-                                               sm:text-xl
-                                               font-extrabold
-                                               text-[#073B66]"
-                                    >
-                                        Quality
-                                    </div>
-
-                                    <div
-                                        class="text-[10px]
-                                               sm:text-xs
-                                               text-gray-600"
-                                    >
-                                        & Precision
-                                    </div>
-
-                                </div>
-
-
-                                {{-- Complete Lab --}}
-                                <div
-                                    class="border-r
-                                           border-gray-300
-                                           pr-3"
-                                >
-
-                                    <div
-                                        class="text-lg
-                                               sm:text-xl
-                                               font-extrabold
-                                               text-[#073B66]"
-                                    >
-                                        Complete
-                                    </div>
-
-                                    <div
-                                        class="text-[10px]
-                                               sm:text-xs
-                                               text-gray-600"
-                                    >
-                                        Lab Solutions
-                                    </div>
-
-                                </div>
-
-
-                                {{-- Installation --}}
-                                <div>
-
-                                    <div
-                                        class="text-lg
-                                               sm:text-xl
-                                               font-extrabold
-                                               text-[#073B66]"
-                                    >
-                                        Installation
-                                    </div>
-
-                                    <div
-                                        class="text-[10px]
-                                               sm:text-xs
-                                               text-gray-600"
-                                    >
-                                        Support
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-
-                            {{-- =================================================
-                                 BUTTONS
-                            ================================================== --}}
-
-                            <div
-                                class="mt-7
-                                       sm:mt-8
-
-                                       flex
-                                       flex-col
-                                       sm:flex-row
-
-                                       gap-3
-                                       sm:gap-4"
-                            >
-
-                                {{-- Explore Products --}}
-                                <a
-                                    href="{{ route('home') }}#products"
-
-                                    class="inline-flex
-                                           items-center
-                                           justify-center
-                                           gap-4
-
-                                           bg-[#E31E24]
-                                           hover:bg-[#C8181D]
-
-                                           text-white
-
-                                           px-6
-                                           sm:px-7
-
-                                           py-3.5
-                                           sm:py-4
-
-                                           font-bold
-                                           text-xs
-                                           sm:text-sm
-
-                                           uppercase
-                                           tracking-wide
-
-                                           transition
-                                           duration-300
-
-                                           shadow-lg
-
-                                           w-full
-                                           sm:w-auto"
-                                >
-
-                                    Explore Products
-
-                                    <span
-                                        class="text-xl"
-                                    >
-                                        →
-                                    </span>
-
-                                </a>
-
-
-                                {{-- Request Quote --}}
-                                <a
-                                    href="{{ route('home') }}#contact"
-
-                                    class="inline-flex
-                                           items-center
-                                           justify-center
-                                           gap-4
-
-                                           border-2
-                                           border-[#073B66]
-
-                                           text-[#073B66]
-
-                                           bg-white/80
-                                           backdrop-blur-sm
-
-                                           hover:bg-[#073B66]
-                                           hover:text-white
-
-                                           px-6
-                                           sm:px-7
-
-                                           py-3.5
-                                           sm:py-4
-
-                                           font-bold
-                                           text-xs
-                                           sm:text-sm
-
-                                           uppercase
-                                           tracking-wide
-
-                                           transition
-                                           duration-300
-
-                                           w-full
-                                           sm:w-auto"
-                                >
-
-                                    Request a Quote
-
-                                    <span
-                                        class="text-xl"
-                                    >
-                                        →
-                                    </span>
-
-                                </a>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
 
             </div>
 
         </template>
 
 
-        {{-- =====================================================
-             LEFT ARROW
-        ====================================================== --}}
-
+        {{-- LEFT ARROW --}}
         <button
             type="button"
             @click="prev()"
 
-            class="absolute
-                   left-3
-                   sm:left-5
+            class="
+                absolute
+                left-3
+                sm:left-5
+                lg:left-8
 
-                   top-1/2
-                   -translate-y-1/2
+                top-1/2
+                -translate-y-1/2
 
-                   z-40
+                z-20
 
-                   w-9
-                   h-9
+                w-9 h-9
+                sm:w-11 sm:h-11
 
-                   sm:w-11
-                   sm:h-11
+                rounded-full
 
-                   rounded-full
+                bg-[#073B66]/80
+                hover:bg-[#E31E24]
 
-                   bg-[#073B66]/80
-                   hover:bg-[#E31E24]
+                text-white
 
-                   text-white
+                flex
+                items-center
+                justify-center
 
-                   flex
-                   items-center
-                   justify-center
+                transition-all
+                duration-300
 
-                   transition
-                   duration-300
+                shadow-lg
+            "
 
-                   shadow-lg"
+            aria-label="Previous slide"
         >
 
             <svg
@@ -659,44 +204,43 @@
         </button>
 
 
-        {{-- =====================================================
-             RIGHT ARROW
-        ====================================================== --}}
-
+        {{-- RIGHT ARROW --}}
         <button
             type="button"
             @click="next()"
 
-            class="absolute
-                   right-3
-                   sm:right-5
+            class="
+                absolute
+                right-3
+                sm:right-5
+                lg:right-8
 
-                   top-1/2
-                   -translate-y-1/2
+                top-1/2
+                -translate-y-1/2
 
-                   z-40
+                z-20
 
-                   w-9
-                   h-9
+                w-9 h-9
+                sm:w-11 sm:h-11
 
-                   sm:w-11
-                   sm:h-11
+                rounded-full
 
-                   rounded-full
+                bg-[#073B66]/80
+                hover:bg-[#E31E24]
 
-                   bg-[#073B66]/80
-                   hover:bg-[#E31E24]
+                text-white
 
-                   text-white
+                flex
+                items-center
+                justify-center
 
-                   flex
-                   items-center
-                   justify-center
+                transition-all
+                duration-300
 
-                   transition
-                   duration-300
+                shadow-lg
+            "
 
-                   shadow-lg"
+            aria-label="Next slide"
         >
 
             <svg
@@ -718,44 +262,48 @@
         </button>
 
 
-        {{-- =====================================================
-             DOTS
-        ====================================================== --}}
-
+        {{-- DOTS --}}
         <div
-            class="absolute
-                   bottom-5
-                   sm:bottom-6
+            class="
+                absolute
+                bottom-4
+                sm:bottom-5
 
-                   left-1/2
-                   -translate-x-1/2
+                left-1/2
+                -translate-x-1/2
 
-                   z-40
+                z-20
 
-                   flex
-                   items-center
-                   gap-2"
+                flex
+                items-center
+                gap-2
+            "
         >
 
             <template
-                x-for="index in total"
+                x-for="(slide, index) in slides"
                 :key="index"
             >
 
                 <button
                     type="button"
-                    @click="goTo(index - 1)"
+                    @click="goTo(index)"
 
                     :class="
-                        current === index - 1
-                        ? 'w-8 bg-[#E31E24]'
-                        : 'w-2.5 bg-gray-400 hover:bg-[#073B66]'
+                        current === index
+                            ? 'w-8 bg-[#E31E24]'
+                            : 'w-2.5 bg-white/80 hover:bg-white'
                     "
 
-                    class="h-2.5
-                           rounded-full
-                           transition-all
-                           duration-300"
+                    class="
+                        h-2.5
+                        rounded-full
+                        transition-all
+                        duration-300
+                        shadow
+                    "
+
+                    :aria-label="'Go to slide ' + (index + 1)"
                 ></button>
 
             </template>
@@ -928,7 +476,7 @@
                 >
 
                     <img
-                        src="{{ asset('images/hero (1).png') }}"
+                        src="{{ asset('images/soil-testing.png') }}"
                         alt="Soil Testing Equipment"
                         class="max-h-full max-w-full object-contain
                                transition-transform duration-500
