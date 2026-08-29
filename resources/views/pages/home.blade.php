@@ -11,18 +11,27 @@
         total: 4,
         timer: null,
         startX: 0,
+        isDragging: false,
 
         slides: [
             '{{ asset('images/hero (1).png') }}',
-            '{{ asset('images/hero (2).png') }}',
-            '{{ asset('images/hero (3).png') }}',
-            '{{ asset('images/hero (4).png') }}'
+            '{{ asset('images/hero (1).png') }}',
+            '{{ asset('images/hero (1).png') }}',
+            '{{ asset('images/hero (1).png') }}'
         ],
 
         start() {
             this.timer = setInterval(() => {
-                this.current = (this.current + 1) % this.total;
+                this.next();
             }, 5000);
+        },
+
+        stop() {
+            clearInterval(this.timer);
+        },
+
+        next() {
+            this.current = (this.current + 1) % this.total;
         },
 
         goTo(index) {
@@ -31,97 +40,119 @@
         },
 
         restart() {
-            clearInterval(this.timer);
+            this.stop();
             this.start();
         },
 
         touchStart(e) {
+            this.stop();
             this.startX = e.touches[0].clientX;
+            this.isDragging = true;
         },
 
         touchEnd(e) {
-            let endX = e.changedTouches[0].clientX;
-            let distance = this.startX - endX;
+            if (!this.isDragging) return;
+
+            const endX = e.changedTouches[0].clientX;
+            const distance = this.startX - endX;
+
+            this.isDragging = false;
 
             if (Math.abs(distance) > 50) {
-                if (distance > 0) {
-                    this.current = (this.current + 1) % this.total;
-                } else {
-                    this.current = (this.current - 1 + this.total) % this.total;
-                }
 
-                this.restart();
+                if (distance > 0) {
+                    this.current =
+                        (this.current + 1) % this.total;
+                } else {
+                    this.current =
+                        (this.current - 1 + this.total)
+                        % this.total;
+                }
             }
+
+            this.start();
         }
     }"
 
     x-init="start()"
 
-    @mouseenter="clearInterval(timer)"
+    @mouseenter="stop()"
     @mouseleave="start()"
 
-    @touchstart="touchStart($event)"
-    @touchend="touchEnd($event)"
+    @touchstart.passive="touchStart($event)"
+    @touchend.passive="touchEnd($event)"
 
-    class="relative w-full overflow-hidden bg-[#f4f7fa]"
+    class="relative w-full overflow-hidden bg-white"
 >
 
     {{-- =====================================================
-         HERO SLIDER
+         SLIDER TRACK
     ====================================================== --}}
 
-    <div class="relative w-full">
+    <div
+        class="relative w-full overflow-hidden"
+    >
 
-        <template
-            x-for="(slide, index) in slides"
-            :key="index"
+        <div
+            class="flex w-full"
+            :style="`transform: translateX(-${current * 100}%);`"
+            style="transition: transform 700ms ease-in-out;"
         >
 
-            <div
-                x-show="current === index"
-
-                x-transition:enter="transition-opacity ease-in-out duration-700"
-                x-transition:enter-start="opacity-0"
-                x-transition:enter-end="opacity-100"
-
-                x-transition:leave="transition-opacity ease-in-out duration-500"
-                x-transition:leave-start="opacity-100"
-                x-transition:leave-end="opacity-0"
-
-                class="w-full"
+            <template
+                x-for="(slide, index) in slides"
+                :key="index"
             >
 
-                {{-- =================================================
-                     FULL IMAGE - NO CROP
-                ================================================== --}}
-
-                <img
-                    :src="slide"
-                    alt="Associated Scientific & Engineering Works"
-                    class="block w-full h-auto
-                           object-contain
-                           select-none
-                           pointer-events-none"
+                <div
+                    class="min-w-full w-full flex-shrink-0"
                 >
 
-            </div>
+                    <img
+                        :src="slide"
+                        alt="Associated Scientific & Engineering Works"
 
-        </template>
+                        class="
+                            block
+                            w-full
+                            h-auto
+                            object-contain
+
+                            select-none
+                            pointer-events-none
+                        "
+
+                        draggable="false"
+                    >
+
+                </div>
+
+            </template>
+
+        </div>
 
     </div>
 
 
     {{-- =====================================================
-         SLIDER DOTS
+         DOTS
     ====================================================== --}}
 
     <div
-        class="absolute
-               bottom-4 sm:bottom-5
-               left-1/2
-               -translate-x-1/2
-               z-30
-               flex items-center gap-2"
+        class="
+            absolute
+            bottom-4
+            sm:bottom-5
+
+            left-1/2
+            -translate-x-1/2
+
+            z-30
+
+            flex
+            items-center
+            gap-2
+        "
     >
 
         <template
@@ -139,11 +170,13 @@
                         : 'w-2.5 bg-white/80 hover:bg-[#073B66]'
                 "
 
-                class="h-2.5
-                       rounded-full
-                       shadow
-                       transition-all
-                       duration-300"
+                class="
+                    h-2.5
+                    rounded-full
+                    shadow
+                    transition-all
+                    duration-300
+                "
 
                 :aria-label="'Go to slide ' + index"
             ></button>
