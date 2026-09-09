@@ -199,7 +199,8 @@
                         Downloads
                     </a>
 
-                    <a href="{{ route('home') }}#contact"
+                    <a href="{{ route('contact') }}"
+
                        class="block hover:text-white transition">
                         Contact Us
                     </a>

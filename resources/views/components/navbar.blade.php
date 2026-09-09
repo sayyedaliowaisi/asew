@@ -1,10 +1,33 @@
 {{-- =========================================================
      ASEW PREMIUM HEADER
-     3-LAYER NAVIGATION
+     3-LAYER RESPONSIVE NAVIGATION
 ========================================================= --}}
 
 <header
-    x-data="{ mobileMenu: false, productsOpen: false, aboutOpen: false, servicesOpen: false }"
+    x-data="{
+        mobileMenu: false,
+        productsOpen: false,
+        aboutOpen: false,
+        servicesOpen: false,
+        desktopSearch: '',
+        mobileSearch: '',
+
+        searchProducts(type = 'desktop') {
+
+            let keyword =
+                type === 'mobile'
+                    ? this.mobileSearch.trim()
+                    : this.desktopSearch.trim();
+
+            let url = '{{ route('products') }}';
+
+            if (keyword !== '') {
+                url += '?search=' + encodeURIComponent(keyword);
+            }
+
+            window.location.href = url;
+        }
+    }"
     class="relative z-[100] w-full bg-white"
 >
 
@@ -16,10 +39,21 @@
 
         <div class="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8">
 
-            <div class="min-h-[30px] lg:h-[30px] flex items-center justify-between">
+            <div
+                class="min-h-[30px]
+                       lg:h-[30px]
+                       flex
+                       items-center
+                       justify-between"
+            >
 
-                {{-- LEFT INFORMATION --}}
-                <div class="flex items-center gap-5 lg:gap-9 text-[10px] sm:text-[11px]">
+                {{-- LEFT --}}
+                <div
+                    class="flex
+                           items-center
+                           gap-5 lg:gap-9
+                           text-[10px] sm:text-[11px]"
+                >
 
                     {{-- Since 1975 --}}
                     <div class="flex items-center gap-1.5 whitespace-nowrap">
@@ -49,8 +83,14 @@
                     </div>
 
 
-                    {{-- 50+ Years --}}
-                    <div class="hidden sm:flex items-center gap-1.5 whitespace-nowrap">
+                    {{-- Experience --}}
+                    <div
+                        class="hidden
+                               sm:flex
+                               items-center
+                               gap-1.5
+                               whitespace-nowrap"
+                    >
 
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -78,8 +118,14 @@
                     </div>
 
 
-                    {{-- Made in India --}}
-                    <div class="hidden md:flex items-center gap-1.5 whitespace-nowrap">
+                    {{-- India --}}
+                    <div
+                        class="hidden
+                               md:flex
+                               items-center
+                               gap-1.5
+                               whitespace-nowrap"
+                    >
 
                         <span class="text-[12px]">🇮🇳</span>
 
@@ -88,8 +134,14 @@
                     </div>
 
 
-                    {{-- Global Presence --}}
-                    <div class="hidden lg:flex items-center gap-1.5 whitespace-nowrap">
+                    {{-- Global --}}
+                    <div
+                        class="hidden
+                               lg:flex
+                               items-center
+                               gap-1.5
+                               whitespace-nowrap"
+                    >
 
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -118,13 +170,26 @@
                 </div>
 
 
-                {{-- RIGHT INFORMATION --}}
-                <div class="flex items-center gap-4 lg:gap-7 text-[10px] sm:text-[11px]">
+
+                {{-- RIGHT --}}
+                <div
+                    class="flex
+                           items-center
+                           gap-4 lg:gap-7
+                           text-[10px] sm:text-[11px]"
+                >
 
                     {{-- Email --}}
                     <a
                         href="mailto:sales@asew.in"
-                        class="hidden sm:flex items-center gap-1.5 hover:text-[#D7A93A] transition-colors duration-300 whitespace-nowrap"
+                        class="hidden
+                               sm:flex
+                               items-center
+                               gap-1.5
+                               hover:text-[#D7A93A]
+                               transition-colors
+                               duration-300
+                               whitespace-nowrap"
                     >
 
                         <svg
@@ -156,7 +221,13 @@
                     {{-- Phone --}}
                     <a
                         href="tel:+911204566201"
-                        class="flex items-center gap-1.5 hover:text-[#D7A93A] transition-colors duration-300 whitespace-nowrap"
+                        class="flex
+                               items-center
+                               gap-1.5
+                               hover:text-[#D7A93A]
+                               transition-colors
+                               duration-300
+                               whitespace-nowrap"
                     >
 
                         <svg
@@ -187,96 +258,127 @@
     </div>
 
 
+
     {{-- =====================================================
-         2. BRAND / SEARCH / CTA AREA
+         2. BRAND / SEARCH / CTA
     ====================================================== --}}
 
-    <div class="w-full bg-white border-b border-slate-100">
+    <div
+        class="w-full
+               bg-white
+               border-b
+               border-slate-100"
+    >
 
         <div class="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8">
 
             <div
-                class="min-h-[88px] lg:min-h-[104px]
-                       flex items-center justify-between gap-5 lg:gap-8"
+                class="min-h-[88px]
+                       lg:min-h-[104px]
+                       flex
+                       items-center
+                       justify-between
+                       gap-5 lg:gap-8"
             >
 
-                {{-- =========================================================
-     LOGO + COMPANY BRANDING
-========================================================= --}}
-
-<a
-    href="{{ route('home') }}"
-    class="flex items-center shrink-0 group"
->
-
-    {{-- ASEW LOGO --}}
-    <div class="flex items-center">
-
-        <img
-            src="{{ asset('images/asew-logo.jpg') }}"
-            alt="ASEW Logo"
-            class="h-[64px] sm:h-[70px] lg:h-[78px] w-auto object-contain"
-        >
-
-    </div>
-
-
-    {{-- COMPANY NAME + TAGLINE --}}
-    <div
-        class="ml-3 sm:ml-4
-               pl-3 sm:pl-4
-               border-l border-slate-200"
-    >
-
-        {{-- Company Name --}}
-        <div
-            class="text-[#073B66]
-                   font-extrabold
-                   text-[13px] sm:text-[15px] lg:text-[17px]
-                   leading-[1.05]
-                   tracking-tight
-                   uppercase
-                   whitespace-nowrap"
-        >
-            <span class="block">
-                Associated Scientific &
-            </span>
-
-            <span class="block">
-                Engineering Works
-            </span>
-        </div>
-
-
-        {{-- Tagline --}}
-        <p
-            class="mt-1.5
-                   text-[8px] sm:text-[9px] lg:text-[10px]
-                   leading-[1.35]
-                   text-slate-500
-                   font-medium
-                   whitespace-nowrap"
-        >
-            Manufacturers of Scientific, Engineering &<br>
-            Laboratory Equipment Since 1975
-        </p>
-
-    </div>
-
-</a>
-
                 {{-- =================================================
-                     SEARCH
+                     LOGO + BRAND
                 ================================================== --}}
 
-                <div class="hidden md:block flex-1 max-w-[430px] lg:max-w-[500px]">
+                <a
+                    href="{{ route('home') }}"
+                    class="flex
+                           items-center
+                           shrink-0
+                           group"
+                >
 
-                    <div class="relative">
+                    <img
+                        src="{{ asset('images/asew-logo.jpg') }}"
+                        alt="ASEW Logo"
+                        class="h-[58px]
+                               sm:h-[70px]
+                               lg:h-[78px]
+                               w-auto
+                               object-contain"
+                    >
+
+
+                    <div
+                        class="hidden
+                               xs:block
+                               ml-3 sm:ml-4
+                               pl-3 sm:pl-4
+                               border-l
+                               border-slate-200"
+                    >
+
+                        <div
+                            class="text-[#073B66]
+                                   font-extrabold
+                                   text-[12px]
+                                   sm:text-[15px]
+                                   lg:text-[17px]
+                                   leading-[1.05]
+                                   tracking-tight
+                                   uppercase
+                                   whitespace-nowrap"
+                        >
+
+                            <span class="block">
+                                Associated Scientific &
+                            </span>
+
+                            <span class="block">
+                                Engineering Works
+                            </span>
+
+                        </div>
+
+
+                        <p
+                            class="mt-1.5
+                                   text-[8px]
+                                   sm:text-[9px]
+                                   lg:text-[10px]
+                                   leading-[1.35]
+                                   text-slate-500
+                                   font-medium
+                                   whitespace-nowrap"
+                        >
+                            Manufacturers of Scientific, Engineering &<br>
+                            Laboratory Equipment Since 1975
+                        </p>
+
+                    </div>
+
+                </a>
+
+
+
+                {{-- =================================================
+                     DESKTOP SEARCH
+                ================================================== --}}
+
+                <div
+                    class="hidden
+                           md:block
+                           flex-1
+                           max-w-[430px]
+                           lg:max-w-[500px]"
+                >
+
+                    <form
+                        @submit.prevent="searchProducts('desktop')"
+                        class="relative"
+                    >
 
                         <input
+                            x-model="desktopSearch"
                             type="search"
                             placeholder="Search for products, categories..."
-                            class="w-full h-[42px] lg:h-[46px]
+                            class="w-full
+                                   h-[42px] lg:h-[46px]
                                    border border-slate-200
                                    bg-white
                                    px-4 pr-12
@@ -285,19 +387,27 @@
                                    placeholder:text-slate-400
                                    outline-none
                                    focus:border-[#073B66]
-                                   focus:ring-1 focus:ring-[#073B66]/10
-                                   transition-all duration-300"
+                                   focus:ring-1
+                                   focus:ring-[#073B66]/10
+                                   transition-all
+                                   duration-300"
                         >
 
                         <button
-                            type="button"
-                            aria-label="Search"
-                            class="absolute right-0 top-0
-                                   w-[46px] h-full
-                                   flex items-center justify-center
+                            type="submit"
+                            aria-label="Search Products"
+                            class="absolute
+                                   right-0
+                                   top-0
+                                   w-[46px]
+                                   h-full
+                                   flex
+                                   items-center
+                                   justify-center
                                    text-[#073B66]
-                                   hover:text-[#E31E24]
-                                   transition-colors duration-300"
+                                   hover:text-[#D71920]
+                                   transition-colors
+                                   duration-300"
                         >
 
                             <svg
@@ -317,52 +427,67 @@
 
                         </button>
 
-                    </div>
+                    </form>
 
                 </div>
 
 
+
                 {{-- =================================================
-                     ACTION BUTTONS
+                     CTA BUTTONS
                 ================================================== --}}
 
-                <div class="hidden sm:flex items-center gap-2.5 lg:gap-3 shrink-0">
+                <div
+                    class="hidden
+                           sm:flex
+                           items-center
+                           gap-2.5 lg:gap-3
+                           shrink-0"
+                >
 
-                    {{-- Request Quote --}}
                     <a
-                        href="{{ route('home') }}#contact"
-                        class="h-[42px] lg:h-[46px]
+                        href="{{ route('quote.create') }}"
+                        class="h-[42px]
+                               lg:h-[46px]
                                px-4 lg:px-6
-                               flex items-center justify-center
-                               border border-[#073B66]
+                               flex
+                               items-center
+                               justify-center
+                               border
+                               border-[#073B66]
                                text-[#073B66]
-                               text-[11px] lg:text-[12px]
+                               text-[11px]
+                               lg:text-[12px]
                                font-bold
                                tracking-wide
                                uppercase
                                hover:bg-[#073B66]
                                hover:text-white
-                               transition-all duration-300
+                               transition-all
+                               duration-300
                                whitespace-nowrap"
                     >
                         Request a Quote
                     </a>
 
 
-                    {{-- Get In Touch --}}
                     <a
                         href="{{ route('home') }}#contact"
-                        class="h-[42px] lg:h-[46px]
-                               px-4 lg:px-6
-                               flex items-center justify-center
+                        class="hidden
+                               xl:flex
+                               h-[46px]
+                               px-6
+                               items-center
+                               justify-center
                                bg-[#D71920]
                                text-white
-                               text-[11px] lg:text-[12px]
+                               text-[12px]
                                font-bold
                                tracking-wide
                                uppercase
                                hover:bg-[#073B66]
-                               transition-all duration-300
+                               transition-all
+                               duration-300
                                whitespace-nowrap
                                shadow-sm"
                     >
@@ -372,8 +497,9 @@
                 </div>
 
 
+
                 {{-- =================================================
-                     MOBILE MENU BUTTON
+                     MOBILE BUTTON
                 ================================================== --}}
 
                 <button
@@ -381,16 +507,20 @@
                     @click="mobileMenu = !mobileMenu"
                     class="lg:hidden
                            w-11 h-11
-                           flex items-center justify-center
-                           border border-slate-200
+                           shrink-0
+                           flex
+                           items-center
+                           justify-center
+                           border
+                           border-slate-200
                            text-[#073B66]
                            hover:border-[#073B66]
-                           transition-all duration-300"
+                           transition-all
+                           duration-300"
                     :aria-expanded="mobileMenu.toString()"
                     aria-label="Toggle navigation"
                 >
 
-                    {{-- Hamburger --}}
                     <svg
                         x-show="!mobileMenu"
                         xmlns="http://www.w3.org/2000/svg"
@@ -408,7 +538,6 @@
                     </svg>
 
 
-                    {{-- Close --}}
                     <svg
                         x-show="mobileMenu"
                         x-cloak
@@ -435,15 +564,17 @@
     </div>
 
 
+
     {{-- =====================================================
-         3. MAIN NAVIGATION
+         3. DESKTOP NAVIGATION
     ====================================================== --}}
 
-    <div class="w-full bg-[#032B55]">
+    <div class="hidden lg:block w-full bg-[#032B55]">
 
-        <div class="max-w-[1500px] mx-auto px-0 sm:px-6 lg:px-8">
+        <div class="max-w-[1500px] mx-auto px-6 lg:px-8">
 
-            <nav class="hidden lg:flex items-stretch h-[48px]">
+            <nav class="flex items-stretch h-[48px]">
+
 
                 {{-- =================================================
                      HOME
@@ -451,24 +582,41 @@
 
                 <a
                     href="{{ route('home') }}"
-                    class="relative min-w-[90px]
-                           flex items-center justify-center
-                           bg-white
-                           text-[#D71920]
+                    class="relative
+                           min-w-[90px]
+                           px-5
+                           flex
+                           items-center
+                           justify-center
                            text-[12px]
                            font-bold
                            uppercase
                            tracking-wide
-                           group"
+                           transition-colors
+                           duration-300
+
+                           {{ request()->routeIs('home')
+                                ? 'bg-white text-[#D71920]'
+                                : 'text-white hover:bg-[#073B66]' }}"
                 >
 
                     <span>Home</span>
 
-                    <span
-                        class="absolute bottom-0 left-0 right-0 h-[3px] bg-[#D71920]"
-                    ></span>
+                    @if(request()->routeIs('home'))
+
+                        <span
+                            class="absolute
+                                   left-0
+                                   right-0
+                                   bottom-0
+                                   h-[3px]
+                                   bg-[#D71920]"
+                        ></span>
+
+                    @endif
 
                 </a>
+
 
 
                 {{-- =================================================
@@ -481,17 +629,24 @@
                     @mouseleave="productsOpen = false"
                 >
 
-                    <button
-                        type="button"
-                        class="h-full px-5 xl:px-7
-                               flex items-center gap-2
-                               text-white
+                    <a
+                        href="{{ route('products') }}"
+                        class="relative
+                               h-full
+                               px-5 xl:px-7
+                               flex
+                               items-center
+                               gap-2
                                text-[12px]
                                font-semibold
                                uppercase
                                tracking-wide
-                               hover:bg-[#073B66]
-                               transition-colors duration-300"
+                               transition-colors
+                               duration-300
+
+                               {{ request()->routeIs('products*')
+                                    ? 'bg-white text-[#D71920]'
+                                    : 'text-white hover:bg-[#073B66]' }}"
                     >
 
                         <span>Products</span>
@@ -511,10 +666,28 @@
                             />
                         </svg>
 
-                    </button>
+
+                        @if(request()->routeIs('products*'))
+
+                            <span
+                                class="absolute
+                                       left-0
+                                       right-0
+                                       bottom-0
+                                       h-[3px]
+                                       bg-[#D71920]"
+                            ></span>
+
+                        @endif
+
+                    </a>
 
 
-                    {{-- Products Mega Menu --}}
+
+                    {{-- =============================================
+                         PRODUCTS MEGA MENU
+                    ============================================== --}}
+
                     <div
                         x-show="productsOpen"
                         x-cloak
@@ -524,83 +697,217 @@
                         x-transition:leave="transition ease-in duration-150"
                         x-transition:leave-start="opacity-100 translate-y-0"
                         x-transition:leave-end="opacity-0 -translate-y-2"
-                        class="absolute top-full left-0 w-[760px] bg-white shadow-[0_18px_50px_rgba(0,0,0,0.18)] border border-slate-200"
+                        class="absolute
+                               top-full
+                               left-0
+                               w-[790px]
+                               bg-white
+                               border
+                               border-slate-200
+                               shadow-[0_18px_50px_rgba(0,0,0,0.18)]"
                     >
+
+                        {{-- Red Top Accent --}}
+                        <div class="h-[3px] bg-[#D71920]"></div>
+
 
                         <div class="grid grid-cols-3">
 
+
+                            {{-- CIVIL --}}
                             <div class="p-6 border-r border-slate-100">
 
-                                <p class="text-[10px] uppercase tracking-[0.18em] font-bold text-[#D71920] mb-4">
+                                <p
+                                    class="text-[10px]
+                                           uppercase
+                                           tracking-[0.18em]
+                                           font-bold
+                                           text-[#D71920]
+                                           mb-4"
+                                >
                                     Civil Testing
                                 </p>
 
-                                <a href="#products" class="block py-2 text-sm text-slate-600 hover:text-[#073B66]">
-                                    Soil Testing
-                                </a>
-
-                                <a href="#products" class="block py-2 text-sm text-slate-600 hover:text-[#073B66]">
-                                    Concrete Testing
-                                </a>
-
-                                <a href="#products" class="block py-2 text-sm text-slate-600 hover:text-[#073B66]">
-                                    Cement Testing
-                                </a>
-
-                                <a href="#products" class="block py-2 text-sm text-slate-600 hover:text-[#073B66]">
-                                    Aggregate Testing
-                                </a>
-
-                            </div>
-
-
-                            <div class="p-6 border-r border-slate-100">
-
-                                <p class="text-[10px] uppercase tracking-[0.18em] font-bold text-[#D71920] mb-4">
-                                    Material Testing
-                                </p>
-
-                                <a href="#products" class="block py-2 text-sm text-slate-600 hover:text-[#073B66]">
-                                    Bitumen / Asphalt
-                                </a>
-
-                                <a href="#products" class="block py-2 text-sm text-slate-600 hover:text-[#073B66]">
-                                    Rock Testing
-                                </a>
-
-                                <a href="#products" class="block py-2 text-sm text-slate-600 hover:text-[#073B66]">
-                                    Material Testing
-                                </a>
-
-                                <a href="#products" class="block py-2 text-sm text-slate-600 hover:text-[#073B66]">
-                                    Survey Instruments
-                                </a>
-
-                            </div>
-
-
-                            <div class="bg-[#073B66] p-6 text-white">
-
-                                <p class="text-[10px] uppercase tracking-[0.18em] text-white/60 font-bold mb-4">
-                                    Laboratory
-                                </p>
-
-                                <h3 class="text-lg font-bold mb-2">
-                                    Complete Lab Equipment
-                                </h3>
-
-                                <p class="text-xs leading-5 text-white/70 mb-5">
-                                    Explore precision testing instruments and complete laboratory solutions.
-                                </p>
 
                                 <a
-                                    href="#products"
-                                    class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wide hover:text-[#E31E24] transition"
+                                    href="{{ route('products', ['category' => 'soil']) }}"
+                                    class="group flex items-center justify-between py-2 text-sm text-slate-600 hover:text-[#073B66]"
                                 >
-                                    View Catalogue
-
-                                    <span>→</span>
+                                    Soil Testing
+                                    <span class="opacity-0 group-hover:opacity-100">→</span>
                                 </a>
+
+
+                                <a
+                                    href="{{ route('products', ['category' => 'concrete']) }}"
+                                    class="group flex items-center justify-between py-2 text-sm text-slate-600 hover:text-[#073B66]"
+                                >
+                                    Concrete Testing
+                                    <span class="opacity-0 group-hover:opacity-100">→</span>
+                                </a>
+
+
+                                <a
+                                    href="{{ route('products', ['category' => 'cement']) }}"
+                                    class="group flex items-center justify-between py-2 text-sm text-slate-600 hover:text-[#073B66]"
+                                >
+                                    Cement Testing
+                                    <span class="opacity-0 group-hover:opacity-100">→</span>
+                                </a>
+
+
+                                <a
+                                    href="{{ route('products', ['category' => 'aggregate']) }}"
+                                    class="group flex items-center justify-between py-2 text-sm text-slate-600 hover:text-[#073B66]"
+                                >
+                                    Aggregate Testing
+                                    <span class="opacity-0 group-hover:opacity-100">→</span>
+                                </a>
+
+                            </div>
+
+
+
+                            {{-- MATERIAL --}}
+                            <div class="p-6 border-r border-slate-100">
+
+                                <p
+                                    class="text-[10px]
+                                           uppercase
+                                           tracking-[0.18em]
+                                           font-bold
+                                           text-[#D71920]
+                                           mb-4"
+                                >
+                                    Material Testing
+                                </p>
+
+
+                                <a
+                                    href="{{ route('products', ['category' => 'bitumen']) }}"
+                                    class="group flex items-center justify-between py-2 text-sm text-slate-600 hover:text-[#073B66]"
+                                >
+                                    Bitumen / Asphalt
+                                    <span class="opacity-0 group-hover:opacity-100">→</span>
+                                </a>
+
+
+                                <a
+                                    href="{{ route('products', ['category' => 'rock']) }}"
+                                    class="group flex items-center justify-between py-2 text-sm text-slate-600 hover:text-[#073B66]"
+                                >
+                                    Rock Testing
+                                    <span class="opacity-0 group-hover:opacity-100">→</span>
+                                </a>
+
+
+                                <a
+                                    href="{{ route('products', ['category' => 'material']) }}"
+                                    class="group flex items-center justify-between py-2 text-sm text-slate-600 hover:text-[#073B66]"
+                                >
+                                    Material Testing
+                                    <span class="opacity-0 group-hover:opacity-100">→</span>
+                                </a>
+
+
+                                <a
+                                    href="{{ route('products', ['category' => 'survey']) }}"
+                                    class="group flex items-center justify-between py-2 text-sm text-slate-600 hover:text-[#073B66]"
+                                >
+                                    Survey Instruments
+                                    <span class="opacity-0 group-hover:opacity-100">→</span>
+                                </a>
+
+                            </div>
+
+
+
+                            {{-- LAB --}}
+                            <div
+                                class="relative
+                                       overflow-hidden
+                                       bg-[#073B66]
+                                       p-6
+                                       text-white"
+                            >
+
+                                <div
+                                    class="absolute
+                                           right-[-50px]
+                                           bottom-[-50px]
+                                           w-[140px]
+                                           h-[140px]
+                                           rounded-full
+                                           border
+                                           border-white/10"
+                                ></div>
+
+                                <div class="relative z-10">
+
+                                    <p
+                                        class="text-[10px]
+                                               uppercase
+                                               tracking-[0.18em]
+                                               text-[#D7A93A]
+                                               font-bold
+                                               mb-4"
+                                    >
+                                        Laboratory
+                                    </p>
+
+
+                                    <h3
+                                        class="text-lg
+                                               font-bold
+                                               mb-2"
+                                    >
+                                        Complete Lab Equipment
+                                    </h3>
+
+
+                                    <p
+                                        class="text-xs
+                                               leading-5
+                                               text-white/70
+                                               mb-4"
+                                    >
+                                        Precision testing instruments and complete
+                                        scientific laboratory solutions.
+                                    </p>
+
+
+                                    <a
+                                        href="{{ route('products', ['category' => 'laboratory']) }}"
+                                        class="block
+                                               py-2
+                                               text-[12px]
+                                               text-white/80
+                                               hover:text-[#D7A93A]
+                                               transition"
+                                    >
+                                        Laboratory Equipment
+                                    </a>
+
+
+                                    <a
+                                        href="{{ route('products') }}"
+                                        class="inline-flex
+                                               items-center
+                                               gap-2
+                                               mt-4
+                                               text-[10px]
+                                               font-bold
+                                               uppercase
+                                               tracking-wide
+                                               text-white
+                                               hover:text-[#D7A93A]
+                                               transition"
+                                    >
+                                        View Full Catalogue
+                                        <span>→</span>
+                                    </a>
+
+                                </div>
 
                             </div>
 
@@ -609,6 +916,7 @@
                     </div>
 
                 </div>
+
 
 
                 {{-- =================================================
@@ -623,15 +931,19 @@
 
                     <button
                         type="button"
-                        class="h-full px-5 xl:px-7
-                               flex items-center gap-2
+                        class="h-full
+                               px-5 xl:px-7
+                               flex
+                               items-center
+                               gap-2
                                text-white
                                text-[12px]
                                font-semibold
                                uppercase
                                tracking-wide
                                hover:bg-[#073B66]
-                               transition-colors duration-300"
+                               transition-colors
+                               duration-300"
                     >
 
                         <span>About Us</span>
@@ -658,26 +970,52 @@
                         x-show="aboutOpen"
                         x-cloak
                         x-transition
-                        class="absolute top-full left-0 w-[220px] bg-white border border-slate-200 shadow-xl"
+                        class="absolute
+                               top-full
+                               left-0
+                               w-[240px]
+                               bg-white
+                               border
+                               border-slate-200
+                               shadow-xl"
                     >
 
+                        <div class="h-[3px] bg-[#D71920]"></div>
+
                         <a
-                            href="{{ route('home') }}#about"
-                            class="block px-5 py-3 text-sm text-slate-600 hover:bg-slate-50 hover:text-[#073B66]"
+                            href="{{ route('about.company') }}"
+                            class="block
+                                   px-5 py-3
+                                   text-sm
+                                   text-slate-600
+                                   hover:bg-slate-50
+                                   hover:text-[#073B66]"
                         >
                             Company Profile
                         </a>
 
+
                         <a
-                            href="{{ route('home') }}#about"
-                            class="block px-5 py-3 text-sm text-slate-600 hover:bg-slate-50 hover:text-[#073B66]"
+                            href="{ route('about.excellence') }}"
+                            class="block
+                                   px-5 py-3
+                                   text-sm
+                                   text-slate-600
+                                   hover:bg-slate-50
+                                   hover:text-[#073B66]"
                         >
                             50+ Years of Excellence
                         </a>
 
+
                         <a
-                            href="{{ route('home') }}#about"
-                            class="block px-5 py-3 text-sm text-slate-600 hover:bg-slate-50 hover:text-[#073B66]"
+                            href="{{ route('about.quality') }}"
+                            class="block
+                                   px-5 py-3
+                                   text-sm
+                                   text-slate-600
+                                   hover:bg-slate-50
+                                   hover:text-[#073B66]"
                         >
                             Quality & Precision
                         </a>
@@ -687,50 +1025,53 @@
                 </div>
 
 
-                {{-- =================================================
-                     MANUFACTURING
-                ================================================== --}}
 
+                {{-- MANUFACTURING --}}
                 <a
                     href="{{ route('home') }}#manufacturing"
-                    class="h-full px-5 xl:px-7
-                           flex items-center
+                    class="h-full
+                           px-5 xl:px-7
+                           flex
+                           items-center
                            text-white
                            text-[12px]
                            font-semibold
                            uppercase
                            tracking-wide
                            hover:bg-[#073B66]
-                           transition-colors duration-300
+                           transition-colors
+                           duration-300
                            whitespace-nowrap"
                 >
                     Manufacturing
                 </a>
 
 
-                {{-- =================================================
-                     COMPLETE LAB SOLUTIONS
-                ================================================== --}}
 
+                {{-- LAB SOLUTIONS --}}
                 <a
                     href="{{ route('home') }}#solutions"
-                    class="h-full px-5 xl:px-7
-                           flex items-center
+                    class="h-full
+                           px-5 xl:px-7
+                           flex
+                           items-center
                            text-white
                            text-[12px]
                            font-semibold
                            uppercase
                            tracking-wide
                            hover:bg-[#073B66]
-                           transition-colors duration-300
+                           transition-colors
+                           duration-300
                            whitespace-nowrap"
                 >
                     Complete Lab Solutions
                 </a>
 
 
+
                 {{-- =================================================
-                     SERVICES & SUPPORT
+                     SERVICES
                 ================================================== --}}
 
                 <div
@@ -741,15 +1082,19 @@
 
                     <button
                         type="button"
-                        class="h-full px-5 xl:px-7
-                               flex items-center gap-2
+                        class="h-full
+                               px-5 xl:px-7
+                               flex
+                               items-center
+                               gap-2
                                text-white
                                text-[12px]
                                font-semibold
                                uppercase
                                tracking-wide
                                hover:bg-[#073B66]
-                               transition-colors duration-300
+                               transition-colors
+                               duration-300
                                whitespace-nowrap"
                     >
 
@@ -777,8 +1122,18 @@
                         x-show="servicesOpen"
                         x-cloak
                         x-transition
-                        class="absolute top-full right-0 w-[250px] bg-white border border-slate-200 shadow-xl"
+                        class="absolute
+                               top-full
+                               right-0
+                               w-[250px]
+                               bg-white
+                               border
+                               border-slate-200
+                               shadow-xl"
                     >
+
+                        <div class="h-[3px] bg-[#D71920]"></div>
+
 
                         <a
                             href="{{ route('home') }}#services"
@@ -813,42 +1168,44 @@
                 </div>
 
 
-                {{-- =================================================
-                     DOWNLOADS
-                ================================================== --}}
 
+                {{-- DOWNLOADS --}}
                 <a
                     href="{{ route('home') }}#downloads"
-                    class="h-full px-5 xl:px-7
-                           flex items-center
+                    class="h-full
+                           px-5 xl:px-7
+                           flex
+                           items-center
                            text-white
                            text-[12px]
                            font-semibold
                            uppercase
                            tracking-wide
                            hover:bg-[#073B66]
-                           transition-colors duration-300
+                           transition-colors
+                           duration-300
                            whitespace-nowrap"
                 >
                     Downloads
                 </a>
 
 
-                {{-- =================================================
-                     CONTACT US
-                ================================================== --}}
 
+                {{-- CONTACT --}}
                 <a
-                    href="{{ route('home') }}#contact"
-                    class="h-full px-5 xl:px-7
-                           flex items-center
+                    href="{{ route('contact') }}"
+                    class="h-full
+                           px-5 xl:px-7
+                           flex
+                           items-center
                            text-white
                            text-[12px]
                            font-semibold
                            uppercase
                            tracking-wide
                            hover:bg-[#073B66]
-                           transition-colors duration-300
+                           transition-colors
+                           duration-300
                            whitespace-nowrap"
                 >
                     Contact Us
@@ -861,8 +1218,9 @@
     </div>
 
 
+
     {{-- =====================================================
-         MOBILE NAVIGATION
+         4. MOBILE NAVIGATION
     ====================================================== --}}
 
     <div
@@ -874,34 +1232,84 @@
         x-transition:leave="transition ease-in duration-150"
         x-transition:leave-start="opacity-100 translate-y-0"
         x-transition:leave-end="opacity-0 -translate-y-2"
-        class="lg:hidden bg-white border-t border-slate-200 shadow-xl"
+        class="lg:hidden
+               bg-white
+               border-t
+               border-slate-200
+               shadow-xl"
     >
 
-        <div class="max-h-[calc(100vh-130px)] overflow-y-auto py-3">
+        <div
+            class="max-h-[calc(100vh-120px)]
+                   overflow-y-auto
+                   py-3"
+        >
 
+            {{-- Home --}}
             <a
                 href="{{ route('home') }}"
                 @click="mobileMenu = false"
-                class="block px-5 py-3.5 text-sm font-bold text-[#D71920] bg-slate-50"
+                class="relative
+                       block
+                       px-5
+                       py-3.5
+                       text-sm
+                       font-bold
+
+                       {{ request()->routeIs('home')
+                            ? 'bg-slate-50 text-[#D71920]'
+                            : 'text-slate-700' }}"
             >
                 Home
+
+                @if(request()->routeIs('home'))
+
+                    <span
+                        class="absolute
+                               left-0
+                               top-0
+                               bottom-0
+                               w-[3px]
+                               bg-[#D71920]"
+                    ></span>
+
+                @endif
+
             </a>
 
 
-            {{-- Mobile Products --}}
+
+            {{-- =================================================
+                 MOBILE PRODUCTS
+            ================================================== --}}
+
             <div>
 
                 <button
                     type="button"
                     @click="productsOpen = !productsOpen"
-                    class="w-full flex items-center justify-between px-5 py-3.5 text-sm font-semibold text-slate-700"
+                    class="relative
+                           w-full
+                           flex
+                           items-center
+                           justify-between
+                           px-5
+                           py-3.5
+                           text-sm
+                           font-semibold
+
+                           {{ request()->routeIs('products*')
+                                ? 'bg-slate-50 text-[#D71920]'
+                                : 'text-slate-700' }}"
                 >
 
-                    Products
+                    <span>Products</span>
 
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        class="w-4 h-4 transition-transform"
+                        class="w-4
+                               h-4
+                               transition-transform"
                         :class="{ 'rotate-180': productsOpen }"
                         fill="none"
                         viewBox="0 0 24 24"
@@ -915,40 +1323,124 @@
                         />
                     </svg>
 
+
+                    @if(request()->routeIs('products*'))
+
+                        <span
+                            class="absolute
+                                   left-0
+                                   top-0
+                                   bottom-0
+                                   w-[3px]
+                                   bg-[#D71920]"
+                        ></span>
+
+                    @endif
+
                 </button>
 
 
                 <div
                     x-show="productsOpen"
                     x-collapse
-                    class="bg-slate-50 border-y border-slate-100"
+                    class="bg-slate-50
+                           border-y
+                           border-slate-100"
                 >
 
-                    <a href="#products" @click="mobileMenu = false" class="block px-8 py-2.5 text-sm text-slate-600">
+                    <a
+                        href="{{ route('products') }}"
+                        @click="mobileMenu = false"
+                        class="block
+                               px-8
+                               py-3
+                               text-sm
+                               font-semibold
+                               text-[#073B66]
+                               border-b
+                               border-slate-200"
+                    >
+                        View All Products
+                    </a>
+
+
+                    <a
+                        href="{{ route('products', ['category' => 'soil']) }}"
+                        @click="mobileMenu = false"
+                        class="block px-8 py-2.5 text-sm text-slate-600 hover:text-[#D71920]"
+                    >
                         Soil Testing
                     </a>
 
-                    <a href="#products" @click="mobileMenu = false" class="block px-8 py-2.5 text-sm text-slate-600">
+
+                    <a
+                        href="{{ route('products', ['category' => 'concrete']) }}"
+                        @click="mobileMenu = false"
+                        class="block px-8 py-2.5 text-sm text-slate-600 hover:text-[#D71920]"
+                    >
                         Concrete Testing
                     </a>
 
-                    <a href="#products" @click="mobileMenu = false" class="block px-8 py-2.5 text-sm text-slate-600">
+
+                    <a
+                        href="{{ route('products', ['category' => 'cement']) }}"
+                        @click="mobileMenu = false"
+                        class="block px-8 py-2.5 text-sm text-slate-600 hover:text-[#D71920]"
+                    >
                         Cement Testing
                     </a>
 
-                    <a href="#products" @click="mobileMenu = false" class="block px-8 py-2.5 text-sm text-slate-600">
+
+                    <a
+                        href="{{ route('products', ['category' => 'aggregate']) }}"
+                        @click="mobileMenu = false"
+                        class="block px-8 py-2.5 text-sm text-slate-600 hover:text-[#D71920]"
+                    >
                         Aggregate Testing
                     </a>
 
-                    <a href="#products" @click="mobileMenu = false" class="block px-8 py-2.5 text-sm text-slate-600">
+
+                    <a
+                        href="{{ route('products', ['category' => 'bitumen']) }}"
+                        @click="mobileMenu = false"
+                        class="block px-8 py-2.5 text-sm text-slate-600 hover:text-[#D71920]"
+                    >
                         Bitumen / Asphalt
                     </a>
 
-                    <a href="#products" @click="mobileMenu = false" class="block px-8 py-2.5 text-sm text-slate-600">
+
+                    <a
+                        href="{{ route('products', ['category' => 'rock']) }}"
+                        @click="mobileMenu = false"
+                        class="block px-8 py-2.5 text-sm text-slate-600 hover:text-[#D71920]"
+                    >
                         Rock Testing
                     </a>
 
-                    <a href="#products" @click="mobileMenu = false" class="block px-8 py-2.5 text-sm text-slate-600">
+
+                    <a
+                        href="{{ route('products', ['category' => 'material']) }}"
+                        @click="mobileMenu = false"
+                        class="block px-8 py-2.5 text-sm text-slate-600 hover:text-[#D71920]"
+                    >
+                        Material Testing
+                    </a>
+
+
+                    <a
+                        href="{{ route('products', ['category' => 'survey']) }}"
+                        @click="mobileMenu = false"
+                        class="block px-8 py-2.5 text-sm text-slate-600 hover:text-[#D71920]"
+                    >
+                        Survey Instruments
+                    </a>
+
+
+                    <a
+                        href="{{ route('products', ['category' => 'laboratory']) }}"
+                        @click="mobileMenu = false"
+                        class="block px-8 py-2.5 text-sm text-slate-600 hover:text-[#D71920]"
+                    >
                         Laboratory Equipment
                     </a>
 
@@ -957,67 +1449,218 @@
             </div>
 
 
-            <a
-                href="{{ route('home') }}#about"
-                @click="mobileMenu = false"
-                class="block px-5 py-3.5 text-sm font-semibold text-slate-700 hover:bg-slate-50"
-            >
-                About Us
-            </a>
+
+            {{-- =================================================
+     MOBILE ABOUT US
+================================================== --}}
+<div>
+
+    <button
+        type="button"
+        @click="aboutOpen = !aboutOpen"
+        class="relative
+               w-full
+               flex
+               items-center
+               justify-between
+               px-5
+               py-3.5
+               text-sm
+               font-semibold
+               text-slate-700
+               hover:bg-slate-50
+               transition-colors"
+    >
+
+        <span>About Us</span>
+
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-4 h-4 transition-transform duration-300"
+            :class="{ 'rotate-180': aboutOpen }"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+        >
+            <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="m6 9 6 6 6-6"
+            />
+        </svg>
+
+    </button>
 
 
+    {{-- ABOUT SUB MENU --}}
+    <div
+        x-show="aboutOpen"
+        x-collapse
+        class="bg-slate-50
+               border-y
+               border-slate-100"
+    >
+
+        {{-- Company Profile --}}
+        <a
+            href="{{ route('about.company') }}"
+            @click="mobileMenu = false"
+            class="flex
+                   items-center
+                   justify-between
+                   px-8
+                   py-3
+                   text-sm
+                   text-slate-600
+                   hover:text-[#D71920]
+                   hover:bg-white
+                   transition-colors"
+        >
+            <span>Company Profile</span>
+            <span class="text-slate-400">→</span>
+        </a>
+
+
+        {{-- 50+ Years of Excellence --}}
+        <a
+            href="{{ route('about.excellence') }}"
+            @click="mobileMenu = false"
+            class="flex
+                   items-center
+                   justify-between
+                   px-8
+                   py-3
+                   text-sm
+                   text-slate-600
+                   hover:text-[#D71920]
+                   hover:bg-white
+                   transition-colors"
+        >
+            <span>50+ Years of Excellence</span>
+            <span class="text-slate-400">→</span>
+        </a>
+
+
+        {{-- Quality & Precision --}}
+        <a
+            href="{{ route('about.quality') }}"
+            @click="mobileMenu = false"
+            class="flex
+                   items-center
+                   justify-between
+                   px-8
+                   py-3
+                   text-sm
+                   text-slate-600
+                   hover:text-[#D71920]
+                   hover:bg-white
+                   transition-colors"
+        >
+            <span>Quality &amp; Precision</span>
+            <span class="text-slate-400">→</span>
+        </a>
+
+    </div>
+
+</div>
+
+
+            {{-- Manufacturing --}}
             <a
                 href="{{ route('home') }}#manufacturing"
                 @click="mobileMenu = false"
-                class="block px-5 py-3.5 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+                class="block
+                       px-5 py-3.5
+                       text-sm
+                       font-semibold
+                       text-slate-700
+                       hover:bg-slate-50"
             >
                 Manufacturing
             </a>
 
 
+            {{-- Solutions --}}
             <a
                 href="{{ route('home') }}#solutions"
                 @click="mobileMenu = false"
-                class="block px-5 py-3.5 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+                class="block
+                       px-5 py-3.5
+                       text-sm
+                       font-semibold
+                       text-slate-700
+                       hover:bg-slate-50"
             >
                 Complete Lab Solutions
             </a>
 
 
+            {{-- Services --}}
             <a
                 href="{{ route('home') }}#services"
                 @click="mobileMenu = false"
-                class="block px-5 py-3.5 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+                class="block
+                       px-5 py-3.5
+                       text-sm
+                       font-semibold
+                       text-slate-700
+                       hover:bg-slate-50"
             >
                 Services & Support
             </a>
 
 
+            {{-- Downloads --}}
             <a
                 href="{{ route('home') }}#downloads"
                 @click="mobileMenu = false"
-                class="block px-5 py-3.5 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+                class="block
+                       px-5 py-3.5
+                       text-sm
+                       font-semibold
+                       text-slate-700
+                       hover:bg-slate-50"
             >
                 Downloads
             </a>
 
 
+            {{-- Contact --}}
             <a
-                href="{{ route('home') }}#contact"
+                href="{{ route('contact') }}"
                 @click="mobileMenu = false"
-                class="block px-5 py-3.5 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+                class="block
+                       px-5 py-3.5
+                       text-sm
+                       font-semibold
+                       text-slate-700
+                       hover:bg-slate-50"
             >
                 Contact Us
             </a>
 
 
-            {{-- Mobile CTA --}}
-            <div class="px-5 pt-3 pb-2">
+
+            {{-- Mobile Quote --}}
+            <div class="px-5 pt-3">
 
                 <a
-                    href="{{ route('home') }}#contact"
+                    href="{{ route('quote.create') }}"
                     @click="mobileMenu = false"
-                    class="flex items-center justify-center w-full bg-[#D71920] text-white py-3.5 text-sm font-bold uppercase tracking-wide hover:bg-[#073B66] transition"
+                    class="flex
+                           items-center
+                           justify-center
+                           w-full
+                           bg-[#D71920]
+                           text-white
+                           py-3.5
+                           text-[12px]
+                           font-bold
+                           uppercase
+                           tracking-wide
+                           hover:bg-[#073B66]
+                           transition"
                 >
                     Request a Quote
                 </a>
@@ -1025,20 +1668,43 @@
             </div>
 
 
+
             {{-- Mobile Search --}}
             <div class="px-5 pt-3 pb-4">
 
-                <div class="relative">
+                <form
+                    @submit.prevent="searchProducts('mobile')"
+                    class="relative"
+                >
 
                     <input
+                        x-model="mobileSearch"
                         type="search"
                         placeholder="Search products..."
-                        class="w-full h-11 border border-slate-200 px-4 pr-11 text-sm outline-none focus:border-[#073B66]"
+                        class="w-full
+                               h-11
+                               border
+                               border-slate-200
+                               px-4
+                               pr-11
+                               text-sm
+                               outline-none
+                               focus:border-[#073B66]"
                     >
 
                     <button
-                        type="button"
-                        class="absolute right-0 top-0 w-11 h-11 flex items-center justify-center text-[#073B66]"
+                        type="submit"
+                        class="absolute
+                               right-0
+                               top-0
+                               w-11
+                               h-11
+                               flex
+                               items-center
+                               justify-center
+                               text-[#073B66]
+                               hover:text-[#D71920]"
+                        aria-label="Search Products"
                     >
 
                         <svg
@@ -1058,7 +1724,7 @@
 
                     </button>
 
-                </div>
+                </form>
 
             </div>
 
@@ -1069,6 +1735,7 @@
 </header>
 
 
+
 {{-- =========================================================
      BACK TO TOP
 ========================================================= --}}
@@ -1077,32 +1744,44 @@
     x-data="{ show: false }"
     x-init="
         window.addEventListener('scroll', () => {
-            show = window.scrollY > 500
-        })
+            show = window.scrollY > 500;
+        });
     "
     x-show="show"
     x-cloak
     x-transition
-    class="fixed bottom-6 right-5 sm:right-7 z-[9999]"
+    class="fixed
+           bottom-6
+           right-5 sm:right-7
+           z-[9999]"
 >
 
     <button
         type="button"
         @click="window.scrollTo({ top: 0, behavior: 'smooth' })"
-        class="group w-11 h-11 sm:w-12 sm:h-12
-               flex items-center justify-center
+        class="group
+               w-11 h-11
+               sm:w-12 sm:h-12
+               flex
+               items-center
+               justify-center
                bg-[#032B55]
                hover:bg-[#D71920]
                text-white
                shadow-xl
-               transition-all duration-300
+               transition-all
+               duration-300
                hover:-translate-y-1"
         aria-label="Back to top"
     >
 
         <svg
             xmlns="http://www.w3.org/2000/svg"
-            class="w-5 h-5 transition-transform duration-300 group-hover:-translate-y-1"
+            class="w-5
+                   h-5
+                   transition-transform
+                   duration-300
+                   group-hover:-translate-y-1"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
