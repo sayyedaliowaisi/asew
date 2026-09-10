@@ -10,6 +10,8 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\EnquiryController;
 use App\Http\Controllers\Admin\QuotationController;
+use App\Http\Controllers\PublicQuotationController;
+use App\Http\Controllers\Admin\SalesOrderController;
 
 Route::get('/', function () {
     return view('pages.home');
@@ -53,6 +55,23 @@ Route::get('/contact', function () {
 
 Route::post('/contact', [EnquiryController::class, 'store'])
     ->name('contact.submit');
+
+    Route::get(
+    '/quotation/{quotationNumber}/{token}',
+    [PublicQuotationController::class, 'show']
+)->name('quotation.public');
+
+Route::get(
+    '/quotation/{quotationNumber}/{token}',
+    [PublicQuotationController::class, 'show']
+)->name('quotation.public');
+
+Route::post(
+    '/quotation/{quotationNumber}/{token}/respond',
+    [PublicQuotationController::class, 'respond']
+)
+    ->name('quotation.respond')
+    ->middleware('throttle:10,1');
 
 /*
 |--------------------------------------------------------------------------
@@ -197,6 +216,46 @@ Route::patch(
     '/quotations/{quotation}/status',
     [QuotationController::class, 'updateStatus']
 )->name('quotations.status');
+
+
+Route::post(
+    '/quotations/{quotation}/send',
+    [QuotationController::class, 'send']
+)->name('quotations.send');
+
+Route::get(
+    '/sales-orders',
+    [SalesOrderController::class, 'index']
+)->name('sales-orders.index');
+
+
+Route::post(
+    '/quotations/{quotation}/convert-order',
+    [SalesOrderController::class, 'convert']
+)->name('sales-orders.convert');
+
+Route::get('/sales-orders/{salesOrder}/document', [SalesOrderController::class, 'document'])
+            ->name('sales-orders.document');
+
+        Route::post('/sales-orders/{salesOrder}/send', [SalesOrderController::class, 'send'])
+            ->name('sales-orders.send');
+
+            Route::post(
+    '/sales-orders/{salesOrder}/dispatch-email',
+    [SalesOrderController::class, 'sendDispatchEmail']
+)->name('sales-orders.dispatch-email');
+
+
+Route::get(
+    '/sales-orders/{salesOrder}',
+    [SalesOrderController::class, 'show']
+)->name('sales-orders.show');
+
+
+Route::put(
+    '/sales-orders/{salesOrder}',
+    [SalesOrderController::class, 'update']
+)->name('sales-orders.update');
 
 
         Route::post(

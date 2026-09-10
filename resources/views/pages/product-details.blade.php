@@ -147,15 +147,13 @@
 
                     <div
                         class="relative
-                               bg-white
+                               w-full
+                               h-[370px]
+                               sm:h-[440px]
+                               lg:h-[500px]
+                               bg-slate-100
                                border
                                border-slate-200
-                               min-h-[370px]
-                               sm:min-h-[440px]
-                               lg:min-h-[500px]
-                               flex
-                               items-center
-                               justify-center
                                overflow-hidden
                                shadow-[0_8px_30px_rgba(3,43,85,0.06)]"
                     >
@@ -189,15 +187,53 @@
                         </span>
 
 
-                        <img
-                            src="{{ asset($product->image) }}"
-                            alt="{{ $product->name }}"
-                            class="max-w-[90%]
-                                   max-h-[420px]
-                                   object-contain
-                                   p-7
-                                   sm:p-10"
-                        >
+                        @if($product->image)
+                            <img
+                                src="{{ asset($product->image) }}"
+                                alt="{{ $product->name }}"
+                                class="absolute
+                                       inset-0
+                                       w-full
+                                       h-full
+                                       object-cover
+                                       object-center"
+                            >
+                        @else
+                            <div
+                                class="absolute
+                                       inset-0
+                                       flex
+                                       flex-col
+                                       items-center
+                                       justify-center
+                                       text-slate-300"
+                            >
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    class="w-14 h-14"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                    stroke-width="1.2"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        d="M3 16.5 8.5 11l4 4L15 12.5l6 6"
+                                    />
+                                    <rect x="3" y="4" width="18" height="16" rx="2" />
+                                </svg>
+
+                                <span
+                                    class="mt-3
+                                           text-[10px]
+                                           uppercase
+                                           tracking-wide"
+                                >
+                                    Product Image
+                                </span>
+                            </div>
+                        @endif
 
                     </div>
 
@@ -895,11 +931,10 @@
                         <a
                             href="{{ route('products.show', $related->slug) }}"
                             class="relative
+                                   block
+                                   w-full
                                    h-[240px]
-                                   bg-white
-                                   flex
-                                   items-center
-                                   justify-center
+                                   bg-slate-100
                                    border-b
                                    border-slate-100
                                    overflow-hidden"
@@ -942,10 +977,12 @@
                                     src="{{ asset($related->image) }}"
                                     alt="{{ $related->name }}"
                                     loading="lazy"
-                                    class="max-w-full
-                                           max-h-full
-                                           object-contain
-                                           p-7
+                                    class="absolute
+                                           inset-0
+                                           w-full
+                                           h-full
+                                           object-cover
+                                           object-center
                                            transition-transform
                                            duration-500
                                            group-hover:scale-105"
@@ -954,7 +991,9 @@
                             @else
 
                                 <div
-                                    class="flex
+                                    class="absolute
+                                           inset-0
+                                           flex
                                            flex-col
                                            items-center
                                            justify-center

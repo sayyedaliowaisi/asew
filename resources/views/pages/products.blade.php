@@ -707,13 +707,12 @@
                             <a
                                 href="{{ route('products.show', $product->slug) }}"
                                 class="relative
+                                       block
+                                       w-full
                                        h-[240px]
                                        sm:h-[250px]
-                                       bg-white
-                                       flex
-                                       items-center
-                                       justify-center
                                        overflow-hidden
+                                       bg-slate-100
                                        border-b
                                        border-slate-100"
                             >
@@ -758,10 +757,12 @@
                                         src="{{ asset($product->image) }}"
                                         alt="{{ $product->name }}"
                                         loading="lazy"
-                                        class="max-w-full
-                                               max-h-full
-                                               object-contain
-                                               p-7
+                                        class="absolute
+                                               inset-0
+                                               w-full
+                                               h-full
+                                               object-cover
+                                               object-center
                                                transition-transform
                                                duration-500
                                                group-hover:scale-[1.05]"
@@ -770,7 +771,9 @@
                                 @else
 
                                     <div
-                                        class="flex
+                                        class="absolute
+                                               inset-0
+                                               flex
                                                flex-col
                                                items-center
                                                justify-center

@@ -113,24 +113,126 @@
                 </button>
 
 
-                <a
-                    href="mailto:{{ $quotation->email }}"
-                    class="min-h-[44px]
-                           px-5
-                           inline-flex
-                           items-center
-                           justify-center
-                           bg-[#D71920]
-                           hover:bg-[#032B55]
-                           text-white
-                           text-[9px]
-                           uppercase
-                           tracking-wide
-                           font-bold
-                           transition"
-                >
-                    Email Customer
-                </a>
+                <form
+    action="{{ route(
+        'admin.quotations.send',
+        $quotation
+    ) }}"
+    method="POST"
+    onsubmit="
+        return confirm(
+            'Send this quotation to {{ addslashes($quotation->email) }}?'
+        );
+    "
+>
+
+    @csrf
+
+
+    <button
+        type="submit"
+        class="min-h-[44px]
+               px-5
+               inline-flex
+               items-center
+               justify-center
+               gap-2
+               bg-[#D71920]
+               hover:bg-[#032B55]
+               text-white
+               text-[9px]
+               uppercase
+               tracking-wide
+               font-bold
+               transition"
+    >
+
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+        >
+            <rect
+                width="20"
+                height="16"
+                x="2"
+                y="4"
+                rx="2"
+            />
+
+            <path d="m22 7-10 5L2 7"/>
+        </svg>
+
+
+        @if($quotation->status === 'sent')
+
+            Send Again
+
+        @else
+
+            Send to Customer
+
+        @endif
+
+    </button>
+
+</form>
+
+{{-- =========================================================
+     SALES ORDER ACTION
+========================================================= --}}
+
+@if($quotation->status === 'accepted' && !$quotation->salesOrder)
+
+    {{-- Accepted hai, lekin Sales Order abhi nahi bana --}}
+    <form
+        method="POST"
+        action="{{ route('admin.sales-orders.convert', $quotation) }}"
+        onsubmit="return confirm('Convert this accepted quotation into a sales order?')"
+    >
+        @csrf
+
+        <button
+            type="submit"
+            class="inline-flex items-center gap-2
+                   rounded-xl
+                   bg-green-600
+                   px-5 py-3
+                   text-sm font-bold
+                   text-white
+                   transition
+                   hover:bg-green-700"
+        >
+            Create Sales Order
+        </button>
+
+    </form>
+
+@elseif($quotation->salesOrder)
+
+    {{-- Sales Order already ban chuka hai --}}
+    <a
+        href="{{ route(
+            'admin.sales-orders.show',
+            $quotation->salesOrder
+        ) }}"
+        class="inline-flex items-center gap-2
+               rounded-xl
+               bg-[#073B66]
+               px-5 py-3
+               text-sm font-bold
+               text-white
+               transition
+               hover:bg-[#032B55]"
+    >
+        View Sales Order
+    </a>
+
+@endif
 
             </div>
 
@@ -155,6 +257,25 @@
             </div>
 
         @endif
+
+
+        @if($errors->has('email'))
+
+    <div
+        class="print:hidden
+               mb-5
+               border
+               border-red-200
+               bg-red-50
+               p-4
+               text-[11px]
+               font-semibold
+               text-red-700"
+    >
+        {{ $errors->first('email') }}
+    </div>
+
+@endif
 
 
 

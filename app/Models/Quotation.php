@@ -5,26 +5,32 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Quotation extends Model
 {
     protected $fillable = [
         'product_enquiry_id',
         'quotation_number',
+         'public_token',
+
         'customer_name',
         'company',
         'email',
         'phone',
         'city',
+
         'subtotal',
         'discount',
         'gst_percent',
         'gst_amount',
         'grand_total',
+        
         'validity_days',
         'notes',
         'terms',
         'status',
+        'responded_at',
         'quotation_date',
         'valid_until',
     ];
@@ -37,6 +43,7 @@ class Quotation extends Model
         'grand_total' => 'decimal:2',
         'quotation_date' => 'date',
         'valid_until' => 'date',
+        'responded_at' => 'datetime',
     ];
 
     public function enquiry(): BelongsTo
@@ -51,4 +58,9 @@ class Quotation extends Model
     {
         return $this->hasMany(QuotationItem::class);
     }
+
+    public function salesOrder(): HasOne
+{
+    return $this->hasOne(SalesOrder::class);
+}
 }

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use App\Mail\QuotationMail;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 class QuotationController extends Controller
 {
@@ -230,6 +231,8 @@ class QuotationController extends Controller
                 $taxableAmount +
                 $gstAmount;
 
+                $validityDays = (int) $validated['validity_days'];
+
 
             $nextId =
                 (Quotation::max('id') ?? 0)
@@ -255,6 +258,8 @@ class QuotationController extends Controller
 
                 'quotation_number' =>
                     $quotationNumber,
+
+                'public_token' => Str::random(64),
 
                 'customer_name' =>
                     $enquiry->name,
@@ -303,9 +308,8 @@ class QuotationController extends Controller
 
                 'valid_until' =>
                     now()
-                        ->addDays(
-                            $validated['validity_days']
-                        )
+                        ->addDays($validityDays)
+
                         ->toDateString(),
 
             ]);
@@ -361,18 +365,20 @@ class QuotationController extends Controller
      * Display quotation.
      */
     public function show(Quotation $quotation)
-    {
-        $quotation->load([
-            'items.product',
-            'enquiry',
-        ]);
+{
+    $this->ensurePublicToken($quotation);
 
+    $quotation->load([
+        'items.product',
+        'enquiry',
+        'salesOrder',
+    ]);
 
-        return view(
-            'admin.quotations.show',
-            compact('quotation')
-        );
-    }
+    return view(
+        'admin.quotations.show',
+        compact('quotation')
+    );
+}
 
 
 
@@ -433,4 +439,92 @@ class QuotationController extends Controller
                 'Quotation status updated successfully.'
             );
     }
+
+    private function ensurePublicToken(Quotation $quotation): void
+{
+    if (!$quotation->public_token) {
+
+        do {
+            $token = \Illuminate\Support\Str::random(64);
+        } while (
+            Quotation::where('public_token', $token)->exists()
+        );
+
+        $quotation->update([
+            'public_token' => $token,
+        ]);
+    }
+}
+
+    /**
+ * Send quotation to customer.
+ */
+public function send(Quotation $quotation)
+{
+    $this->ensurePublicToken($quotation);
+    
+    $quotation->load([
+        'items',
+        'enquiry',
+    ]);
+
+
+    try {
+
+        Mail::to($quotation->email)
+            ->send(
+                new QuotationMail($quotation)
+            );
+
+
+        $quotation->update([
+            'status' => 'sent',
+        ]);
+
+
+        if ($quotation->enquiry) {
+
+            $quotation->enquiry->update([
+                'status' => 'quoted',
+            ]);
+
+        }
+
+
+        return back()
+            ->with(
+                'success',
+                'Quotation sent successfully to ' .
+                $quotation->email .
+                '.'
+            );
+
+    } catch (\Throwable $exception) {
+
+        Log::error(
+            'Quotation email failed.',
+            [
+                'quotation_id' =>
+                    $quotation->id,
+
+                'quotation_number' =>
+                    $quotation->quotation_number,
+
+                'customer_email' =>
+                    $quotation->email,
+
+                'error' =>
+                    $exception->getMessage(),
+            ]
+        );
+
+
+        return back()
+            ->withErrors([
+                'email' =>
+                    'Quotation could not be sent. Please check your mail configuration.',
+            ]);
+    }
+
+}
 }

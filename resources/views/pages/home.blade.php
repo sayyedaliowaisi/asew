@@ -14,10 +14,10 @@
         isDragging: false,
 
         slides: [
-            '{{ asset('images/hero (1).png') }}',
-            '{{ asset('images/hero (1).png') }}',
-            '{{ asset('images/hero (1).png') }}',
-            '{{ asset('images/hero (1).png') }}'
+            '{{ asset('images/hero (2).png') }}',
+            '{{ asset('images/hero (3).png') }}',
+            '{{ asset('images/hero (4).png') }}',
+            '{{ asset('images/hero (5).png') }}'
         ],
 
         start() {
@@ -115,9 +115,12 @@
                         class="
                             block
                             w-full
-                            h-auto
-                            object-contain
-
+                            h-[320px]
+                            sm:h-[420px]
+                            lg:h-[520px]
+                            xl:h-[600px]
+                            object-cover
+                            object-center
                             select-none
                             pointer-events-none
                         "
@@ -322,7 +325,7 @@
             ================================================== --}}
 
             <a
-                href="#"
+                href="{{ route('products', ['category' => 'soil']) }}"
                 class="group relative
                        min-h-[225px]
                        sm:min-h-[245px]
@@ -340,18 +343,18 @@
 
                 {{-- Image --}}
                 <div
-                    class="h-[130px]
+                    class="relative
+                           h-[130px]
                            sm:h-[140px]
                            lg:h-[145px]
-                           flex items-center justify-center
-                           p-3
-                           bg-gradient-to-b from-white to-slate-50"
+                           overflow-hidden
+                           bg-slate-100"
                 >
 
                     <img
                         src="{{ asset('images/products/soil-testing.png') }}"
                         alt="Soil Testing Equipment"
-                        class="max-h-full max-w-full object-contain
+                        class="absolute inset-0 w-full h-full object-cover object-center
                                transition-transform duration-500
                                group-hover:scale-105"
                     >
@@ -409,7 +412,7 @@
             ================================================== --}}
 
             <a
-                href="#"
+                href="{{ route('products', ['category' => 'concrete']) }}"
                 class="group relative
                        min-h-[225px]
                        sm:min-h-[245px]
@@ -426,18 +429,18 @@
             >
 
                 <div
-                    class="h-[130px]
+                    class="relative
+                           h-[130px]
                            sm:h-[140px]
                            lg:h-[145px]
-                           flex items-center justify-center
-                           p-3
-                           bg-gradient-to-b from-white to-slate-50"
+                           overflow-hidden
+                           bg-slate-100"
                 >
 
                     <img
                         src="{{ asset('images/products/concrete-testing.png') }}"
                         alt="Concrete Testing Equipment"
-                        class="max-h-full max-w-full object-contain
+                        class="absolute inset-0 w-full h-full object-cover object-center
                                transition-transform duration-500
                                group-hover:scale-105"
                     >
@@ -480,7 +483,7 @@
             ================================================== --}}
 
             <a
-                href="#"
+                href="{{ route('products', ['category' => 'cement']) }}"
                 class="group relative
                        min-h-[225px] sm:min-h-[245px] lg:min-h-[255px]
                        bg-white border border-slate-200 rounded-[5px]
@@ -493,15 +496,16 @@
             >
 
                 <div
-                    class="h-[130px] sm:h-[140px] lg:h-[145px]
-                           flex items-center justify-center p-3
-                           bg-gradient-to-b from-white to-slate-50"
+                    class="relative
+                           h-[130px] sm:h-[140px] lg:h-[145px]
+                           overflow-hidden
+                           bg-slate-100"
                 >
 
                     <img
                         src="{{ asset('images/products/cement-testing.png') }}"
                         alt="Cement Testing Equipment"
-                        class="max-h-full max-w-full object-contain
+                        class="absolute inset-0 w-full h-full object-cover object-center
                                transition-transform duration-500
                                group-hover:scale-105"
                     >
@@ -542,7 +546,7 @@
             ================================================== --}}
 
             <a
-                href="#"
+                href="{{ route('products', ['category' => 'aggregate']) }}"
                 class="group relative
                        min-h-[225px] sm:min-h-[245px] lg:min-h-[255px]
                        bg-white border border-slate-200 rounded-[5px]
@@ -555,15 +559,16 @@
             >
 
                 <div
-                    class="h-[130px] sm:h-[140px] lg:h-[145px]
-                           flex items-center justify-center p-3
-                           bg-gradient-to-b from-white to-slate-50"
+                    class="relative
+                           h-[130px] sm:h-[140px] lg:h-[145px]
+                           overflow-hidden
+                           bg-slate-100"
                 >
 
                     <img
                         src="{{ asset('images/products/aggregate-testing.png') }}"
                         alt="Aggregate Testing Equipment"
-                        class="max-h-full max-w-full object-contain
+                        class="absolute inset-0 w-full h-full object-cover object-center
                                transition-transform duration-500
                                group-hover:scale-105"
                     >
@@ -604,7 +609,7 @@
             ================================================== --}}
 
             <a
-                href="#"
+                href="{{ route('products', ['category' => 'bitumen']) }}"
                 class="group relative
                        min-h-[225px] sm:min-h-[245px] lg:min-h-[255px]
                        bg-white border border-slate-200 rounded-[5px]
@@ -617,15 +622,16 @@
             >
 
                 <div
-                    class="h-[130px] sm:h-[140px] lg:h-[145px]
-                           flex items-center justify-center p-3
-                           bg-gradient-to-b from-white to-slate-50"
+                    class="relative
+                           h-[130px] sm:h-[140px] lg:h-[145px]
+                           overflow-hidden
+                           bg-slate-100"
                 >
 
                     <img
                         src="{{ asset('images/products/bitumen-testing.png') }}"
                         alt="Bitumen Asphalt Testing Equipment"
-                        class="max-h-full max-w-full object-contain
+                        class="absolute inset-0 w-full h-full object-cover object-center
                                transition-transform duration-500
                                group-hover:scale-105"
                     >
@@ -666,7 +672,7 @@
             ================================================== --}}
 
             <a
-                href="#"
+                href="{{ route('products', ['category' => 'rock']) }}"
                 class="group relative
                        min-h-[225px] sm:min-h-[245px] lg:min-h-[255px]
                        bg-white border border-slate-200 rounded-[5px]
@@ -679,15 +685,16 @@
             >
 
                 <div
-                    class="h-[130px] sm:h-[140px] lg:h-[145px]
-                           flex items-center justify-center p-3
-                           bg-gradient-to-b from-white to-slate-50"
+                    class="relative
+                           h-[130px] sm:h-[140px] lg:h-[145px]
+                           overflow-hidden
+                           bg-slate-100"
                 >
 
                     <img
                         src="{{ asset('images/products/rock-testing.png') }}"
                         alt="Rock Testing Equipment"
-                        class="max-h-full max-w-full object-contain
+                        class="absolute inset-0 w-full h-full object-cover object-center
                                transition-transform duration-500
                                group-hover:scale-105"
                     >
@@ -728,7 +735,7 @@
             ================================================== --}}
 
             <a
-                href="#"
+                href="{{ route('products', ['category' => 'material']) }}"
                 class="group relative
                        min-h-[225px] sm:min-h-[245px] lg:min-h-[255px]
                        bg-white border border-slate-200 rounded-[5px]
@@ -741,15 +748,16 @@
             >
 
                 <div
-                    class="h-[130px] sm:h-[140px] lg:h-[145px]
-                           flex items-center justify-center p-3
-                           bg-gradient-to-b from-white to-slate-50"
+                    class="relative
+                           h-[130px] sm:h-[140px] lg:h-[145px]
+                           overflow-hidden
+                           bg-slate-100"
                 >
 
                     <img
                         src="{{ asset('images/products/material-testing.png') }}"
                         alt="Material Testing Equipment"
-                        class="max-h-full max-w-full object-contain
+                        class="absolute inset-0 w-full h-full object-cover object-center
                                transition-transform duration-500
                                group-hover:scale-105"
                     >
@@ -790,7 +798,7 @@
             ================================================== --}}
 
             <a
-                href="#"
+                href="{{ route('products', ['category' => 'survey']) }}"
                 class="group relative
                        min-h-[225px] sm:min-h-[245px] lg:min-h-[255px]
                        bg-white border border-slate-200 rounded-[5px]
@@ -803,15 +811,16 @@
             >
 
                 <div
-                    class="h-[130px] sm:h-[140px] lg:h-[145px]
-                           flex items-center justify-center p-3
-                           bg-gradient-to-b from-white to-slate-50"
+                    class="relative
+                           h-[130px] sm:h-[140px] lg:h-[145px]
+                           overflow-hidden
+                           bg-slate-100"
                 >
 
                     <img
                         src="{{ asset('images/products/survey-instruments.png') }}"
                         alt="Survey Instruments"
-                        class="max-h-full max-w-full object-contain
+                        class="absolute inset-0 w-full h-full object-cover object-center
                                transition-transform duration-500
                                group-hover:scale-105"
                     >
@@ -852,7 +861,7 @@
             ================================================== --}}
 
             <a
-                href="#"
+                href="{{ route('products', ['category' => 'laboratory']) }}"
                 class="group relative
                        min-h-[225px] sm:min-h-[245px] lg:min-h-[255px]
                        bg-white border border-slate-200 rounded-[5px]
@@ -865,15 +874,16 @@
             >
 
                 <div
-                    class="h-[130px] sm:h-[140px] lg:h-[145px]
-                           flex items-center justify-center p-3
-                           bg-gradient-to-b from-white to-slate-50"
+                    class="relative
+                           h-[130px] sm:h-[140px] lg:h-[145px]
+                           overflow-hidden
+                           bg-slate-100"
                 >
 
                     <img
                         src="{{ asset('images/products/laboratory-equipment.png') }}"
                         alt="Laboratory Equipment"
-                        class="max-h-full max-w-full object-contain
+                        class="absolute inset-0 w-full h-full object-cover object-center
                                transition-transform duration-500
                                group-hover:scale-105"
                     >
@@ -918,7 +928,7 @@
         <div class="flex justify-center mt-8 sm:mt-10">
 
             <a
-                href="#"
+                href="{{ route('products') }}"
                 class="group
                        inline-flex
                        items-center

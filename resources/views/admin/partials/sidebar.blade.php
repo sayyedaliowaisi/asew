@@ -359,6 +359,41 @@
 
 </a>
 
+<a
+    href="{{ route('admin.sales-orders.index') }}"
+    class="
+        flex items-center gap-3
+        rounded-xl
+        px-4 py-3
+        transition
+
+        {{ request()->routeIs('admin.sales-orders.*')
+            ? 'bg-white/10 text-white'
+            : 'text-slate-300 hover:bg-white/5 hover:text-white'
+        }}
+    "
+>
+
+    <svg
+        class="w-5 h-5"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+    >
+        <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M9 12h6m-6 4h6M7 3h10a2 2 0 012 2v14a2 2 0 01-2 2H7a2 2 0 01-2-2V5a2 2 0 012-2z"
+        />
+    </svg>
+
+    <span>
+        Sales Orders
+    </span>
+
+</a>
+
 
         {{-- DIVIDER --}}
 
