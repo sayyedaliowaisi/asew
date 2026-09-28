@@ -1,6 +1,6 @@
 {{-- =========================================================
      ASEW PREMIUM HEADER
-     3-LAYER RESPONSIVE NAVIGATION
+     RESPONSIVE 3-LAYER NAVIGATION
 ========================================================= --}}
 
 <header
@@ -31,9 +31,10 @@
     class="relative z-[100] w-full bg-white"
 >
 
-    {{-- =====================================================
+
+    {{-- =========================================================
          1. TOP INFORMATION BAR
-    ====================================================== --}}
+    ========================================================== --}}
 
     <div class="w-full bg-[#032B55] text-white">
 
@@ -170,7 +171,6 @@
                 </div>
 
 
-
                 {{-- RIGHT --}}
                 <div
                     class="flex
@@ -181,7 +181,7 @@
 
                     {{-- Email --}}
                     <a
-                        href="mailto:sales@asew.in"
+                        href="mailto:{{ $siteSettings?->sales_email ?: ($siteSettings?->email ?: 'sales@asew.in') }}"
                         class="hidden
                                sm:flex
                                items-center
@@ -213,14 +213,14 @@
                             />
                         </svg>
 
-                        <span>sales@asew.in</span>
+                        <span>{{ $siteSettings?->sales_email ?: ($siteSettings?->email ?: 'sales@asew.in') }}</span>
 
                     </a>
 
 
                     {{-- Phone --}}
                     <a
-                        href="tel:+911204566201"
+                        href="tel:{{ preg_replace('/[^0-9+]/', '', $siteSettings?->phone ?: '+91 120 456 6201') }}"
                         class="flex
                                items-center
                                gap-1.5
@@ -245,7 +245,7 @@
                             />
                         </svg>
 
-                        <span>+91 120 456 6201</span>
+                        <span>{{ $siteSettings?->phone ?: '+91 120 456 6201' }}</span>
 
                     </a>
 
@@ -259,16 +259,11 @@
 
 
 
-    {{-- =====================================================
+    {{-- =========================================================
          2. BRAND / SEARCH / CTA
-    ====================================================== --}}
+    ========================================================== --}}
 
-    <div
-        class="w-full
-               bg-white
-               border-b
-               border-slate-100"
-    >
+    <div class="w-full bg-white border-b border-slate-100">
 
         <div class="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8">
 
@@ -281,21 +276,15 @@
                        gap-5 lg:gap-8"
             >
 
-                {{-- =================================================
-                     LOGO + BRAND
-                ================================================== --}}
-
+                {{-- LOGO --}}
                 <a
                     href="{{ route('home') }}"
-                    class="flex
-                           items-center
-                           shrink-0
-                           group"
+                    class="flex items-center shrink-0 group"
                 >
 
                     <img
-                        src="{{ asset('images/asew-logo.jpg') }}"
-                        alt="ASEW Logo"
+                        src="{{ !empty($siteSettings?->logo) ? asset($siteSettings->logo) : asset('images/asew-logo.jpg') }}"
+                        alt="{{ $siteSettings?->company_name ?: 'ASEW Logo' }}"
                         class="h-[58px]
                                sm:h-[70px]
                                lg:h-[78px]
@@ -321,16 +310,11 @@
                                    lg:text-[17px]
                                    leading-[1.05]
                                    tracking-tight
-                                   uppercase
-                                   whitespace-nowrap"
+                                   uppercase"
                         >
 
-                            <span class="block">
-                                Associated Scientific &
-                            </span>
-
-                            <span class="block">
-                                Engineering Works
+                            <span class="block max-w-[290px] whitespace-normal">
+                                {{ $siteSettings?->company_name ?: 'Associated Scientific & Engineering Works' }}
                             </span>
 
                         </div>
@@ -346,8 +330,7 @@
                                    font-medium
                                    whitespace-nowrap"
                         >
-                            Manufacturers of Scientific, Engineering &<br>
-                            Laboratory Equipment Since 1975
+                            {{ $siteSettings?->tagline ?: 'Manufacturers of Scientific, Engineering & Laboratory Equipment Since 1975' }}
                         </p>
 
                     </div>
@@ -356,10 +339,7 @@
 
 
 
-                {{-- =================================================
-                     DESKTOP SEARCH
-                ================================================== --}}
-
+                {{-- DESKTOP SEARCH --}}
                 <div
                     class="hidden
                            md:block
@@ -378,11 +358,15 @@
                             type="search"
                             placeholder="Search for products, categories..."
                             class="w-full
-                                   h-[42px] lg:h-[46px]
-                                   border border-slate-200
+                                   h-[42px]
+                                   lg:h-[46px]
+                                   border
+                                   border-slate-200
                                    bg-white
-                                   px-4 pr-12
-                                   text-[12px] lg:text-[13px]
+                                   px-4
+                                   pr-12
+                                   text-[12px]
+                                   lg:text-[13px]
                                    text-slate-700
                                    placeholder:text-slate-400
                                    outline-none
@@ -433,10 +417,7 @@
 
 
 
-                {{-- =================================================
-                     CTA BUTTONS
-                ================================================== --}}
-
+                {{-- CTA --}}
                 <div
                     class="hidden
                            sm:flex
@@ -449,7 +430,8 @@
                         href="{{ route('quote.create') }}"
                         class="h-[42px]
                                lg:h-[46px]
-                               px-4 lg:px-6
+                               px-4
+                               lg:px-6
                                flex
                                items-center
                                justify-center
@@ -498,15 +480,13 @@
 
 
 
-                {{-- =================================================
-                     MOBILE BUTTON
-                ================================================== --}}
-
+                {{-- MOBILE MENU BUTTON --}}
                 <button
                     type="button"
                     @click="mobileMenu = !mobileMenu"
                     class="lg:hidden
-                           w-11 h-11
+                           w-11
+                           h-11
                            shrink-0
                            flex
                            items-center
@@ -565,9 +545,9 @@
 
 
 
-    {{-- =====================================================
+    {{-- =========================================================
          3. DESKTOP NAVIGATION
-    ====================================================== --}}
+    ========================================================== --}}
 
     <div class="hidden lg:block w-full bg-[#032B55]">
 
@@ -576,10 +556,7 @@
             <nav class="flex items-stretch h-[48px]">
 
 
-                {{-- =================================================
-                     HOME
-                ================================================== --}}
-
+                {{-- HOME --}}
                 <a
                     href="{{ route('home') }}"
                     class="relative
@@ -684,10 +661,7 @@
 
 
 
-                    {{-- =============================================
-                         PRODUCTS MEGA MENU
-                    ============================================== --}}
-
+                    {{-- PRODUCTS MEGA MENU --}}
                     <div
                         x-show="productsOpen"
                         x-cloak
@@ -707,9 +681,7 @@
                                shadow-[0_18px_50px_rgba(0,0,0,0.18)]"
                     >
 
-                        {{-- Red Top Accent --}}
                         <div class="h-[3px] bg-[#D71920]"></div>
-
 
                         <div class="grid grid-cols-3">
 
@@ -856,11 +828,7 @@
                                     </p>
 
 
-                                    <h3
-                                        class="text-lg
-                                               font-bold
-                                               mb-2"
-                                    >
+                                    <h3 class="text-lg font-bold mb-2">
                                         Complete Lab Equipment
                                     </h3>
 
@@ -931,19 +899,22 @@
 
                     <button
                         type="button"
-                        class="h-full
+                        class="relative
+                               h-full
                                px-5 xl:px-7
                                flex
                                items-center
                                gap-2
-                               text-white
                                text-[12px]
                                font-semibold
                                uppercase
                                tracking-wide
-                               hover:bg-[#073B66]
                                transition-colors
-                               duration-300"
+                               duration-300
+
+                               {{ request()->routeIs('about.*')
+                                    ? 'bg-white text-[#D71920]'
+                                    : 'text-white hover:bg-[#073B66]' }}"
                     >
 
                         <span>About Us</span>
@@ -963,9 +934,24 @@
                             />
                         </svg>
 
+
+                        @if(request()->routeIs('about.*'))
+
+                            <span
+                                class="absolute
+                                       left-0
+                                       right-0
+                                       bottom-0
+                                       h-[3px]
+                                       bg-[#D71920]"
+                            ></span>
+
+                        @endif
+
                     </button>
 
 
+                    {{-- ABOUT DROPDOWN --}}
                     <div
                         x-show="aboutOpen"
                         x-cloak
@@ -982,27 +968,34 @@
 
                         <div class="h-[3px] bg-[#D71920]"></div>
 
+
                         <a
                             href="{{ route('about.company') }}"
                             class="block
-                                   px-5 py-3
+                                   px-5
+                                   py-3
                                    text-sm
-                                   text-slate-600
-                                   hover:bg-slate-50
-                                   hover:text-[#073B66]"
+                                   transition
+
+                                   {{ request()->routeIs('about.company')
+                                        ? 'bg-slate-50 text-[#D71920] font-semibold'
+                                        : 'text-slate-600 hover:bg-slate-50 hover:text-[#073B66]' }}"
                         >
                             Company Profile
                         </a>
 
 
                         <a
-                            href="{ route('about.excellence') }}"
+                            href="{{ route('about.excellence') }}"
                             class="block
-                                   px-5 py-3
+                                   px-5
+                                   py-3
                                    text-sm
-                                   text-slate-600
-                                   hover:bg-slate-50
-                                   hover:text-[#073B66]"
+                                   transition
+
+                                   {{ request()->routeIs('about.excellence')
+                                        ? 'bg-slate-50 text-[#D71920] font-semibold'
+                                        : 'text-slate-600 hover:bg-slate-50 hover:text-[#073B66]' }}"
                         >
                             50+ Years of Excellence
                         </a>
@@ -1011,13 +1004,16 @@
                         <a
                             href="{{ route('about.quality') }}"
                             class="block
-                                   px-5 py-3
+                                   px-5
+                                   py-3
                                    text-sm
-                                   text-slate-600
-                                   hover:bg-slate-50
-                                   hover:text-[#073B66]"
+                                   transition
+
+                                   {{ request()->routeIs('about.quality')
+                                        ? 'bg-slate-50 text-[#D71920] font-semibold'
+                                        : 'text-slate-600 hover:bg-slate-50 hover:text-[#073B66]' }}"
                         >
-                            Quality & Precision
+                            Quality &amp; Precision
                         </a>
 
                     </div>
@@ -1026,52 +1022,96 @@
 
 
 
-                {{-- MANUFACTURING --}}
+                {{-- =================================================
+                     MANUFACTURING
+                ================================================== --}}
+
                 <a
-                    href="{{ route('home') }}#manufacturing"
-                    class="h-full
+                    href="{{ route('manufacturing') }}"
+                    class="relative
+                           h-full
                            px-5 xl:px-7
                            flex
                            items-center
-                           text-white
                            text-[12px]
                            font-semibold
                            uppercase
                            tracking-wide
-                           hover:bg-[#073B66]
                            transition-colors
                            duration-300
-                           whitespace-nowrap"
+                           whitespace-nowrap
+
+                           {{ request()->routeIs('manufacturing')
+                                ? 'bg-white text-[#D71920]'
+                                : 'text-white hover:bg-[#073B66]' }}"
                 >
-                    Manufacturing
-                </a>
+
+                    <span>Manufacturing</span>
 
 
+                    @if(request()->routeIs('manufacturing'))
 
-                {{-- LAB SOLUTIONS --}}
-                <a
-                    href="{{ route('home') }}#solutions"
-                    class="h-full
-                           px-5 xl:px-7
-                           flex
-                           items-center
-                           text-white
-                           text-[12px]
-                           font-semibold
-                           uppercase
-                           tracking-wide
-                           hover:bg-[#073B66]
-                           transition-colors
-                           duration-300
-                           whitespace-nowrap"
-                >
-                    Complete Lab Solutions
+                        <span
+                            class="absolute
+                                   left-0
+                                   right-0
+                                   bottom-0
+                                   h-[3px]
+                                   bg-[#D71920]"
+                        ></span>
+
+                    @endif
+
                 </a>
 
 
 
                 {{-- =================================================
-                     SERVICES
+                     COMPLETE LAB SOLUTIONS
+                ================================================== --}}
+
+                <a
+                    href="{{ route('lab-solutions') }}"
+                    class="relative
+                           h-full
+                           px-5 xl:px-7
+                           flex
+                           items-center
+                           text-[12px]
+                           font-semibold
+                           uppercase
+                           tracking-wide
+                           transition-colors
+                           duration-300
+                           whitespace-nowrap
+
+                           {{ request()->routeIs('lab-solutions')
+                                ? 'bg-white text-[#D71920]'
+                                : 'text-white hover:bg-[#073B66]' }}"
+                >
+
+                    <span>Complete Lab Solutions</span>
+
+
+                    @if(request()->routeIs('lab-solutions'))
+
+                        <span
+                            class="absolute
+                                   left-0
+                                   right-0
+                                   bottom-0
+                                   h-[3px]
+                                   bg-[#D71920]"
+                        ></span>
+
+                    @endif
+
+                </a>
+
+
+
+                {{-- =================================================
+                     SERVICES & SUPPORT
                 ================================================== --}}
 
                 <div
@@ -1082,23 +1122,27 @@
 
                     <button
                         type="button"
-                        class="h-full
+                        class="relative
+                               h-full
                                px-5 xl:px-7
                                flex
                                items-center
                                gap-2
-                               text-white
                                text-[12px]
                                font-semibold
                                uppercase
                                tracking-wide
-                               hover:bg-[#073B66]
                                transition-colors
                                duration-300
-                               whitespace-nowrap"
+                               whitespace-nowrap
+
+                               {{ request()->routeIs('services.*')
+                                    ? 'bg-white text-[#D71920]'
+                                    : 'text-white hover:bg-[#073B66]' }}"
                     >
 
-                        <span>Services & Support</span>
+                        <span>Services &amp; Support</span>
+
 
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -1115,52 +1159,135 @@
                             />
                         </svg>
 
+
+                        @if(request()->routeIs('services.*'))
+
+                            <span
+                                class="absolute
+                                       left-0
+                                       right-0
+                                       bottom-0
+                                       h-[3px]
+                                       bg-[#D71920]"
+                            ></span>
+
+                        @endif
+
                     </button>
 
 
+                    {{-- SERVICES DROPDOWN --}}
                     <div
                         x-show="servicesOpen"
                         x-cloak
-                        x-transition
+                        x-transition:enter="transition ease-out duration-200"
+                        x-transition:enter-start="opacity-0 -translate-y-2"
+                        x-transition:enter-end="opacity-100 translate-y-0"
+                        x-transition:leave="transition ease-in duration-150"
+                        x-transition:leave-start="opacity-100 translate-y-0"
+                        x-transition:leave-end="opacity-0 -translate-y-2"
                         class="absolute
                                top-full
                                right-0
-                               w-[250px]
+                               w-[270px]
                                bg-white
                                border
                                border-slate-200
-                               shadow-xl"
+                               shadow-[0_18px_50px_rgba(0,0,0,0.18)]"
                     >
 
                         <div class="h-[3px] bg-[#D71920]"></div>
 
 
+                        {{-- Installation --}}
                         <a
-                            href="{{ route('home') }}#services"
-                            class="block px-5 py-3 text-sm text-slate-600 hover:bg-slate-50 hover:text-[#073B66]"
+                            href="{{ route('services.installation') }}"
+                            class="flex
+                                   items-center
+                                   justify-between
+                                   px-5
+                                   py-3.5
+                                   text-sm
+                                   transition-colors
+
+                                   {{ request()->routeIs('services.installation')
+                                        ? 'bg-slate-50 text-[#D71920] font-semibold'
+                                        : 'text-slate-600 hover:bg-slate-50 hover:text-[#073B66]' }}"
                         >
-                            Installation
+
+                            <span>Installation</span>
+
+                            <span>→</span>
+
                         </a>
 
+
+                        {{-- Calibration --}}
                         <a
-                            href="{{ route('home') }}#services"
-                            class="block px-5 py-3 text-sm text-slate-600 hover:bg-slate-50 hover:text-[#073B66]"
+                            href="{{ route('services.calibration') }}"
+                            class="flex
+                                   items-center
+                                   justify-between
+                                   px-5
+                                   py-3.5
+                                   text-sm
+                                   transition-colors
+
+                                   {{ request()->routeIs('services.calibration')
+                                        ? 'bg-slate-50 text-[#D71920] font-semibold'
+                                        : 'text-slate-600 hover:bg-slate-50 hover:text-[#073B66]' }}"
                         >
-                            Calibration
+
+                            <span>Calibration</span>
+
+                            <span>→</span>
+
                         </a>
 
+
+                        {{-- Technical Support --}}
                         <a
-                            href="{{ route('home') }}#services"
-                            class="block px-5 py-3 text-sm text-slate-600 hover:bg-slate-50 hover:text-[#073B66]"
+                            href="{{ route('services.technical-support') }}"
+                            class="flex
+                                   items-center
+                                   justify-between
+                                   px-5
+                                   py-3.5
+                                   text-sm
+                                   transition-colors
+
+                                   {{ request()->routeIs('services.technical-support')
+                                        ? 'bg-slate-50 text-[#D71920] font-semibold'
+                                        : 'text-slate-600 hover:bg-slate-50 hover:text-[#073B66]' }}"
                         >
-                            Technical Support
+
+                            <span>Technical Support</span>
+
+                            <span>→</span>
+
                         </a>
 
+
+                        {{-- After Sales --}}
                         <a
-                            href="{{ route('home') }}#services"
-                            class="block px-5 py-3 text-sm text-slate-600 hover:bg-slate-50 hover:text-[#073B66]"
+                            href="{{ route('services.after-sales') }}"
+                            class="flex
+                                   items-center
+                                   justify-between
+                                   px-5
+                                   py-3.5
+                                   text-sm
+                                   transition-colors
+
+                                   {{ request()->routeIs('services.after-sales')
+                                        ? 'bg-slate-50 text-[#D71920] font-semibold'
+                                        : 'text-slate-600 hover:bg-slate-50 hover:text-[#073B66]' }}"
                         >
-                            After-Sales Service
+
+                            <span>After-Sales Service</span>
+
+                            <span>→</span>
+
                         </a>
 
                     </div>
@@ -1169,9 +1296,12 @@
 
 
 
-                {{-- DOWNLOADS --}}
+                {{-- =================================================
+                     DOWNLOADS
+                ================================================== --}}
+
                 <a
-                    href="{{ route('home') }}#downloads"
+                    href="{{ route('downloads') }}"
                     class="h-full
                            px-5 xl:px-7
                            flex
@@ -1191,24 +1321,46 @@
 
 
 
-                {{-- CONTACT --}}
+                {{-- =================================================
+                     CONTACT
+                ================================================== --}}
+
                 <a
                     href="{{ route('contact') }}"
-                    class="h-full
+                    class="relative
+                           h-full
                            px-5 xl:px-7
                            flex
                            items-center
-                           text-white
                            text-[12px]
                            font-semibold
                            uppercase
                            tracking-wide
-                           hover:bg-[#073B66]
                            transition-colors
                            duration-300
-                           whitespace-nowrap"
+                           whitespace-nowrap
+
+                           {{ request()->routeIs('contact')
+                                ? 'bg-white text-[#D71920]'
+                                : 'text-white hover:bg-[#073B66]' }}"
                 >
-                    Contact Us
+
+                    <span>Contact Us</span>
+
+
+                    @if(request()->routeIs('contact'))
+
+                        <span
+                            class="absolute
+                                   left-0
+                                   right-0
+                                   bottom-0
+                                   h-[3px]
+                                   bg-[#D71920]"
+                        ></span>
+
+                    @endif
+
                 </a>
 
             </nav>
@@ -1219,9 +1371,9 @@
 
 
 
-    {{-- =====================================================
+    {{-- =========================================================
          4. MOBILE NAVIGATION
-    ====================================================== --}}
+    ========================================================== --}}
 
     <div
         x-show="mobileMenu"
@@ -1245,7 +1397,11 @@
                    py-3"
         >
 
-            {{-- Home --}}
+
+            {{-- =================================================
+                 MOBILE HOME
+            ================================================== --}}
+
             <a
                 href="{{ route('home') }}"
                 @click="mobileMenu = false"
@@ -1258,8 +1414,9 @@
 
                        {{ request()->routeIs('home')
                             ? 'bg-slate-50 text-[#D71920]'
-                            : 'text-slate-700' }}"
+                            : 'text-slate-700 hover:bg-slate-50' }}"
             >
+
                 Home
 
                 @if(request()->routeIs('home'))
@@ -1300,16 +1457,15 @@
 
                            {{ request()->routeIs('products*')
                                 ? 'bg-slate-50 text-[#D71920]'
-                                : 'text-slate-700' }}"
+                                : 'text-slate-700 hover:bg-slate-50' }}"
                 >
 
                     <span>Products</span>
 
+
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        class="w-4
-                               h-4
-                               transition-transform"
+                        class="w-4 h-4 transition-transform duration-300"
                         :class="{ 'rotate-180': productsOpen }"
                         fill="none"
                         viewBox="0 0 24 24"
@@ -1451,172 +1607,409 @@
 
 
             {{-- =================================================
-     MOBILE ABOUT US
-================================================== --}}
-<div>
+                 MOBILE ABOUT US
+            ================================================== --}}
 
-    <button
-        type="button"
-        @click="aboutOpen = !aboutOpen"
-        class="relative
-               w-full
-               flex
-               items-center
-               justify-between
-               px-5
-               py-3.5
-               text-sm
-               font-semibold
-               text-slate-700
-               hover:bg-slate-50
-               transition-colors"
-    >
+            <div>
 
-        <span>About Us</span>
+                <button
+                    type="button"
+                    @click="aboutOpen = !aboutOpen"
+                    class="relative
+                           w-full
+                           flex
+                           items-center
+                           justify-between
+                           px-5
+                           py-3.5
+                           text-sm
+                           font-semibold
 
-        <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="w-4 h-4 transition-transform duration-300"
-            :class="{ 'rotate-180': aboutOpen }"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2"
-        >
-            <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="m6 9 6 6 6-6"
-            />
-        </svg>
+                           {{ request()->routeIs('about.*')
+                                ? 'bg-slate-50 text-[#D71920]'
+                                : 'text-slate-700 hover:bg-slate-50' }}"
+                >
 
-    </button>
+                    <span>About Us</span>
 
 
-    {{-- ABOUT SUB MENU --}}
-    <div
-        x-show="aboutOpen"
-        x-collapse
-        class="bg-slate-50
-               border-y
-               border-slate-100"
-    >
-
-        {{-- Company Profile --}}
-        <a
-            href="{{ route('about.company') }}"
-            @click="mobileMenu = false"
-            class="flex
-                   items-center
-                   justify-between
-                   px-8
-                   py-3
-                   text-sm
-                   text-slate-600
-                   hover:text-[#D71920]
-                   hover:bg-white
-                   transition-colors"
-        >
-            <span>Company Profile</span>
-            <span class="text-slate-400">→</span>
-        </a>
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="w-4 h-4 transition-transform duration-300"
+                        :class="{ 'rotate-180': aboutOpen }"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="m6 9 6 6 6-6"
+                        />
+                    </svg>
 
 
-        {{-- 50+ Years of Excellence --}}
-        <a
-            href="{{ route('about.excellence') }}"
-            @click="mobileMenu = false"
-            class="flex
-                   items-center
-                   justify-between
-                   px-8
-                   py-3
-                   text-sm
-                   text-slate-600
-                   hover:text-[#D71920]
-                   hover:bg-white
-                   transition-colors"
-        >
-            <span>50+ Years of Excellence</span>
-            <span class="text-slate-400">→</span>
-        </a>
+                    @if(request()->routeIs('about.*'))
+
+                        <span
+                            class="absolute
+                                   left-0
+                                   top-0
+                                   bottom-0
+                                   w-[3px]
+                                   bg-[#D71920]"
+                        ></span>
+
+                    @endif
+
+                </button>
 
 
-        {{-- Quality & Precision --}}
-        <a
-            href="{{ route('about.quality') }}"
-            @click="mobileMenu = false"
-            class="flex
-                   items-center
-                   justify-between
-                   px-8
-                   py-3
-                   text-sm
-                   text-slate-600
-                   hover:text-[#D71920]
-                   hover:bg-white
-                   transition-colors"
-        >
-            <span>Quality &amp; Precision</span>
-            <span class="text-slate-400">→</span>
-        </a>
+                <div
+                    x-show="aboutOpen"
+                    x-collapse
+                    class="bg-slate-50
+                           border-y
+                           border-slate-100"
+                >
 
-    </div>
+                    <a
+                        href="{{ route('about.company') }}"
+                        @click="mobileMenu = false"
+                        class="flex
+                               items-center
+                               justify-between
+                               px-8
+                               py-3
+                               text-sm
+                               transition-colors
 
-</div>
+                               {{ request()->routeIs('about.company')
+                                    ? 'bg-white text-[#D71920] font-semibold'
+                                    : 'text-slate-600 hover:bg-white hover:text-[#D71920]' }}"
+                    >
+
+                        <span>Company Profile</span>
+
+                        <span>→</span>
+
+                    </a>
 
 
-            {{-- Manufacturing --}}
+                    <a
+                        href="{{ route('about.excellence') }}"
+                        @click="mobileMenu = false"
+                        class="flex
+                               items-center
+                               justify-between
+                               px-8
+                               py-3
+                               text-sm
+                               transition-colors
+
+                               {{ request()->routeIs('about.excellence')
+                                    ? 'bg-white text-[#D71920] font-semibold'
+                                    : 'text-slate-600 hover:bg-white hover:text-[#D71920]' }}"
+                    >
+
+                        <span>50+ Years of Excellence</span>
+
+                        <span>→</span>
+
+                    </a>
+
+
+                    <a
+                        href="{{ route('about.quality') }}"
+                        @click="mobileMenu = false"
+                        class="flex
+                               items-center
+                               justify-between
+                               px-8
+                               py-3
+                               text-sm
+                               transition-colors
+
+                               {{ request()->routeIs('about.quality')
+                                    ? 'bg-white text-[#D71920] font-semibold'
+                                    : 'text-slate-600 hover:bg-white hover:text-[#D71920]' }}"
+                    >
+
+                        <span>Quality &amp; Precision</span>
+
+                        <span>→</span>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+
+            {{-- =================================================
+                 MOBILE MANUFACTURING
+            ================================================== --}}
+
             <a
-                href="{{ route('home') }}#manufacturing"
+                href="{{ route('manufacturing') }}"
                 @click="mobileMenu = false"
-                class="block
-                       px-5 py-3.5
+                class="relative
+                       block
+                       px-5
+                       py-3.5
                        text-sm
                        font-semibold
-                       text-slate-700
-                       hover:bg-slate-50"
+                       transition-colors
+                       duration-300
+
+                       {{ request()->routeIs('manufacturing')
+                            ? 'bg-slate-50 text-[#D71920]'
+                            : 'text-slate-700 hover:bg-slate-50' }}"
             >
+
                 Manufacturing
+
+                @if(request()->routeIs('manufacturing'))
+
+                    <span
+                        class="absolute
+                               left-0
+                               top-0
+                               bottom-0
+                               w-[3px]
+                               bg-[#D71920]"
+                    ></span>
+
+                @endif
+
             </a>
 
 
-            {{-- Solutions --}}
+
+            {{-- =================================================
+                 MOBILE COMPLETE LAB SOLUTIONS
+            ================================================== --}}
+
             <a
-                href="{{ route('home') }}#solutions"
+                href="{{ route('lab-solutions') }}"
                 @click="mobileMenu = false"
-                class="block
-                       px-5 py-3.5
+                class="relative
+                       block
+                       px-5
+                       py-3.5
                        text-sm
                        font-semibold
-                       text-slate-700
-                       hover:bg-slate-50"
+                       transition-colors
+                       duration-300
+
+                       {{ request()->routeIs('lab-solutions')
+                            ? 'bg-slate-50 text-[#D71920]'
+                            : 'text-slate-700 hover:bg-slate-50' }}"
             >
+
                 Complete Lab Solutions
+
+                @if(request()->routeIs('lab-solutions'))
+
+                    <span
+                        class="absolute
+                               left-0
+                               top-0
+                               bottom-0
+                               w-[3px]
+                               bg-[#D71920]"
+                    ></span>
+
+                @endif
+
             </a>
 
 
-            {{-- Services --}}
-            <a
-                href="{{ route('home') }}#services"
-                @click="mobileMenu = false"
-                class="block
-                       px-5 py-3.5
-                       text-sm
-                       font-semibold
-                       text-slate-700
-                       hover:bg-slate-50"
-            >
-                Services & Support
-            </a>
+
+            {{-- =================================================
+                 MOBILE SERVICES & SUPPORT
+            ================================================== --}}
+
+            <div>
+
+                <button
+                    type="button"
+                    @click="servicesOpen = !servicesOpen"
+                    class="relative
+                           w-full
+                           flex
+                           items-center
+                           justify-between
+                           px-5
+                           py-3.5
+                           text-sm
+                           font-semibold
+                           transition-colors
+                           duration-300
+
+                           {{ request()->routeIs('services.*')
+                                ? 'bg-slate-50 text-[#D71920]'
+                                : 'text-slate-700 hover:bg-slate-50' }}"
+                >
+
+                    <span>Services &amp; Support</span>
 
 
-            {{-- Downloads --}}
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="w-4 h-4 transition-transform duration-300"
+                        :class="{ 'rotate-180': servicesOpen }"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="m6 9 6 6 6-6"
+                        />
+                    </svg>
+
+
+                    @if(request()->routeIs('services.*'))
+
+                        <span
+                            class="absolute
+                                   left-0
+                                   top-0
+                                   bottom-0
+                                   w-[3px]
+                                   bg-[#D71920]"
+                        ></span>
+
+                    @endif
+
+                </button>
+
+
+                {{-- MOBILE SERVICES SUBMENU --}}
+                <div
+                    x-show="servicesOpen"
+                    x-collapse
+                    class="bg-slate-50
+                           border-y
+                           border-slate-100"
+                >
+
+                    {{-- Installation --}}
+                    <a
+                        href="{{ route('services.installation') }}"
+                        @click="mobileMenu = false"
+                        class="flex
+                               items-center
+                               justify-between
+                               px-8
+                               py-3
+                               text-sm
+                               transition-colors
+
+                               {{ request()->routeIs('services.installation')
+                                    ? 'bg-white text-[#D71920] font-semibold'
+                                    : 'text-slate-600 hover:bg-white hover:text-[#D71920]' }}"
+                    >
+
+                        <span>Installation</span>
+
+                        <span>→</span>
+
+                    </a>
+
+
+                    {{-- Calibration --}}
+                    <a
+                        href="{{ route('services.calibration') }}"
+                        @click="mobileMenu = false"
+                        class="flex
+                               items-center
+                               justify-between
+                               px-8
+                               py-3
+                               text-sm
+                               transition-colors
+
+                               {{ request()->routeIs('services.calibration')
+                                    ? 'bg-white text-[#D71920] font-semibold'
+                                    : 'text-slate-600 hover:bg-white hover:text-[#D71920]' }}"
+                    >
+
+                        <span>Calibration</span>
+
+                        <span>→</span>
+
+                    </a>
+
+
+                    {{-- Technical Support --}}
+                    <a
+                        href="{{ route('services.technical-support') }}"
+                        @click="mobileMenu = false"
+                        class="flex
+                               items-center
+                               justify-between
+                               px-8
+                               py-3
+                               text-sm
+                               transition-colors
+
+                               {{ request()->routeIs('services.technical-support')
+                                    ? 'bg-white text-[#D71920] font-semibold'
+                                    : 'text-slate-600 hover:bg-white hover:text-[#D71920]' }}"
+                    >
+
+                        <span>Technical Support</span>
+
+                        <span>→</span>
+
+                    </a>
+
+
+                    {{-- After Sales --}}
+                    <a
+                        href="{{ route('services.after-sales') }}"
+                        @click="mobileMenu = false"
+                        class="flex
+                               items-center
+                               justify-between
+                               px-8
+                               py-3
+                               text-sm
+                               transition-colors
+
+                               {{ request()->routeIs('services.after-sales')
+                                    ? 'bg-white text-[#D71920] font-semibold'
+                                    : 'text-slate-600 hover:bg-white hover:text-[#D71920]' }}"
+                    >
+
+                        <span>After-Sales Service</span>
+
+                        <span>→</span>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+
+            {{-- =================================================
+                 MOBILE DOWNLOADS
+            ================================================== --}}
+
             <a
-                href="{{ route('home') }}#downloads"
+                href="{{ route('downloads') }}"
                 @click="mobileMenu = false"
                 class="block
-                       px-5 py-3.5
+                       px-5
+                       py-3.5
                        text-sm
                        font-semibold
                        text-slate-700
@@ -1626,23 +2019,51 @@
             </a>
 
 
-            {{-- Contact --}}
+
+            {{-- =================================================
+                 MOBILE CONTACT
+            ================================================== --}}
+
             <a
                 href="{{ route('contact') }}"
                 @click="mobileMenu = false"
-                class="block
-                       px-5 py-3.5
+                class="relative
+                       block
+                       px-5
+                       py-3.5
                        text-sm
                        font-semibold
-                       text-slate-700
-                       hover:bg-slate-50"
+                       transition-colors
+                       duration-300
+
+                       {{ request()->routeIs('contact')
+                            ? 'bg-slate-50 text-[#D71920]'
+                            : 'text-slate-700 hover:bg-slate-50' }}"
             >
+
                 Contact Us
+
+                @if(request()->routeIs('contact'))
+
+                    <span
+                        class="absolute
+                               left-0
+                               top-0
+                               bottom-0
+                               w-[3px]
+                               bg-[#D71920]"
+                    ></span>
+
+                @endif
+
             </a>
 
 
 
-            {{-- Mobile Quote --}}
+            {{-- =================================================
+                 MOBILE QUOTE
+            ================================================== --}}
+
             <div class="px-5 pt-3">
 
                 <a
@@ -1669,7 +2090,10 @@
 
 
 
-            {{-- Mobile Search --}}
+            {{-- =================================================
+                 MOBILE SEARCH
+            ================================================== --}}
+
             <div class="px-5 pt-3 pb-4">
 
                 <form
@@ -1691,6 +2115,7 @@
                                outline-none
                                focus:border-[#073B66]"
                     >
+
 
                     <button
                         type="submit"
@@ -1760,8 +2185,10 @@
         type="button"
         @click="window.scrollTo({ top: 0, behavior: 'smooth' })"
         class="group
-               w-11 h-11
-               sm:w-12 sm:h-12
+               w-11
+               h-11
+               sm:w-12
+               sm:h-12
                flex
                items-center
                justify-center

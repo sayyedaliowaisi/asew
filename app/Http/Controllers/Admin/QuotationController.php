@@ -3,17 +3,23 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\QuotationMail;
 use App\Models\ProductEnquiry;
 use App\Models\Quotation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Mail\QuotationMail;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class QuotationController extends Controller
 {
+    /**
+     * Maximum value supported by DECIMAL(12,2).
+     */
+    private const MAX_DATABASE_AMOUNT = 9999999999.99;
+
+
     /**
      * List quotations.
      */
@@ -25,55 +31,71 @@ class QuotationController extends Controller
                 'items',
             ]);
 
+        $allowedStatuses = [
+            'draft',
+            'sent',
+            'accepted',
+            'rejected',
+        ];
 
-        if ($request->filled('status')) {
-
+        if (
+            $request->filled('status') &&
+            in_array(
+                $request->status,
+                $allowedStatuses,
+                true
+            )
+        ) {
             $query->where(
                 'status',
                 $request->status
             );
-
         }
 
+        /*
+        |--------------------------------------------------------------------------
+        | Search
+        |--------------------------------------------------------------------------
+        */
 
-        if ($request->filled('search')) {
+        $search = trim(
+            (string) $request->input(
+                'search',
+                ''
+            )
+        );
 
-            $search =
-                trim($request->search);
-
-
-            $query->where(function ($q) use ($search) {
-
-                $q->where(
-                    'quotation_number',
-                    'like',
-                    "%{$search}%"
-                )
-                ->orWhere(
-                    'customer_name',
-                    'like',
-                    "%{$search}%"
-                )
-                ->orWhere(
-                    'company',
-                    'like',
-                    "%{$search}%"
-                )
-                ->orWhere(
-                    'email',
-                    'like',
-                    "%{$search}%"
-                )
-                ->orWhere(
-                    'phone',
-                    'like',
-                    "%{$search}%"
-                );
-
-            });
-
+        if ($search !== '') {
+            $query->where(
+                function ($q) use ($search) {
+                    $q->where(
+                        'quotation_number',
+                        'like',
+                        "%{$search}%"
+                    )
+                        ->orWhere(
+                            'customer_name',
+                            'like',
+                            "%{$search}%"
+                        )
+                        ->orWhere(
+                            'company',
+                            'like',
+                            "%{$search}%"
+                        )
+                        ->orWhere(
+                            'email',
+                            'like',
+                            "%{$search}%"
+                        )
+                        ->orWhere(
+                            'phone',
+                            'like',
+                            "%{$search}%"
+                        );
+                }
+            );
         }
-
 
         $quotations = $query
             ->latest('quotation_date')
@@ -81,9 +103,13 @@ class QuotationController extends Controller
             ->paginate(20)
             ->withQueryString();
 
+        /*
+        |--------------------------------------------------------------------------
+        | Statistics
+        |--------------------------------------------------------------------------
+        */
 
         $stats = [
-
             'total' =>
                 Quotation::count(),
 
@@ -110,9 +136,7 @@ class QuotationController extends Controller
                     'status',
                     'rejected'
                 )->count(),
-
         ];
-
 
         return view(
             'admin.quotations.index',
@@ -122,7 +146,6 @@ class QuotationController extends Controller
             )
         );
     }
-
 
 
     /**
@@ -139,7 +162,6 @@ class QuotationController extends Controller
     }
 
 
-
     /**
      * Save quotation.
      */
@@ -147,8 +169,13 @@ class QuotationController extends Controller
         Request $request,
         ProductEnquiry $enquiry
     ) {
-        $validated = $request->validate([
+        /*
+        |--------------------------------------------------------------------------
+        | Validation
+        |--------------------------------------------------------------------------
+        */
 
+        $validated = $request->validate([
             'quantity' => [
                 'required',
                 'integer',
@@ -160,12 +187,14 @@ class QuotationController extends Controller
                 'required',
                 'numeric',
                 'min:0',
+                'max:' . self::MAX_DATABASE_AMOUNT,
             ],
 
             'discount' => [
                 'nullable',
                 'numeric',
                 'min:0',
+                'max:' . self::MAX_DATABASE_AMOUNT,
             ],
 
             'gst_percent' => [
@@ -193,159 +222,255 @@ class QuotationController extends Controller
                 'string',
                 'max:5000',
             ],
-
         ]);
 
 
-        $quotation = DB::transaction(function () use (
-            $validated,
-            $enquiry
+        /*
+        |--------------------------------------------------------------------------
+        | Calculate Quotation Amount
+        |--------------------------------------------------------------------------
+        |
+        | Calculations are done before opening the transaction so invalid
+        | oversized amounts never reach the database.
+        |
+        */
+
+        $quantity =
+            (int) $validated['quantity'];
+
+        $unitPrice =
+            (float) $validated['unit_price'];
+
+        $subtotal = round(
+            $quantity * $unitPrice,
+            2
+        );
+
+        $discount = round(
+            min(
+                (float) (
+                    $validated['discount']
+                    ?? 0
+                ),
+                $subtotal
+            ),
+            2
+        );
+
+        $taxableAmount = round(
+            $subtotal - $discount,
+            2
+        );
+
+        $gstPercent =
+            (float) $validated['gst_percent'];
+
+        $gstAmount = round(
+            $taxableAmount *
+            ($gstPercent / 100),
+            2
+        );
+
+        $grandTotal = round(
+            $taxableAmount +
+            $gstAmount,
+            2
+        );
+
+        $validityDays =
+            (int) $validated['validity_days'];
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Monetary Overflow Protection
+        |--------------------------------------------------------------------------
+        |
+        | subtotal, discount, gst_amount and grand_total are DECIMAL(12,2).
+        | Prevent values larger than the database can store.
+        |
+        */
+
+        if (
+            !is_finite($subtotal) ||
+            !is_finite($discount) ||
+            !is_finite($gstAmount) ||
+            !is_finite($grandTotal) ||
+            $subtotal > self::MAX_DATABASE_AMOUNT ||
+            $discount > self::MAX_DATABASE_AMOUNT ||
+            $gstAmount > self::MAX_DATABASE_AMOUNT ||
+            $grandTotal > self::MAX_DATABASE_AMOUNT
         ) {
-
-            $quantity =
-                (int) $validated['quantity'];
-
-            $unitPrice =
-                (float) $validated['unit_price'];
-
-            $subtotal =
-                $quantity * $unitPrice;
-
-            $discount =
-                min(
-                    (float) ($validated['discount'] ?? 0),
-                    $subtotal
-                );
-
-            $taxableAmount =
-                $subtotal - $discount;
-
-            $gstPercent =
-                (float) $validated['gst_percent'];
-
-            $gstAmount =
-                $taxableAmount *
-                ($gstPercent / 100);
-
-            $grandTotal =
-                $taxableAmount +
-                $gstAmount;
-
-                $validityDays = (int) $validated['validity_days'];
+            return back()
+                ->withInput()
+                ->withErrors([
+                    'unit_price' =>
+                        'The quotation amount is too large. Please reduce the quantity or unit price.',
+                ]);
+        }
 
 
-            $nextId =
-                (Quotation::max('id') ?? 0)
-                + 1;
+        /*
+        |--------------------------------------------------------------------------
+        | Create Quotation
+        |--------------------------------------------------------------------------
+        */
+
+        $quotation = DB::transaction(
+            function () use (
+                $validated,
+                $enquiry,
+                $quantity,
+                $unitPrice,
+                $subtotal,
+                $discount,
+                $gstPercent,
+                $gstAmount,
+                $grandTotal,
+                $validityDays
+            ) {
+                /*
+                |--------------------------------------------------------------------------
+                | Create Quotation First
+                |--------------------------------------------------------------------------
+                |
+                | A temporary unique quotation number is used until the database
+                | generates the actual quotation ID.
+                |
+                */
+
+                $quotation = Quotation::create([
+                    'product_enquiry_id' =>
+                        $enquiry->id,
+
+                    'quotation_number' =>
+                        'TEMP-' .
+                        Str::uuid()->toString(),
+
+                    'public_token' =>
+                        $this->generatePublicToken(),
+
+                    'customer_name' =>
+                        $enquiry->name,
+
+                    'company' =>
+                        $enquiry->company,
+
+                    'email' =>
+                        $enquiry->email,
+
+                    'phone' =>
+                        $enquiry->phone,
+
+                    'city' =>
+                        $enquiry->city,
+
+                    'subtotal' =>
+                        $subtotal,
+
+                    'discount' =>
+                        $discount,
+
+                    'gst_percent' =>
+                        $gstPercent,
+
+                    'gst_amount' =>
+                        $gstAmount,
+
+                    'grand_total' =>
+                        $grandTotal,
+
+                    'validity_days' =>
+                        $validityDays,
+
+                    'notes' =>
+                        $validated['notes']
+                        ?? null,
+
+                    'terms' =>
+                        $validated['terms']
+                        ?? null,
+
+                    'status' =>
+                        'draft',
+
+                    'quotation_date' =>
+                        now()->toDateString(),
+
+                    'valid_until' =>
+                        now()
+                            ->addDays(
+                                $validityDays
+                            )
+                            ->toDateString(),
+                ]);
 
 
-            $quotationNumber =
-                'ASEW-Q-' .
-                now()->format('Y') .
-                '-' .
-                str_pad(
-                    $nextId,
-                    5,
-                    '0',
-                    STR_PAD_LEFT
-                );
+                /*
+                |--------------------------------------------------------------------------
+                | Final Quotation Number
+                |--------------------------------------------------------------------------
+                */
+
+                $quotationNumber =
+                    'ASEW-Q-' .
+                    now()->format('Y') .
+                    '-' .
+                    str_pad(
+                        (string) $quotation->id,
+                        5,
+                        '0',
+                        STR_PAD_LEFT
+                    );
+
+                $quotation->update([
+                    'quotation_number' =>
+                        $quotationNumber,
+                ]);
 
 
-            $quotation = Quotation::create([
+                /*
+                |--------------------------------------------------------------------------
+                | Create Quotation Item
+                |--------------------------------------------------------------------------
+                */
 
-                'product_enquiry_id' =>
-                    $enquiry->id,
+                $quotation->items()->create([
+                    'product_id' =>
+                        $enquiry->product_id,
 
-                'quotation_number' =>
-                    $quotationNumber,
+                    'product_name' =>
+                        $enquiry->product_name
+                        ?: 'Product Enquiry',
 
-                'public_token' => Str::random(64),
+                    'product_code' =>
+                        $enquiry->product_code,
 
-                'customer_name' =>
-                    $enquiry->name,
+                    'quantity' =>
+                        $quantity,
 
-                'company' =>
-                    $enquiry->company,
+                    'unit_price' =>
+                        $unitPrice,
 
-                'email' =>
-                    $enquiry->email,
-
-                'phone' =>
-                    $enquiry->phone,
-
-                'city' =>
-                    $enquiry->city,
-
-                'subtotal' =>
-                    $subtotal,
-
-                'discount' =>
-                    $discount,
-
-                'gst_percent' =>
-                    $gstPercent,
-
-                'gst_amount' =>
-                    $gstAmount,
-
-                'grand_total' =>
-                    $grandTotal,
-
-                'validity_days' =>
-                    $validated['validity_days'],
-
-                'notes' =>
-                    $validated['notes'] ?? null,
-
-                'terms' =>
-                    $validated['terms'] ?? null,
-
-                'status' =>
-                    'draft',
-
-                'quotation_date' =>
-                    now()->toDateString(),
-
-                'valid_until' =>
-                    now()
-                        ->addDays($validityDays)
-
-                        ->toDateString(),
-
-            ]);
+                    'total' =>
+                        $subtotal,
+                ]);
 
 
-            $quotation->items()->create([
+                /*
+                |--------------------------------------------------------------------------
+                | Keep Enquiry Workflow Aligned
+                |--------------------------------------------------------------------------
+                */
 
-                'product_id' =>
-                    $enquiry->product_id,
+                $enquiry->update([
+                    'status' =>
+                        'quoted',
+                ]);
 
-                'product_name' =>
-                    $enquiry->product_name
-                    ?: 'Product Enquiry',
-
-                'product_code' =>
-                    $enquiry->product_code,
-
-                'quantity' =>
-                    $quantity,
-
-                'unit_price' =>
-                    $unitPrice,
-
-                'total' =>
-                    $subtotal,
-
-            ]);
-
-
-            $enquiry->update([
-                'status' => 'quoted',
-            ]);
-
-
-            return $quotation;
-        });
+                return $quotation;
+            }
+        );
 
 
         return redirect()
@@ -360,26 +485,27 @@ class QuotationController extends Controller
     }
 
 
-
     /**
      * Display quotation.
      */
-    public function show(Quotation $quotation)
-{
-    $this->ensurePublicToken($quotation);
+    public function show(
+        Quotation $quotation
+    ) {
+        $this->ensurePublicToken(
+            $quotation
+        );
 
-    $quotation->load([
-        'items.product',
-        'enquiry',
-        'salesOrder',
-    ]);
+        $quotation->load([
+            'items.product',
+            'enquiry',
+            'salesOrder',
+        ]);
 
-    return view(
-        'admin.quotations.show',
-        compact('quotation')
-    );
-}
-
+        return view(
+            'admin.quotations.show',
+            compact('quotation')
+        );
+    }
 
 
     /**
@@ -389,142 +515,327 @@ class QuotationController extends Controller
         Request $request,
         Quotation $quotation
     ) {
-        $validated =
-            $request->validate([
-
-                'status' => [
-                    'required',
-                    'in:draft,sent,accepted,rejected',
-                ],
-
-            ]);
-
-
-        $quotation->update([
-            'status' =>
-                $validated['status'],
+        $validated = $request->validate([
+            'status' => [
+                'required',
+                'in:draft,sent,accepted,rejected',
+            ],
         ]);
+
+        $newStatus =
+            $validated['status'];
 
 
         /*
-         * Keep enquiry workflow aligned.
-         */
+        |--------------------------------------------------------------------------
+        | Sales Order Protection
+        |--------------------------------------------------------------------------
+        */
 
-        if ($quotation->enquiry) {
+        if (
+            $quotation
+                ->salesOrder()
+                ->exists()
+        ) {
+            return back()->with(
+                'error',
+                'Quotation status cannot be changed because a sales order has already been created.'
+            );
+        }
 
-            if (
+
+        /*
+        |--------------------------------------------------------------------------
+        | Terminal Status Protection
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            in_array(
+                $quotation->status,
+                [
+                    'accepted',
+                    'rejected',
+                ],
+                true
+            )
+        ) {
+            return back()->with(
+                'error',
+                'Accepted or rejected quotations cannot be changed.'
+            );
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Same Status
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            $quotation->status ===
+            $newStatus
+        ) {
+            return back()->with(
+                'info',
+                'Quotation status is already ' .
+                ucfirst($newStatus) .
+                '.'
+            );
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Allowed Workflow
+        |--------------------------------------------------------------------------
+        */
+
+        $allowedTransitions = [
+            'draft' => [
+                'sent',
+                'accepted',
+                'rejected',
+            ],
+
+            'sent' => [
+                'accepted',
+                'rejected',
+            ],
+        ];
+
+        if (
+            !in_array(
+                $newStatus,
+                $allowedTransitions[
+                    $quotation->status
+                ] ?? [],
+                true
+            )
+        ) {
+            return back()->with(
+                'error',
+                'This quotation status change is not allowed.'
+            );
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Update Status
+        |--------------------------------------------------------------------------
+        */
+
+        $quotation->update([
+            'status' =>
+                $newStatus,
+
+            'responded_at' =>
                 in_array(
-                    $validated['status'],
+                    $newStatus,
                     [
-                        'sent',
                         'accepted',
                         'rejected',
                     ],
                     true
                 )
-            ) {
-
-                $quotation->enquiry->update([
-                    'status' => 'quoted',
-                ]);
-
-            }
-
-        }
-
-
-        return back()
-            ->with(
-                'success',
-                'Quotation status updated successfully.'
-            );
-    }
-
-    private function ensurePublicToken(Quotation $quotation): void
-{
-    if (!$quotation->public_token) {
-
-        do {
-            $token = \Illuminate\Support\Str::random(64);
-        } while (
-            Quotation::where('public_token', $token)->exists()
-        );
-
-        $quotation->update([
-            'public_token' => $token,
-        ]);
-    }
-}
-
-    /**
- * Send quotation to customer.
- */
-public function send(Quotation $quotation)
-{
-    $this->ensurePublicToken($quotation);
-    
-    $quotation->load([
-        'items',
-        'enquiry',
-    ]);
-
-
-    try {
-
-        Mail::to($quotation->email)
-            ->send(
-                new QuotationMail($quotation)
-            );
-
-
-        $quotation->update([
-            'status' => 'sent',
+                    ? now()
+                    : $quotation->responded_at,
         ]);
 
+
+        /*
+        |--------------------------------------------------------------------------
+        | Keep Enquiry Workflow Aligned
+        |--------------------------------------------------------------------------
+        */
 
         if ($quotation->enquiry) {
-
             $quotation->enquiry->update([
-                'status' => 'quoted',
+                'status' =>
+                    'quoted',
             ]);
+        }
 
+        return back()->with(
+            'success',
+            'Quotation status updated successfully.'
+        );
+    }
+
+
+    /**
+     * Send quotation to customer.
+     */
+    public function send(
+        Quotation $quotation
+    ) {
+        /*
+        |--------------------------------------------------------------------------
+        | Terminal Status Protection
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            in_array(
+                $quotation->status,
+                [
+                    'accepted',
+                    'rejected',
+                ],
+                true
+            )
+        ) {
+            return back()->with(
+                'error',
+                'Accepted or rejected quotations cannot be sent again.'
+            );
         }
 
 
-        return back()
-            ->with(
+        /*
+        |--------------------------------------------------------------------------
+        | Converted Quotation Protection
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            $quotation
+                ->salesOrder()
+                ->exists()
+        ) {
+            return back()->with(
+                'error',
+                'This quotation has already been converted into a sales order.'
+            );
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Ensure Public Token
+        |--------------------------------------------------------------------------
+        */
+
+        $this->ensurePublicToken(
+            $quotation
+        );
+
+        $quotation->load([
+            'items',
+            'enquiry',
+        ]);
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Send Email
+        |--------------------------------------------------------------------------
+        */
+
+        try {
+            Mail::to(
+                $quotation->email
+            )->send(
+                new QuotationMail(
+                    $quotation
+                )
+            );
+
+            $quotation->update([
+                'status' =>
+                    'sent',
+            ]);
+
+            if ($quotation->enquiry) {
+                $quotation->enquiry->update([
+                    'status' =>
+                        'quoted',
+                ]);
+            }
+
+            return back()->with(
                 'success',
                 'Quotation sent successfully to ' .
                 $quotation->email .
                 '.'
             );
 
-    } catch (\Throwable $exception) {
+        } catch (\Throwable $exception) {
 
-        Log::error(
-            'Quotation email failed.',
-            [
-                'quotation_id' =>
-                    $quotation->id,
+            /*
+            |--------------------------------------------------------------------------
+            | Internal Logging
+            |--------------------------------------------------------------------------
+            |
+            | Technical exception details are logged but are not exposed
+            | to the admin interface.
+            |
+            */
 
-                'quotation_number' =>
-                    $quotation->quotation_number,
+            Log::error(
+                'Quotation email failed.',
+                [
+                    'quotation_id' =>
+                        $quotation->id,
 
-                'customer_email' =>
-                    $quotation->email,
+                    'quotation_number' =>
+                        $quotation->quotation_number,
 
-                'error' =>
-                    $exception->getMessage(),
-            ]
-        );
+                    'customer_email' =>
+                        $quotation->email,
 
+                    'exception_class' =>
+                        get_class(
+                            $exception
+                        ),
 
-        return back()
-            ->withErrors([
-                'email' =>
-                    'Quotation could not be sent. Please check your mail configuration.',
-            ]);
+                    'error' =>
+                        $exception->getMessage(),
+                ]
+            );
+
+            return back()
+                ->withErrors([
+                    'email' =>
+                        'Quotation could not be sent. Please check your mail configuration.',
+                ]);
+        }
     }
 
-}
+
+    /**
+     * Make sure older quotations have public tokens.
+     */
+    private function ensurePublicToken(
+        Quotation $quotation
+    ): void {
+        if (!$quotation->public_token) {
+            $quotation->update([
+                'public_token' =>
+                    $this->generatePublicToken(),
+            ]);
+        }
+    }
+
+
+    /**
+     * Generate collision-safe public token.
+     */
+    private function generatePublicToken(): string
+    {
+        do {
+            $token =
+                Str::random(64);
+
+        } while (
+            Quotation::where(
+                'public_token',
+                $token
+            )->exists()
+        );
+
+        return $token;
+    }
 }

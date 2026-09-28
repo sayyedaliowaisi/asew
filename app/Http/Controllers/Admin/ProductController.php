@@ -7,13 +7,22 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class ProductController extends Controller
 {
+    /**
+     * Display product listing.
+     */
     public function index(Request $request)
     {
         $query = Product::query();
 
+        /*
+        |--------------------------------------------------------------------------
+        | Search
+        |--------------------------------------------------------------------------
+        */
         if ($request->filled('search')) {
             $search = trim($request->search);
 
@@ -25,6 +34,11 @@ class ProductController extends Controller
             });
         }
 
+        /*
+        |--------------------------------------------------------------------------
+        | Status Filter
+        |--------------------------------------------------------------------------
+        */
         if ($request->filled('status')) {
             if ($request->status === 'active') {
                 $query->where('is_active', true);
@@ -35,8 +49,16 @@ class ProductController extends Controller
             }
         }
 
+        /*
+        |--------------------------------------------------------------------------
+        | Category Filter
+        |--------------------------------------------------------------------------
+        */
         if ($request->filled('category')) {
-            $query->where('category_slug', $request->category);
+            $query->where(
+                'category_slug',
+                $request->category
+            );
         }
 
         $products = $query
@@ -52,30 +74,58 @@ class ProductController extends Controller
     }
 
 
+    /**
+     * Show create product form.
+     */
     public function create()
     {
         return view('admin.products.create');
     }
 
 
+    /**
+     * Store new product.
+     */
     public function store(Request $request)
     {
         $validated = $this->validateProduct($request);
 
-        $validated['slug'] = $this->generateUniqueSlug(
-            $validated['name']
-        );
+        /*
+        |--------------------------------------------------------------------------
+        | Generate Unique Slug
+        |--------------------------------------------------------------------------
+        */
+        $validated['slug'] =
+            $this->generateUniqueSlug(
+                $validated['name']
+            );
 
+        /*
+        |--------------------------------------------------------------------------
+        | Prepare Features
+        |--------------------------------------------------------------------------
+        */
         $validated['features'] =
             $this->prepareFeatures(
                 $request->input('features')
             );
 
+        /*
+        |--------------------------------------------------------------------------
+        | Publishing Status
+        |--------------------------------------------------------------------------
+        */
         $validated['is_active'] =
             $request->boolean('is_active');
 
+        /*
+        |--------------------------------------------------------------------------
+        | Product Image
+        |--------------------------------------------------------------------------
+        */
         if ($request->hasFile('image')) {
-            $path = $request->file('image')
+            $path = $request
+                ->file('image')
                 ->store('products', 'public');
 
             $validated['image'] =
@@ -93,6 +143,9 @@ class ProductController extends Controller
     }
 
 
+    /**
+     * Show edit product form.
+     */
     public function edit(Product $product)
     {
         return view(
@@ -102,14 +155,28 @@ class ProductController extends Controller
     }
 
 
+    /**
+     * Update product.
+     */
     public function update(
         Request $request,
         Product $product
     ) {
-        $validated = $this->validateProduct(
-            $request
-        );
+        /*
+         * Pass current product so its own product code
+         * is ignored during unique validation.
+         */
+        $validated =
+            $this->validateProduct(
+                $request,
+                $product
+            );
 
+        /*
+        |--------------------------------------------------------------------------
+        | Update Slug Only When Name Changes
+        |--------------------------------------------------------------------------
+        */
         if ($product->name !== $validated['name']) {
             $validated['slug'] =
                 $this->generateUniqueSlug(
@@ -118,31 +185,43 @@ class ProductController extends Controller
                 );
         }
 
+        /*
+        |--------------------------------------------------------------------------
+        | Prepare Features
+        |--------------------------------------------------------------------------
+        */
         $validated['features'] =
             $this->prepareFeatures(
                 $request->input('features')
             );
 
+        /*
+        |--------------------------------------------------------------------------
+        | Publishing Status
+        |--------------------------------------------------------------------------
+        */
         $validated['is_active'] =
             $request->boolean('is_active');
 
-
+        /*
+        |--------------------------------------------------------------------------
+        | Replace Image
+        |--------------------------------------------------------------------------
+        */
         if ($request->hasFile('image')) {
-
             $this->deleteProductImage(
                 $product->image
             );
 
-            $path = $request->file('image')
+            $path = $request
+                ->file('image')
                 ->store('products', 'public');
 
             $validated['image'] =
                 'storage/' . $path;
         }
 
-
         $product->update($validated);
-
 
         return redirect()
             ->route('admin.products.index')
@@ -153,6 +232,9 @@ class ProductController extends Controller
     }
 
 
+    /**
+     * Enable / Disable product.
+     */
     public function toggle(Product $product)
     {
         $product->update([
@@ -168,6 +250,9 @@ class ProductController extends Controller
     }
 
 
+    /**
+     * Delete product.
+     */
     public function destroy(Product $product)
     {
         $this->deleteProductImage(
@@ -185,8 +270,12 @@ class ProductController extends Controller
     }
 
 
+    /**
+     * Product validation.
+     */
     private function validateProduct(
-        Request $request
+        Request $request,
+        ?Product $product = null
     ): array {
         return $request->validate([
             'name' => [
@@ -195,10 +284,19 @@ class ProductController extends Controller
                 'max:180',
             ],
 
+            /*
+             * Product code must be unique.
+             *
+             * During update, ignore the current product
+             * so its existing code can be saved again.
+             */
             'code' => [
                 'nullable',
                 'string',
                 'max:100',
+
+                Rule::unique('products', 'code')
+                    ->ignore($product?->id),
             ],
 
             'category' => [
@@ -246,6 +344,9 @@ class ProductController extends Controller
     }
 
 
+    /**
+     * Convert textarea features into array.
+     */
     private function prepareFeatures(
         ?string $features
     ): array {
@@ -259,8 +360,9 @@ class ProductController extends Controller
                 $features
             )
         )
-            ->map(fn ($feature) =>
-                trim($feature)
+            ->map(
+                fn ($feature) =>
+                    trim($feature)
             )
             ->filter()
             ->values()
@@ -268,14 +370,24 @@ class ProductController extends Controller
     }
 
 
+    /**
+     * Generate unique product slug.
+     */
     private function generateUniqueSlug(
         string $name,
         ?int $ignoreId = null
     ): string {
         $baseSlug = Str::slug($name);
 
-        $slug = $baseSlug;
+        /*
+         * Fallback for unusual product names that
+         * generate an empty slug.
+         */
+        if ($baseSlug === '') {
+            $baseSlug = 'product';
+        }
 
+        $slug = $baseSlug;
         $counter = 2;
 
         while (
@@ -301,6 +413,11 @@ class ProductController extends Controller
     }
 
 
+    /**
+     * Delete uploaded product image.
+     *
+     * Static images inside public/images are preserved.
+     */
     private function deleteProductImage(
         ?string $image
     ): void {

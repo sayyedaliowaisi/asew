@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\QuotationResponseMail;
 use App\Models\Quotation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
@@ -16,11 +17,19 @@ class PublicQuotationController extends Controller
     |--------------------------------------------------------------------------
     */
 
-    public function show(string $quotationNumber, string $token)
-    {
+    public function show(
+        string $quotationNumber,
+        string $token
+    ) {
         $quotation = Quotation::query()
-            ->where('quotation_number', $quotationNumber)
-            ->where('public_token', $token)
+            ->where(
+                'quotation_number',
+                $quotationNumber
+            )
+            ->where(
+                'public_token',
+                $token
+            )
             ->with([
                 'items.product',
                 'enquiry',
@@ -45,145 +54,224 @@ class PublicQuotationController extends Controller
         string $quotationNumber,
         string $token
     ) {
-        $request->validate([
+        $validated = $request->validate([
             'decision' => [
                 'required',
                 'in:accepted,rejected',
             ],
         ]);
 
+        /*
+        |--------------------------------------------------------------------------
+        | Transaction + Row Lock
+        |--------------------------------------------------------------------------
+        |
+        | Only one customer response can modify this quotation at a time.
+        |
+        */
 
-        $quotation = Quotation::query()
-            ->where(
-                'quotation_number',
-                $quotationNumber
-            )
-            ->where(
-                'public_token',
-                $token
-            )
-            ->with([
-                'items.product',
-                'enquiry',
-            ])
-            ->firstOrFail();
+        $result = DB::transaction(
+            function () use (
+                $quotationNumber,
+                $token,
+                $validated
+            ) {
+                $quotation = Quotation::query()
+                    ->where(
+                        'quotation_number',
+                        $quotationNumber
+                    )
+                    ->where(
+                        'public_token',
+                        $token
+                    )
+                    ->lockForUpdate()
+                    ->firstOrFail();
 
+                /*
+                |--------------------------------------------------------------------------
+                | Already Responded
+                |--------------------------------------------------------------------------
+                */
+
+                if (
+                    in_array(
+                        $quotation->status,
+                        [
+                            'accepted',
+                            'rejected',
+                        ],
+                        true
+                    )
+                ) {
+                    return [
+                        'type' =>
+                            'info',
+
+                        'message' =>
+                            'This quotation has already been responded to.',
+
+                        'quotation' =>
+                            $quotation,
+                    ];
+                }
+
+                /*
+                |--------------------------------------------------------------------------
+                | Only Sent Quotations Can Be Responded To
+                |--------------------------------------------------------------------------
+                */
+
+                if (
+                    $quotation->status !==
+                    'sent'
+                ) {
+                    return [
+                        'type' =>
+                            'error',
+
+                        'message' =>
+                            'This quotation is not currently available for customer response.',
+
+                        'quotation' =>
+                            $quotation,
+                    ];
+                }
+
+                /*
+                |--------------------------------------------------------------------------
+                | Expiry Check
+                |--------------------------------------------------------------------------
+                */
+
+                if (
+                    $quotation->valid_until &&
+                    $quotation->valid_until
+                        ->isBefore(
+                            now()->startOfDay()
+                        )
+                ) {
+                    return [
+                        'type' =>
+                            'error',
+
+                        'message' =>
+                            'This quotation has expired and can no longer be accepted or rejected.',
+
+                        'quotation' =>
+                            $quotation,
+                    ];
+                }
+
+                /*
+                |--------------------------------------------------------------------------
+                | Save Customer Decision
+                |--------------------------------------------------------------------------
+                */
+
+                $quotation->update([
+                    'status' =>
+                        $validated['decision'],
+
+                    'responded_at' =>
+                        now(),
+                ]);
+
+                /*
+                |--------------------------------------------------------------------------
+                | Keep Enquiry In Quoted Stage
+                |--------------------------------------------------------------------------
+                */
+
+                if ($quotation->enquiry) {
+                    $quotation->enquiry->update([
+                        'status' =>
+                            'quoted',
+                    ]);
+                }
+
+                /*
+                |--------------------------------------------------------------------------
+                | Reload Latest Data
+                |--------------------------------------------------------------------------
+                */
+
+                $quotation->refresh();
+
+                $quotation->load([
+                    'items.product',
+                    'enquiry',
+                ]);
+
+                return [
+                    'type' =>
+                        'success',
+
+                    'message' =>
+                        $quotation->status ===
+                        'accepted'
+
+                            ? 'Thank you. The quotation has been accepted successfully.'
+
+                            : 'Your response has been recorded. The quotation has been rejected.',
+
+                    'quotation' =>
+                        $quotation,
+                ];
+            }
+        );
 
         /*
         |--------------------------------------------------------------------------
-        | Already Responded
+        | Stop Here If No New Response Was Recorded
         |--------------------------------------------------------------------------
         */
 
         if (
-            in_array(
-                $quotation->status,
-                ['accepted', 'rejected'],
-                true
-            )
+            $result['type'] !==
+            'success'
         ) {
             return back()->with(
-                'info',
-                'This quotation has already been responded to.'
+                $result['type'],
+                $result['message']
             );
         }
 
-
-        /*
-        |--------------------------------------------------------------------------
-        | Only Sent Quotations Can Be Responded To
-        |--------------------------------------------------------------------------
-        */
-
-        if ($quotation->status !== 'sent') {
-            return back()->with(
-                'error',
-                'This quotation is not currently available for customer response.'
-            );
-        }
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | Expiry Check
-        |--------------------------------------------------------------------------
-        */
-
-        if (
-            $quotation->valid_until &&
-            $quotation->valid_until
-                ->isBefore(now()->startOfDay())
-        ) {
-            return back()->with(
-                'error',
-                'This quotation has expired and can no longer be accepted or rejected.'
-            );
-        }
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | Save Customer Decision
-        |--------------------------------------------------------------------------
-        */
-
-        $quotation->update([
-            'status' => $request->decision,
-            'responded_at' => now(),
-        ]);
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | Keep Enquiry In Quoted Stage
-        |--------------------------------------------------------------------------
-        */
-
-        if ($quotation->enquiry) {
-            $quotation->enquiry->update([
-                'status' => 'quoted',
-            ]);
-        }
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | Reload Latest Data
-        |--------------------------------------------------------------------------
-        */
-
-        $quotation->refresh();
-
-        $quotation->load([
-            'items.product',
-            'enquiry',
-        ]);
-
+        /** @var Quotation $quotation */
+        $quotation =
+            $result['quotation'];
 
         /*
         |--------------------------------------------------------------------------
         | Send Response Notification To ASEW
         |--------------------------------------------------------------------------
+        |
+        | Mail is intentionally outside the database transaction.
+        | Slow SMTP should never keep the quotation row locked.
+        |
         */
 
         try {
-
             $salesEmail =
-                config('mail.sales_address');
+                config(
+                    'mail.sales_address'
+                );
 
             if ($salesEmail) {
-
-                Mail::to($salesEmail)
-                    ->send(
-                        new QuotationResponseMail(
-                            $quotation
-                        )
-                    );
-
+                Mail::to(
+                    $salesEmail
+                )->send(
+                    new QuotationResponseMail(
+                        $quotation
+                    )
+                );
             }
 
-        } catch (\Throwable $e) {
+        } catch (\Throwable $exception) {
 
+            /*
+             * Customer decision remains saved even if email fails.
+             */
             Log::error(
                 'Quotation response email failed.',
                 [
@@ -196,31 +284,18 @@ class PublicQuotationController extends Controller
                     'status' =>
                         $quotation->status,
 
+                    'exception_class' =>
+                        get_class($exception),
+
                     'error' =>
-                        $e->getMessage(),
+                        $exception->getMessage(),
                 ]
             );
-
         }
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | Success Message
-        |--------------------------------------------------------------------------
-        */
-
-        $message =
-            $quotation->status === 'accepted'
-
-                ? 'Thank you. The quotation has been accepted successfully.'
-
-                : 'Your response has been recorded. The quotation has been rejected.';
-
 
         return back()->with(
             'success',
-            $message
+            $result['message']
         );
     }
 }

@@ -1,12 +1,34 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="en">
 
-@section('title', 'Admin Login | ASEW')
+<head>
 
-@section('content')
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="robots"
+        content="noindex, nofollow"
+    >
+
+    <title>Admin Login | ASEW</title>
+
+    @vite([
+        'resources/css/app.css',
+        'resources/js/app.js'
+    ])
+
+</head>
+
+<body class="m-0 bg-[#032B55] antialiased">
 
 <section
     class="relative
-           min-h-[calc(100vh-80px)]
+           min-h-screen
            flex
            items-center
            justify-center
@@ -18,9 +40,7 @@
 
     {{-- Background Grid --}}
     <div
-        class="absolute
-               inset-0
-               opacity-[0.04]"
+        class="absolute inset-0 opacity-[0.04] pointer-events-none"
         style="
             background-image:
                 linear-gradient(rgba(255,255,255,.4) 1px, transparent 1px),
@@ -30,6 +50,7 @@
     ></div>
 
 
+    {{-- Decorative Circle --}}
     <div
         class="absolute
                -right-[180px]
@@ -38,10 +59,12 @@
                h-[500px]
                rounded-full
                border
-               border-white/[0.06]"
+               border-white/[0.06]
+               pointer-events-none"
     ></div>
 
 
+    {{-- LOGIN --}}
     <div
         class="relative
                z-10
@@ -50,13 +73,14 @@
     >
 
         <div
-            class="bg-white
+            class="overflow-hidden
+                   bg-white
                    border
                    border-white/10
                    shadow-[0_30px_80px_rgba(0,0,0,.22)]"
         >
 
-            {{-- TOP --}}
+            {{-- HEADER --}}
             <div
                 class="px-6
                        sm:px-8
@@ -66,17 +90,19 @@
                        border-slate-100"
             >
 
-                <div
-                    class="flex
-                           items-center
-                           justify-center"
-                >
+                <div class="flex items-center justify-center">
+
+                    @php
+                        $loginLogo = !empty($siteSettings?->logo)
+                            ? asset($siteSettings->logo)
+                            : asset('images/asew-logo.jpg');
+                    @endphp
 
                     <img
-                        src="{{ asset('images/asew-logo.jpg') }}"
+                        src="{{ $loginLogo }}"
                         alt="ASEW"
                         class="max-h-[65px]
-                               max-w-[180px]
+                               max-w-[190px]
                                object-contain"
                     >
 
@@ -95,7 +121,6 @@
                         Secure Administration
                     </p>
 
-
                     <h1
                         class="mt-2
                                text-[25px]
@@ -106,7 +131,6 @@
                         Admin Login
                     </h1>
 
-
                     <p
                         class="mt-2
                                text-[11px]
@@ -114,14 +138,13 @@
                                leading-5
                                text-slate-400"
                     >
-                        Sign in to manage product enquiries
-                        and website administration.
+                        Sign in to manage products, enquiries,
+                        quotations, orders and website content.
                     </p>
 
                 </div>
 
             </div>
-
 
 
             {{-- ERRORS --}}
@@ -136,12 +159,14 @@
                            bg-red-50
                            px-4
                            py-3"
+                    role="alert"
                 >
 
                     @foreach($errors->all() as $error)
 
                         <p
                             class="text-[11px]
+                                   leading-5
                                    font-semibold
                                    text-red-600"
                         >
@@ -155,14 +180,11 @@
             @endif
 
 
-
             {{-- FORM --}}
             <form
                 action="{{ route('admin.login.submit') }}"
                 method="POST"
-                class="px-6
-                       sm:px-8
-                       py-7"
+                class="px-6 sm:px-8 py-7"
             >
 
                 @csrf
@@ -184,7 +206,6 @@
                         Email Address
                     </label>
 
-
                     <input
                         id="email"
                         type="email"
@@ -192,7 +213,7 @@
                         value="{{ old('email') }}"
                         required
                         autofocus
-                        autocomplete="email"
+                        autocomplete="username"
                         placeholder="admin@example.com"
                         class="w-full
                                h-[48px]
@@ -202,15 +223,15 @@
                                px-4
                                text-[13px]
                                text-slate-700
+                               placeholder:text-slate-300
                                outline-none
                                focus:border-[#073B66]
-                               focus:ring-1
+                               focus:ring-2
                                focus:ring-[#073B66]/10
                                transition"
                     >
 
                 </div>
-
 
 
                 {{-- PASSWORD --}}
@@ -229,31 +250,55 @@
                         Password
                     </label>
 
+                    <div class="relative">
 
-                    <input
-                        id="password"
-                        type="password"
-                        name="password"
-                        required
-                        autocomplete="current-password"
-                        placeholder="Enter password"
-                        class="w-full
-                               h-[48px]
-                               border
-                               border-slate-200
-                               bg-white
-                               px-4
-                               text-[13px]
-                               text-slate-700
-                               outline-none
-                               focus:border-[#073B66]
-                               focus:ring-1
-                               focus:ring-[#073B66]/10
-                               transition"
-                    >
+                        <input
+                            id="password"
+                            type="password"
+                            name="password"
+                            required
+                            autocomplete="current-password"
+                            placeholder="Enter password"
+                            class="w-full
+                                   h-[48px]
+                                   border
+                                   border-slate-200
+                                   bg-white
+                                   pl-4
+                                   pr-[75px]
+                                   text-[13px]
+                                   text-slate-700
+                                   placeholder:text-slate-300
+                                   outline-none
+                                   focus:border-[#073B66]
+                                   focus:ring-2
+                                   focus:ring-[#073B66]/10
+                                   transition"
+                        >
+
+                        <button
+                            type="button"
+                            id="toggleAdminPassword"
+                            class="absolute
+                                   right-3
+                                   top-1/2
+                                   -translate-y-1/2
+                                   px-2
+                                   py-1
+                                   text-[9px]
+                                   font-bold
+                                   uppercase
+                                   tracking-wide
+                                   text-slate-400
+                                   hover:text-[#073B66]
+                                   transition"
+                        >
+                            Show
+                        </button>
+
+                    </div>
 
                 </div>
-
 
 
                 {{-- REMEMBER --}}
@@ -269,12 +314,12 @@
                         type="checkbox"
                         name="remember"
                         value="1"
+                        {{ old('remember') ? 'checked' : '' }}
                         class="rounded
                                border-slate-300
                                text-[#032B55]
                                focus:ring-[#032B55]"
                     >
-
 
                     <span
                         class="text-[11px]
@@ -285,7 +330,6 @@
                     </span>
 
                 </label>
-
 
 
                 {{-- LOGIN --}}
@@ -306,19 +350,24 @@
                            font-bold
                            uppercase
                            tracking-[0.12em]
-                           transition"
+                           transition-all
+                           duration-300"
                 >
+
                     Sign In To Admin
 
                     <span
-                        class="transition-transform
+                        class="text-base
+                               transition-transform
                                group-hover:translate-x-1"
                     >
                         →
                     </span>
+
                 </button>
 
 
+                {{-- BACK TO WEBSITE --}}
                 <div
                     class="mt-6
                            pt-5
@@ -346,8 +395,55 @@
 
         </div>
 
+
+        <p
+            class="mt-5
+                   text-center
+                   text-[9px]
+                   uppercase
+                   tracking-[0.14em]
+                   text-white/40"
+        >
+            Authorized Access Only
+        </p>
+
     </div>
 
 </section>
 
-@endsection
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    const password =
+        document.getElementById('password');
+
+    const toggle =
+        document.getElementById('toggleAdminPassword');
+
+    if (!password || !toggle) {
+        return;
+    }
+
+    toggle.addEventListener('click', function () {
+
+        const isPassword =
+            password.type === 'password';
+
+        password.type =
+            isPassword
+                ? 'text'
+                : 'password';
+
+        toggle.textContent =
+            isPassword
+                ? 'Hide'
+                : 'Show';
+
+    });
+
+});
+</script>
+
+</body>
+</html>

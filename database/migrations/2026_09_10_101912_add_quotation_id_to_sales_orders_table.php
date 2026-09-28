@@ -8,22 +8,50 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::table('sales_orders', function (Blueprint $table) {
+        /*
+        |--------------------------------------------------------------------------
+        | Compatibility Migration
+        |--------------------------------------------------------------------------
+        |
+        | Some earlier ASEW database states did not contain quotation_id.
+        | Newer sales_orders creation already includes it.
+        |
+        | Therefore only add the column when it is actually missing.
+        |
+        */
 
-            $table->foreignId('quotation_id')
-                ->nullable()
-                ->unique()
-                ->constrained('quotations')
-                ->nullOnDelete();
-        });
+        if (
+            Schema::hasTable('sales_orders') &&
+            !Schema::hasColumn('sales_orders', 'quotation_id')
+        ) {
+            Schema::table('sales_orders', function (Blueprint $table) {
+                $table->foreignId('quotation_id')
+                    ->nullable()
+                    ->unique()
+                    ->constrained('quotations')
+                    ->nullOnDelete();
+            });
+        }
     }
+
 
     public function down(): void
     {
-        Schema::table('sales_orders', function (Blueprint $table) {
-            $table->dropForeign(['quotation_id']);
-            $table->dropUnique(['quotation_id']);
-            $table->dropColumn('quotation_id');
-        });
+        /*
+        |--------------------------------------------------------------------------
+        | Safe Rollback
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            Schema::hasTable('sales_orders') &&
+            Schema::hasColumn('sales_orders', 'quotation_id')
+        ) {
+            Schema::table('sales_orders', function (Blueprint $table) {
+                $table->dropForeign(['quotation_id']);
+                $table->dropUnique(['quotation_id']);
+                $table->dropColumn('quotation_id');
+            });
+        }
     }
 };

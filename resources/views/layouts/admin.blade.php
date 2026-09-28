@@ -19,10 +19,30 @@
         @yield('title', 'ASEW Admin')
     </title>
 
+
+    {{-- =========================================================
+         FONT AWESOME
+    ========================================================== --}}
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        referrerpolicy="no-referrer"
+    >
+
+
+    {{-- =========================================================
+         LARAVEL / TAILWIND / ALPINE
+    ========================================================== --}}
+
     @vite([
         'resources/css/app.css',
         'resources/js/app.js'
     ])
+
+
+    {{-- Page Specific Styles --}}
+    @stack('styles')
 
 </head>
 
@@ -58,13 +78,17 @@
                flex-col"
     >
 
-        {{-- HEADER --}}
+        {{-- =====================================================
+             HEADER
+        ====================================================== --}}
 
         @include('admin.partials.header')
 
 
 
-        {{-- PAGE CONTENT --}}
+        {{-- =====================================================
+             PAGE CONTENT
+        ====================================================== --}}
 
         <main class="flex-1">
 
@@ -74,7 +98,9 @@
 
 
 
-        {{-- FOOTER --}}
+        {{-- =====================================================
+             FOOTER
+        ====================================================== --}}
 
         @include('admin.partials.footer')
 
@@ -100,6 +126,10 @@
            bg-black/50
            lg:hidden"
 ></div>
+
+
+{{-- Page Specific Scripts --}}
+@stack('scripts')
 
 
 </body>

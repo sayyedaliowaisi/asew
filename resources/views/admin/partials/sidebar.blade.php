@@ -55,14 +55,29 @@
                        shrink-0"
             >
 
-                <img
-                    src="{{ asset('images/asew-logo.jpg') }}"
-                    alt="ASEW"
-                    class="w-full
-                           h-full
-                           object-contain
-                           p-1"
-                >
+                @if(!empty($siteSettings?->logo))
+
+    <img
+        src="{{ asset($siteSettings->logo) }}"
+        alt="{{ $siteSettings->short_name ?? 'ASEW' }}"
+        class="w-full
+               h-full
+               object-contain
+               p-1"
+    >
+
+@else
+
+    <img
+        src="{{ asset('images/asew-logo.jpg') }}"
+        alt="ASEW"
+        class="w-full
+               h-full
+               object-contain
+               p-1"
+    >
+
+@endif
 
             </div>
 
@@ -75,7 +90,7 @@
                            leading-none
                            tracking-wide"
                 >
-                    ASEW
+                   {{ $siteSettings->short_name ?? 'ASEW' }}
                 </p>
 
                 <p
@@ -416,6 +431,172 @@
         >
             Website
         </p>
+
+        {{-- =========================================================
+     SITE SETTINGS
+========================================================== --}}
+
+<a
+    href="{{ route('admin.settings.edit') }}"
+    class="
+        flex
+        items-center
+        gap-3
+        px-4
+        min-h-[48px]
+        mb-1
+        transition
+
+        {{
+            request()->routeIs('admin.settings.*')
+                ? 'bg-[#D71920] text-white'
+                : 'text-white/70 hover:bg-white/10 hover:text-white'
+        }}
+    "
+>
+
+    <span
+        class="w-5
+               h-5
+               flex
+               items-center
+               justify-center"
+    >
+
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+        >
+            <circle cx="12" cy="12" r="3"></circle>
+
+            <path
+                d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06
+                   a2 2 0 1 1-2.83 2.83l-.06-.06
+                   A1.7 1.7 0 0 0 15 19.4
+                   a1.7 1.7 0 0 0-1 .6
+                   1.7 1.7 0 0 0-.4 1.1V21
+                   a2 2 0 1 1-4 0v-.09
+                   A1.7 1.7 0 0 0 8.6 19.4
+                   a1.7 1.7 0 0 0-1.88.34l-.06.06
+                   a2 2 0 1 1-2.83-2.83l.06-.06
+                   A1.7 1.7 0 0 0 4.6 15
+                   a1.7 1.7 0 0 0-.6-1
+                   1.7 1.7 0 0 0-1.1-.4H3
+                   a2 2 0 1 1 0-4h.09
+                   A1.7 1.7 0 0 0 4.6 8.6
+                   a1.7 1.7 0 0 0-.34-1.88l-.06-.06
+                   a2 2 0 1 1 2.83-2.83l.06.06
+                   A1.7 1.7 0 0 0 9 4.6
+                   a1.7 1.7 0 0 0 1-.6
+                   1.7 1.7 0 0 0 .4-1.1V3
+                   a2 2 0 1 1 4 0v.09
+                   A1.7 1.7 0 0 0 15.4 4.6
+                   a1.7 1.7 0 0 0 1.88-.34l.06-.06
+                   a2 2 0 1 1 2.83 2.83l-.06.06
+                   A1.7 1.7 0 0 0 19.4 9
+                   c.14.37.35.7.6 1
+                   .3.25.68.39 1.1.4H21
+                   a2 2 0 1 1 0 4h-.09
+                   a1.7 1.7 0 0 0-1.51 1z"
+            ></path>
+
+        </svg>
+
+    </span>
+
+
+    <span
+        class="text-[11px]
+               uppercase
+               tracking-wide
+               font-bold"
+    >
+        Site Settings
+    </span>
+
+</a>
+<a
+    href="{{ route('admin.homepage.edit') }}"
+    class="
+        flex
+        items-center
+        gap-3
+        px-4
+        min-h-[48px]
+        mb-1
+        transition
+
+        {{
+            request()->routeIs('admin.homepage.*')
+                ? 'bg-[#D71920] text-white'
+                : 'text-white/70 hover:bg-white/10 hover:text-white'
+        }}
+    "
+>
+
+    <span class="w-5 h-5 flex items-center justify-center">
+
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-5 h-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="1.7"
+        >
+            <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M3 5h18v14H3V5Z"
+            />
+
+            <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M3 9h18M7 13h5M7 16h8"
+            />
+        </svg>
+
+    </span>
+
+    <span class="text-[11px] uppercase tracking-wide font-bold">
+        Homepage Manager
+    </span>
+
+</a>
+
+<a
+    href="{{ route('admin.ai-conversations.index') }}"
+    class="
+        flex
+        items-center
+        gap-3
+        rounded-xl
+        px-4
+        py-3
+        text-sm
+        font-semibold
+        transition
+        {{
+            request()->routeIs('admin.ai-conversations.*')
+                ? 'bg-white/10 text-white'
+                : 'text-blue-100 hover:bg-white/10 hover:text-white'
+        }}
+    "
+>
+    <span>💬</span>
+
+    <span>
+        Live AI Chats
+    </span>
+</a>
 
 
 
